@@ -1,22 +1,23 @@
-// src/components/measurements/MeasurementForm.tsx
+// src/components/measurements/MeasurementForm.tsx (Final Corrected Version)
 
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MeasurementService } from '../../services/database';
-import { Measurement, CalculationResult, MeasurementInput } from '../../types/measurement';
+import { MeasurementInput, CalculationResult } from '../../types/measurement';
 import { calculateMeasurement } from '../../services/calculations';
 import LoadingSpinner from '../common/LoadingSpinner';
-import ResultsCard from '../common/ResultsCard'; // <-- Import the new component
 
+// This interface now matches exactly what the new App.tsx provides.
 interface MeasurementFormProps {
   mode: 'crl' | 'hadlock';
   onModeChange: (mode: 'crl' | 'hadlock') => void;
   onMeasurementSaved: () => void;
+  setLastSavedResult: (result: CalculationResult) => void;
 }
 
-const MeasurementForm: React.FC<MeasurementFormProps> = ({ mode, onModeChange, onMeasurementSaved }) => {
+const MeasurementForm: React.FC<MeasurementFormProps> = ({ mode, onModeChange, onMeasurementSaved, setLastSavedResult }) => {
   const { t } = useTranslation();
-
+  
   const initialFormState: MeasurementInput = {
     date: new Date().toISOString().split('T')[0],
     crl_mm: undefined, bpd_mm: undefined, hc_mm: undefined, ac_mm: undefined, fl_mm: undefined,
@@ -25,9 +26,6 @@ const MeasurementForm: React.FC<MeasurementFormProps> = ({ mode, onModeChange, o
   const [formData, setFormData] = useState<MeasurementInput>(initialFormState);
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  
-  // NEW: State to hold and display the calculation results
-  const [calculationResult, setCalculationResult] = useState<CalculationResult | null>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -42,7 +40,6 @@ const MeasurementForm: React.FC<MeasurementFormProps> = ({ mode, onModeChange, o
     e.preventDefault();
     setIsSaving(true);
     setError(null);
-    setCalculationResult(null);
 
     const calculation = calculateMeasurement(formData);
     if (!calculation) {
@@ -51,39 +48,22 @@ const MeasurementForm: React.FC<MeasurementFormProps> = ({ mode, onModeChange, o
         return;
     }
 
-    const result = await MeasurementService.addMeasurement(formData);
+    const dbResult = await MeasurementService.addMeasurement(formData);
 
     setIsSaving(false);
-    if (result) {
-      // Instead of clearing the form, we now show the results
-      setCalculationResult(calculation); 
+    if (dbResult) {
+      // Correct Logic:
+      // 1. Tell the parent App to reload all its data.
       onMeasurementSaved();
+      // 2. Pass the calculated result UP to the parent to be displayed.
+      setLastSavedResult(calculation);
     } else {
       setError(t('results.error'));
     }
   };
 
-  const handleNewMeasurement = () => {
-    setFormData(initialFormState);
-    setCalculationResult(null);
-    setError(null);
-  }
-
-   if (calculationResult) {
-    return (
-      <>
-        <ResultsCard result={calculationResult} />
-        <div className="btn-group">
-            <button onClick={handleNewMeasurement} className="btn btn-primary btn-full">
-                {t('navigation.measurement')}
-            </button>
-        </div>
-      </>
-    );
-  }
-
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} style={{marginTop: '24px'}}>
       <div className="form-section">
         <h2 className="form-section-title">{t('measurement.mode.title')}</h2>
         <div className="mode-selector">
