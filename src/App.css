@@ -1,38 +1,547 @@
-.App {
-  text-align: center;
+/* src/App.css (Final Version with Support for Your Spinner Component) */
+
+/* CSS Reset and Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f8fafc;
+  color: #334155;
+  line-height: 1.6;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+/* App Layout */
+.app {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+.app-main {
+  flex: 1;
+  padding: 16px 16px 100px 16px;
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* App Loading & Error States */
+.app-loading {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  min-height: 100vh;
+  gap: 16px;
+}
+.app-loading p {
+  color: #64748b;
+}
+.app-error {
+  position: fixed;
+  bottom: 100px;
+  left: 16px;
+  right: 16px;
+  background-color: #fee2e2;
+  border: 1px solid #fecaca;
+  border-radius: 12px;
+  padding: 16px;
+  z-index: 1000;
+  max-width: 480px;
+  margin: 0 auto;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.app-error p {
+  color: #dc2626;
+  margin-bottom: 12px;
+}
+.app-error button {
+  background-color: #dc2626;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Header Styles */
+.header {
+  background: white;
+  padding: 16px;
+  border-bottom: 1px solid #e2e8f0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header-content {
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0;
+}
+.header-language {
+  display: flex;
+  gap: 8px;
+}
+.header-language button {
+  background: none;
+  border: 1px solid #cbd5e1;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #475569;
+}
+.header-language button.active {
+  background-color: #0ea5e9;
+  color: white;
+  border-color: #0ea5e9;
+}
+
+/* Navigation Styles */
+.navigation {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border-top: 1px solid #e2e8f0;
+  padding: 8px 16px;
+  z-index: 100;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+}
+.navigation-content {
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+}
+.nav-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 8px;
+  min-width: 60px;
+  color: #64748b;
+  font-size: 12px;
+  text-decoration: none;
+}
+.nav-button.active {
+  color: #0ea5e9;
+  background-color: #f0f9ff;
+}
+.nav-icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* Form Styles */
+.form-section {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f1f5f9;
+}
+
+.form-section-title, .history-view-container h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 16px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-label {
+  display: block;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.2s;
+  background-color: #f8fafc;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #0ea5e9;
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+}
+
+.mode-selector {
+  display: flex;
+  gap: 12px;
+  background-color: #f1f5f9;
+  padding: 4px;
+  border-radius: 10px;
+}
+.mode-selector button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background-color: transparent;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.mode-selector button.active {
+  background-color: white;
+  color: #0ea5e9;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Button Styles */
+.btn {
+  padding: 14px 24px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: #0ea5e9;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.btn-primary:hover {
+  background: #0284c7;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
+.btn-secondary {
+  background-color: #f1f5f9;
+  color: #475569;
+}
+
+.btn-secondary:hover {
+  background-color: #e2e8f0;
+}
+
+.btn-full {
+  width: 100%;
+}
+
+.btn-group {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+
+/* --- START: LOADING SPINNER & ACCESSIBILITY STYLES --- */
+
+/* This is the base animation and style for your spinner */
+.loading-spinner {
+  display: inline-block;
+  border-radius: 50%;
+  border-color: #e2e8f0; /* The "track" color */
+  border-top-color: #0ea5e9; /* The "moving" color */
+  border-style: solid;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
   to {
     transform: rotate(360deg);
   }
+}
+
+/* These classes are used by your LoadingSpinner.tsx component */
+.w-4 { width: 1rem; } /* 16px */
+.h-4 { height: 1rem; }
+.w-6 { width: 1.5rem; } /* 24px */
+.h-6 { height: 1.5rem; }
+.w-8 { width: 2rem; } /* 32px */
+.h-8 { height: 2rem; }
+
+.border-2 { border-width: 2px; }
+.border-3 { border-width: 3px; }
+.border-4 { border-width: 4px; }
+
+/* This class visually hides the "Loading..." text for screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* --- END: LOADING SPINNER & ACCESSIBILITY STYLES --- */
+
+
+/* History View & Charts */
+.no-data-message {
+  text-align: center;
+  color: #64748b;
+  padding: 40px;
+  background-color: #f8fafc;
+  border-radius: 12px;
+}
+
+.history-table-wrapper {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+
+th {
+  font-weight: 600;
+  font-size: 12px;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+.official-row {
+  background-color: #f0f9ff;
+}
+
+.official-badge {
+  color: #22c55e;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.action-button {
+  padding: 6px 12px;
+  font-size: 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #fff;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+.action-button.danger {
+  color: #ef4444;
+}
+.action-button:hover {
+  background-color: #f8fafc;
+  border-color: #cbd5e1;
+}
+.action-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.chart-controls {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.chart-controls .btn {
+  flex: 1;
+}
+
+/* Results Display */
+.results-section {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  margin-top: 20px;
+  text-align: center;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.results-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 24px;
+}
+
+.results-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.result-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.result-item:last-child {
+  border-bottom: none;
+}
+
+.result-label {
+  font-weight: 500;
+  color: #475569;
+}
+
+.result-value {
+  font-weight: 600;
+  font-size: 18px;
+  color: #0ea5e9;
+}
+
+.size-comparison {
+  background-color: #f0f9ff;
+  padding: 16px;
+  border-radius: 12px;
+  margin-top: 16px;
+  font-size: 16px;
+  color: #0c4a6e;
+  font-weight: 500;
+}
+
+/* src/App.css (add to end) */
+.percentile-details {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid #f1f5f9;
+}
+
+.clickable-row {
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.clickable-row:hover {
+    background-color: #f8fafc;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(15, 23, 42, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 16px;
+}
+
+.modal-content {
+    background: white;
+    padding: 16px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 480px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* Official Status Dashboard */
+.status-dashboard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  border: 1px solid #f1f5f9;
+}
+
+.status-item {
+  flex: 1;
+}
+
+.status-item-main {
+  flex: 1.5;
+  border-left: 1px solid #e2e8f0;
+  border-right: 1px solid #e2e8f0;
+  padding: 0 16px;
+}
+
+.status-value {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.status-label {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.status-value-main {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0ea5e9;
+  line-height: 1.2;
+}
+
+.status-label-main {
+  font-size: 14px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.status-countdown {
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 4px;
 }
