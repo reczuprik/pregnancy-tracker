@@ -34,7 +34,6 @@ const MeasurementCard: React.FC<MeasurementCardProps> = ({ measurement, index, o
       <div className="card-content">
         <div className="card-header">
           <div className="card-title">{date}</div>
-          <div className="card-subtitle">{`${gestationalWeek}${t('results.weeks')[0]} ${gestationalDay}${t('results.days')[0]}`}</div>
         </div>
         
         <div className="card-body">

@@ -161,6 +161,8 @@ export function calculateMeasurement(input: MeasurementInput): CalculationResult
   }
 
   return {
+    date: input.date,
+
     gestationalAgeInDays: roundedDays,
     gestationalWeek,
     gestationalDay,

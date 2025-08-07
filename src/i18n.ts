@@ -33,6 +33,11 @@ const resources = {
           save: "Save Measurement",
           clear: "Clear Form"
         },
+        dashboard: {
+          setOfficialTitle: "Set Your Official Due Date",
+          setOfficialText: "You have measurements, but none are official. Go to your log to pin the most accurate scan. This will activate your daily dashboard.",
+          goToLog: "Go to Your Log"
+        },
         units: {
           mm: "mm"
         },
@@ -47,6 +52,8 @@ const resources = {
       
       // Results
       results: {
+        gestationalAgeTrue: "Gestational Age (Official)",
+        gestationalAgeEstimated: "Age (Estimated from this scan's size)",
         title: "Your Baby's Progress",
         gestationalAge: "Gestational Age",
         weeks: "weeks",
@@ -56,7 +63,9 @@ const resources = {
         percentile: "{{parameter}}: {{percentile}}th percentile",
         daysLeft_unit: "days to go", // Softened language
         saved: "Your measurement has been saved!",
-        error: "Couldn't save measurement, please check the values."
+        error: "Couldn't save measurement, please check the values.",
+        showDetails: "Show calculation details",
+        hideDetails: "Hide calculation details"
       },
       
       // History
@@ -194,6 +203,8 @@ const resources = {
       // Results
       results: {
         title: "A Babád Fejlődése",
+        gestationalAgeTrue: "Terhességi Kor (Hivatalos)",
+        gestationalAgeEstimated: "Kor (Méret alapján becsülve)",
         gestationalAge: "Terhességi Kor",
         weeks: "hét",
         days: "nap",
@@ -202,9 +213,15 @@ const resources = {
         percentile: "{{parameter}}: {{percentile}}. percentilis",
         daysLeft_unit: "nap van hátra",
         saved: "A mérésed elmentve!",
-        error: "Mentési hiba, kérlek ellenőrizd az értékeket."
+        error: "Mentési hiba, kérlek ellenőrizd az értékeket.",
+        showDetails: "Számítási részletek",
+        hideDetails: "Részletek elrejtése"
       },
-      
+      dashboard: {
+        setOfficialTitle: "Állítsd be a Hivatalos Dátumot",
+        setOfficialText: "Vannak mentett méréseid, de egyik sincs hivatalosként megjelölve. Lépj a naplódba és rögzítsd a legpontosabb mérést a napi műszerfal aktiválásához.",
+        goToLog: "Ugrás a Naplóra"
+      },
       // History
       history: {
         title: "Mérési Naplód",
@@ -227,6 +244,7 @@ const resources = {
         },
         confirmDelete: "Biztosan törlöd ezt a mérést a naplódból?"
       },
+      
       charts: {
         title: "{{parameter}} Növekedési Útja",
         yAxisLabel: "Méret (mm)",

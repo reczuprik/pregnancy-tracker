@@ -454,3 +454,66 @@ th {
   color: #e2e8f0; /* Soft white */
   font-style: italic;
 }
+
+.growth-journey-view {
+  padding-top: 24px;
+}
+
+.view-header {
+  margin-bottom: 24px;
+}
+
+.back-link {
+  font-weight: 600;
+  color: #475569;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: #6366f1;
+}
+
+
+/* src/styles/views.css (additions) */
+
+/* For the technical details block in ResultsCard */
+.technical-details {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #f1f5f9;
+}
+
+/* For the new empty dashboard state */
+.empty-dashboard {
+  text-align: center;
+  background: white;
+  padding: 32px 24px;
+  border-radius: 16px;
+  margin-top: 24px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  border: 1px solid #f1f5f9;
+}
+
+.empty-dashboard-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.empty-dashboard-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 8px;
+}
+
+.empty-dashboard-text {
+  color: #475569;
+  font-size: 14px;
+  line-height: 1.6;
+  max-width: 300px;
+  margin: 0 auto;
+}

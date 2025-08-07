@@ -1,31 +1,33 @@
-// src/components/history/HistoryView.tsx (FINAL Simplified Version)
+// src/components/history/HistoryView.tsx
 
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom'; // Import Link for navigation
 import { Measurement, CalculationResult, MeasurementInput } from '../../types/measurement';
 import { MeasurementService } from '../../services/database';
 import { calculateMeasurement } from '../../services/calculations';
 import ResultsCard from '../common/ResultsCard';
 import MeasurementCard from './MeasurementCard';
-import GrowthChart from './GrowthChart';
 
 interface HistoryViewProps {
   measurements: Measurement[];
+  officialMeasurement?: Measurement; // <-- Add this
   onMeasurementsChange: () => void;
 }
 
-const HistoryView: React.FC<HistoryViewProps> = ({ measurements, onMeasurementsChange }) => {
+const HistoryView: React.FC<HistoryViewProps> = ({ measurements, officialMeasurement, onMeasurementsChange }) => {
   const { t } = useTranslation();
   const [selectedResult, setSelectedResult] = useState<CalculationResult | null>(null);
-  const [isChartAreaVisible, setIsChartAreaVisible] = useState(false);
-  const [activeChart, setActiveChart] = useState<'crl' | 'bpd' | 'hc' | 'fl' | null>(null);
-  const officialMeasurement = measurements.find(m => m.isOfficial === 1);
-
+  const [isDetailsVisible, setIsDetailsVisible] = useState(false);
 
   const handleRowClick = (measurement: Measurement) => {
     const inputForCalc: MeasurementInput = { date: measurement.date, ...measurement.measurements };
     const result = calculateMeasurement(inputForCalc);
     setSelectedResult(result);
+    // ✨ NEW: Always reset to hidden when opening a new modal
+
+    setIsDetailsVisible(false); 
+
   };
 
   const handleDelete = async (e: React.MouseEvent, id: string) => {
@@ -42,10 +44,6 @@ const HistoryView: React.FC<HistoryViewProps> = ({ measurements, onMeasurementsC
     onMeasurementsChange();
   };
   
-  const handleChartButtonClick = (chart: 'crl' | 'bpd' | 'hc' | 'fl') => {
-    setActiveChart(prev => prev === chart ? null : chart);
-  }
-
   if (measurements.length === 0) {
     return (
       <div className="history-view-container">
@@ -53,35 +51,14 @@ const HistoryView: React.FC<HistoryViewProps> = ({ measurements, onMeasurementsC
       </div>
     );
   }
-   return (
-    <div className="history-view-container">
-      {/* The "Show Charts" button now uses the unified .btn-secondary style */}
-      <div className="btn-group">
-          <button 
-            onClick={() => setIsChartAreaVisible(!isChartAreaVisible)}
-            className="btn btn-secondary btn-full"
-          >
-            {isChartAreaVisible ? t('history.actions.hideChart') : t('history.actions.chart')}
-          </button>
-      </div>
 
-      {isChartAreaVisible && (
-        <div className="chart-analytics-area">
-          <div className="chart-controls">
-            {/* These buttons now correctly call handleChartButtonClick */}
-            <button onClick={() => handleChartButtonClick('crl')} className={`btn-tertiary ${activeChart === 'crl' ? 'active' : ''}`}>CRL</button>
-            <button onClick={() => handleChartButtonClick('bpd')} className={`btn-tertiary ${activeChart === 'bpd' ? 'active' : ''}`}>BPD</button>
-            <button onClick={() => handleChartButtonClick('hc')} className={`btn-tertiary ${activeChart === 'hc' ? 'active' : ''}`}>HC</button>
-            <button onClick={() => handleChartButtonClick('fl')} className={`btn-tertiary ${activeChart === 'fl' ? 'active' : ''}`}>FL</button>
-          </div>
-      
-          {activeChart === 'crl' && <GrowthChart measurements={measurements} parameter="crl_mm" officialMeasurement={officialMeasurement} />}
-          {activeChart === 'bpd' && <GrowthChart measurements={measurements} parameter="bpd_mm" officialMeasurement={officialMeasurement} />}
-          {activeChart === 'hc' && <GrowthChart measurements={measurements} parameter="hc_mm" officialMeasurement={officialMeasurement} />}
-          {activeChart === 'fl' && <GrowthChart measurements={measurements} parameter="fl_mm" officialMeasurement={officialMeasurement} />}
-        
-        </div>
-      )}
+  return (
+    <div className="history-view-container">
+      <div className="btn-group">
+        <Link to="/journey" className="btn btn-secondary btn-full">
+          {t('history.actions.chart')}
+        </Link>
+      </div>
 
       <div className="timeline-container">
         {measurements.map((m, index) => (
@@ -95,10 +72,23 @@ const HistoryView: React.FC<HistoryViewProps> = ({ measurements, onMeasurementsC
           />
         ))}
       </div>
+
       {selectedResult && (
         <div className="modal-overlay" onClick={() => setSelectedResult(null)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <ResultsCard result={selectedResult} />
+            <ResultsCard 
+              result={selectedResult} 
+              officialMeasurement={officialMeasurement}
+              // ✨ NEW: Pass the state down to the card
+              showTechnicalDetails={isDetailsVisible} 
+            />
+                        {/* ✨ NEW: The toggle button for showing/hiding details */}
+            <button 
+              className="details-toggle-link" 
+              onClick={() => setIsDetailsVisible(!isDetailsVisible)}
+            >
+              {isDetailsVisible ? t('results.hideDetails') : t('results.showDetails')}
+            </button>
             <button onClick={() => setSelectedResult(null)} className="btn btn-secondary" style={{width: '100%', marginTop: '1rem'}}>
               {t('common.close')}
             </button>

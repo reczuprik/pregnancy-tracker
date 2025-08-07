@@ -27,6 +27,8 @@ export interface MeasurementInput {
 }
 
 export interface CalculationResult {
+  date: string ;
+
   gestationalAgeInDays: number;
   gestationalWeek: number;
   gestationalDay: number;
