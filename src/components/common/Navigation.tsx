@@ -1,8 +1,8 @@
+// src/components/common/Navigation.tsx - FIXED VERSION
+
 import React from 'react';
-
 import { useTranslation } from 'react-i18next';
-import { NavLink } from 'react-router-dom'; 
-
+import { NavLink } from 'react-router-dom';
 
 const Navigation: React.FC = () => {
   const { t } = useTranslation();
@@ -16,12 +16,11 @@ const Navigation: React.FC = () => {
     <nav className="navigation">
       <div className="navigation-content">
         {navItems.map((item) => (
-          // The `nav-link` class is now used from your App.css
-          // NavLink automatically adds an 'active' class when the path matches.
+          // FIXED: Now using 'nav-button' class to match App.css
           <NavLink
             key={item.path}
             to={item.path}
-            className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+            className={({ isActive }) => `nav-button ${isActive ? 'active' : ''}`}
           >
             <div className="nav-icon">{item.icon}</div>
             <span>{item.label}</span>
@@ -31,4 +30,5 @@ const Navigation: React.FC = () => {
     </nav>
   );
 };
+
 export default Navigation;

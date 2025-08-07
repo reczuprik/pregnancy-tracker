@@ -1,65 +1,53 @@
+
 import Dexie, { Table } from 'dexie';
 import { Measurement, MeasurementInput } from '../types/measurement';
 import { calculateMeasurement } from './calculations';
 import { v4 as uuidv4 } from 'uuid';
 
-// Database schema
 export class PregnancyDatabase extends Dexie {
   measurements!: Table<Measurement>;
 
   constructor() {
     super('PregnancyTracker');
-    
     this.version(1).stores({
       measurements: 'id, date, gestationalWeek, isOfficial, createdAt'
     });
   }
 }
 
-// Create database instance
 export const db = new PregnancyDatabase();
 
-// Data Access Layer
 export class MeasurementService {
   
   /**
    * Add a new measurement
    */
-  static async addMeasurement(input: MeasurementInput): Promise<Measurement | null> {
+static async addMeasurement(input: MeasurementInput): Promise<Measurement | null> {
     try {
-      // Calculate gestational age and other derived values
       const calculationResult = calculateMeasurement(input);
       if (!calculationResult) {
-        throw new Error('Invalid measurement data - cannot calculate gestational age');
+        throw new Error('Invalid measurement data');
       }
-
-      // Check if this is the first measurement (should be official by default)
       const existingCount = await db.measurements.count();
       const isFirstMeasurement = existingCount === 0;
 
-      // Create measurement object
       const measurement: Measurement = {
         id: uuidv4(),
         date: input.date,
         gestationalWeek: calculationResult.gestationalWeek,
         gestationalDay: calculationResult.gestationalDay,
         measurements: {
-          crl_mm: input.crl_mm,
-          bpd_mm: input.bpd_mm,
-          hc_mm: input.hc_mm,
-          ac_mm: input.ac_mm,
-          fl_mm: input.fl_mm
+          crl_mm: input.crl_mm, bpd_mm: input.bpd_mm, hc_mm: input.hc_mm,
+          ac_mm: input.ac_mm, fl_mm: input.fl_mm
         },
         estimatedDueDate: calculationResult.estimatedDueDate,
-        isOfficial: isFirstMeasurement,
+        isOfficial: isFirstMeasurement ? 1 : 0, // FIX: Save as number 1 or 0
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
       };
 
-      // Save to database
       await db.measurements.add(measurement);
       return measurement;
-      
     } catch (error) {
       console.error('Error adding measurement:', error);
       return null;
@@ -148,22 +136,15 @@ export class MeasurementService {
   /**
    * Set measurement as official (for EDD calculation)
    */
+  
+
   static async setOfficialMeasurement(id: string): Promise<boolean> {
     try {
-      // First, unset all other official measurements
-      const allMeasurements = await this.getAllMeasurements();
-      await Promise.all(
-        allMeasurements.map(m => 
-          db.measurements.update(m.id, { isOfficial: false })
-        )
-      );
-
-      // Set the selected measurement as official
-      await db.measurements.update(id, { 
-        isOfficial: true, 
-        updatedAt: new Date().toISOString() 
-      });
+      // First, unset all other official measurements by finding where isOfficial is TRUE
+      await db.measurements.where('isOfficial').equals(1).modify({ isOfficial: 0 });
       
+      // Set the selected measurement as official
+      await db.measurements.update(id, { isOfficial: 1, updatedAt: new Date().toISOString() });
       return true;
     } catch (error) {
       console.error('Error setting official measurement:', error);
@@ -248,7 +229,7 @@ export class MeasurementService {
       return [];
     }
   }
-    /**
+  /**
    * Get the single official measurement
    */
   static async getOfficialMeasurement(): Promise<Measurement | undefined> {

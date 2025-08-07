@@ -1,57 +1,68 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-// Translation resources
 const resources = {
   en: {
     translation: {
       // Navigation
       navigation: {
+        // ✨ NEW: More personal and descriptive
+        dashboard: "Your Journey",
         measurement: "New Measurement",
-        history: "History",
+        history: "Your Log", 
         settings: "Settings"
       },
       
       // Measurement Form
       measurement: {
-        title: "Fetal Measurement",
+        title: "Add a New Measurement",
         mode: {
           title: "Measurement Type",
-          crl: "Early Pregnancy (CRL)",
-          hadlock: "Later Pregnancy (Multiple Parameters)"
+          // ✨ NEW: Demystified jargon
+          crl: "Early Pregnancy (Baby's Length)",
+          hadlock: "Later Pregnancy (Multiple Measurements)"
         },
         form: {
-          date: "Measurement Date",
-          crl: "Crown-Rump Length (CRL)",
-          bpd: "Biparietal Diameter (BPD)",
+          date: "Date of Measurement",
+          // ✨ NEW: Demystified jargon
+          crl: "Baby's Length (CRL)",
+          bpd: "Head Measurement (BPD)",
           hc: "Head Circumference (HC)",
-          ac: "Abdominal Circumference (AC)",
-          fl: "Femur Length (FL)",
+          ac: "Tummy Measurement (AC)",
+          fl: "Thigh Bone (FL)",
           save: "Save Measurement",
           clear: "Clear Form"
         },
         units: {
           mm: "mm"
+        },
+        placeholders: {
+            crl: "e.g., 12.3",
+            bpd: "e.g., 45.1",
+            hc: "e.g., 175.0",
+            ac: "e.g., 150.5",
+            fl: "e.g., 35.2"
         }
       },
       
       // Results
       results: {
-        title: "Measurement Results",
+        title: "Your Baby's Progress",
         gestationalAge: "Gestational Age",
         weeks: "weeks",
         days: "days",
         dueDate: "Estimated Due Date",
         sizeComparison: "Your baby is about the size of a {{comparison}}",
         percentile: "{{parameter}}: {{percentile}}th percentile",
-        saved: "Measurement saved successfully!",
-        error: "Error saving measurement"
+        daysLeft_unit: "days to go", // Softened language
+        saved: "Your measurement has been saved!",
+        error: "Couldn't save measurement, please check the values."
       },
       
       // History
       history: {
-        title: "Measurement History",
-        noData: "No measurements recorded yet",
+        title: "Your Measurement Log",
+        noData: "Your journey log is empty. Add your first measurement to begin!",
         columns: {
           date: "Date",
           age: "Age",
@@ -63,24 +74,24 @@ const resources = {
           edd: "Due Date"
         },
         actions: {
-          edit: "Edit",
           delete: "Delete",
-          setOfficial: "Set as Official",
-          export: "Export Data",
-          chart: "Growth Chart"
+          setOfficial: "Pin as Official", // ✨ NEW: Softer, more personal action
+          chart: "See Baby's Growth Journey", // ✨ NEW: More celebratory
+          hideChart: "Back to Your Log" // ✨ NEW: Softer
         },
-        confirmDelete: "Are you sure you want to delete this measurement?"
+        confirmDelete: "Are you sure you want to delete this measurement from your log?"
       },
       
-      // Visual Features
-      visual: {
-        actualSize: "See Actual Size",
-        howMeasured: "How This is Measured",
-        shareImage: "Share Image",
-        babyModel: "3D Baby Model",
-        holdPhone: "Hold your phone up to your belly to see your baby's actual size!"
+      charts: {
+        title: "{{parameter}} Growth Journey",
+        yAxisLabel: "Measurement (mm)",
+        xAxisLabel: "Gestational Week",
+        typicalRange: "The Typical Growth Range", // Replaces the legend
+        medianJourney: "Median Journey", // New label for the 50th percentile line
+        yourBaby: "Your Baby's Milestones", // More celebratory
+        tooltipIntro: "A beautiful milestone:", // ✨ NEW: For custom tooltips
+        tooltipGrowth: "growing beautifully within the typical range"
       },
-      
       // Size Comparisons
       sizes: {
         "poppy seed": "poppy seed",
@@ -121,7 +132,6 @@ const resources = {
         "small watermelon": "small watermelon",
         "pumpkin": "pumpkin"
       },
-      
       // Common
       common: {
         loading: "Loading...",
@@ -133,7 +143,7 @@ const resources = {
         back: "Back",
         next: "Next",
         official: "Official",
-        unofficial: "Unofficial"
+        congratulations: "Welcome, little one!" // ✨ NEW: Warmer message
       }
     }
   },
@@ -142,52 +152,64 @@ const resources = {
     translation: {
       // Navigation
       navigation: {
+        // ✨ NEW: More personal and descriptive
+        dashboard: "Utazásod", // "Your Journey"
         measurement: "Új Mérés",
-        history: "Napló",
+        history: "Naplód", // "Your Log"
         settings: "Beállítások"
       },
       
       // Measurement Form
       measurement: {
-        title: "Magzati Mérés",
+        title: "Új Mérés Hozzáadása",
         mode: {
           title: "Mérés Típusa",
-          crl: "Korai Terhesség (CRL)",
-          hadlock: "Későbbi Terhesség (Összetett Paraméterek)"
+          // ✨ NEW: Demystified jargon
+          crl: "Korai Terhesség (Baba Hossza)",
+          hadlock: "Későbbi Terhesség (Több Méret)"
         },
         form: {
           date: "Mérés Dátuma",
-          crl: "Ülő-fejtetői Hossz (CRL)",
-          bpd: "Kétoldali Fejátmérő (BPD)",
+          // ✨ NEW: Demystified jargon
+          crl: "Baba Hossza (CRL)",
+          bpd: "Fej Mérete (BPD)",
           hc: "Fejkörfogat (HC)",
           ac: "Haskörfogat (AC)",
-          fl: "Combcsont Hossz (FL)",
+          fl: "Combcsont (FL)",
           save: "Mérés Mentése",
           clear: "Űrlap Törlése"
         },
         units: {
           mm: "mm"
+        },
+        placeholders: {
+            crl: "pl. 12,3",
+            bpd: "pl. 45,1",
+            hc: "pl. 175,0",
+            ac: "pl. 150,5",
+            fl: "pl. 35,2"
         }
       },
       
       // Results
       results: {
-        title: "Mérési Eredmények",
+        title: "A Babád Fejlődése",
         gestationalAge: "Terhességi Kor",
         weeks: "hét",
         days: "nap",
         dueDate: "Becsült Szülési Dátum",
         sizeComparison: "A babád körülbelül egy {{comparison}} méretű",
         percentile: "{{parameter}}: {{percentile}}. percentilis",
-        saved: "Mérés sikeresen elmentve!",
-        error: "Hiba a mentés során"
+        daysLeft_unit: "nap van hátra",
+        saved: "A mérésed elmentve!",
+        error: "Mentési hiba, kérlek ellenőrizd az értékeket."
       },
       
       // History
       history: {
-        title: "Mérési Napló",
-        noData: "Még nincsenek rögzített mérések",
-        columns: {
+        title: "Mérési Naplód",
+        noData: "A naplód még üres. Add hozzá az első mérésed a kezdéshez!",
+        columns: {          
           date: "Dátum",
           age: "Kor",
           crl: "CRL",
@@ -198,22 +220,22 @@ const resources = {
           edd: "Szülési Dátum"
         },
         actions: {
-          edit: "Szerkesztés",
           delete: "Törlés",
-          setOfficial: "Hivatalos Mérésnek",
-          export: "Adatok Exportálása",
-          chart: "Növekedési Diagram"
+          setOfficial: "Rögzítés Hivatosként", // ✨ NEW: Softer, more personal action
+          chart: "Baba Növekedési Útja", // ✨ NEW: More celebratory
+          hideChart: "Vissza a Naplóhoz" // ✨ NEW: Softer
         },
-        confirmDelete: "Biztosan törli ezt a mérést?"
+        confirmDelete: "Biztosan törlöd ezt a mérést a naplódból?"
       },
-      
-      // Visual Features
-      visual: {
-        actualSize: "Valódi Méret Megjelenítése",
-        howMeasured: "Hogyan Történik a Mérés",
-        shareImage: "Kép Megosztása",
-        babyModel: "3D Baba Modell",
-        holdPhone: "Tartsa a telefont a hasához, hogy lássa a baba valódi méretét!"
+      charts: {
+        title: "{{parameter}} Növekedési Útja",
+        yAxisLabel: "Méret (mm)",
+        xAxisLabel: "Terhességi Hét",
+        typicalRange: "A Tipikus Növekedési Tartomány",
+        medianJourney: "Középső Növekedési Út",
+        yourBaby: "A Te Babád Mérföldkövei",
+        tooltipIntro: "Egy gyönyörű mérföldkő:", // ✨ NEW
+        tooltipGrowth: "szépen növekszik a tipikus tartományon belül." // ✨ NEW
       },
       
       // Size Comparisons
@@ -268,7 +290,9 @@ const resources = {
         back: "Vissza",
         next: "Következő",
         official: "Hivatalos",
-        unofficial: "Nem hivatalos"
+        unofficial: "Nem hivatalos",
+        congratulations: "Isten hozott, kis csoda!" // ✨ NEW: Warmer message
+
       }
     }
   }

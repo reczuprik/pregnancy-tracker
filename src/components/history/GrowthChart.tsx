@@ -1,112 +1,222 @@
-// src/components/history/GrowthChart.tsx
+// src/components/history/GrowthChart.tsx (FINAL, Fully Dynamic Axis)
+
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Line } from 'react-chartjs-2';
+import { differenceInDays } from 'date-fns';
 import {
-  Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend,
+  Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler,
 } from 'chart.js';
 import { CRL_PERCENTILES, FL_PERCENTILES, BPD_PERCENTILES, HC_PERCENTILES } from '../../services/calculations';
 import { Measurement } from '../../types/measurement';
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
 
-// The list of all valid keys for the measurements object we can chart
 type ChartableParameter = 'crl_mm' | 'fl_mm' | 'bpd_mm' | 'hc_mm';
 
 interface GrowthChartProps {
   measurements: Measurement[];
-  parameter: ChartableParameter; // FIX: Use the new, expanded type
-  title: string;
+  parameter: ChartableParameter;
+  officialMeasurement?: Measurement;
 }
 
-const GrowthChart: React.FC<GrowthChartProps> = ({ measurements, parameter, title }) => {
-  // FIX: Create a mapping to easily select the correct percentile data
+const GrowthChart: React.FC<GrowthChartProps> = ({ measurements, parameter, officialMeasurement }) => {
+  const { t } = useTranslation();
   const percentileDataMap = {
-    crl_mm: CRL_PERCENTILES,
-    fl_mm: FL_PERCENTILES,
-    bpd_mm: BPD_PERCENTILES,
-    hc_mm: HC_PERCENTILES,
+    crl_mm: CRL_PERCENTILES, fl_mm: FL_PERCENTILES,
+    bpd_mm: BPD_PERCENTILES, hc_mm: HC_PERCENTILES,
   };
-
   const percentileData = percentileDataMap[parameter];
-  if (!percentileData) return null; // Should not happen, but good practice
+  if (!percentileData) return null;
 
-  const labels = Object.keys(percentileData).map(week => `${week}w`);
+  // --- ✨ START: THE FINAL, CORRECT DYNAMIC DATA CALCULATION ---
 
-  const userData = measurements
-    .filter(m => m.measurements[parameter] != null && m.measurements[parameter]! > 0)
-    .map(m => ({
-      x: m.gestationalWeek + m.gestationalDay / 7,
-      y: m.measurements[parameter]!
-    }));
+  const reDatedUserData = measurements.map(currentMeasurement => {
+    let reDatedGestationalAgeInDays;
+    if (officialMeasurement) {
+      const officialAgeInDays = (officialMeasurement.gestationalWeek * 7) + officialMeasurement.gestationalDay;
+      const dateOfOfficialScan = new Date(officialMeasurement.date);
+      const dateOfCurrentScan = new Date(currentMeasurement.date);
+      const dayDifference = differenceInDays(dateOfCurrentScan, dateOfOfficialScan);
+      reDatedGestationalAgeInDays = officialAgeInDays + dayDifference;
+    } else {
+      reDatedGestationalAgeInDays = (currentMeasurement.gestationalWeek * 7) + currentMeasurement.gestationalDay;
+    }
 
-  const chartData = {
-    labels,
-    datasets: [
-        {
-            label: '10th/90th Percentile',
-            data: Object.values(percentileData).map(p => p[0]),
-            borderColor: 'rgba(255, 159, 64, 0.5)',
-            borderDash: [5, 5],
-            fill: '+2', // Fill to the 90th percentile line
-            backgroundColor: 'rgba(255, 205, 132, 0.1)',
-            pointRadius: 0,
-        },
-        {
-            label: '50th Percentile',
-            data: Object.values(percentileData).map(p => p[1]),
-            borderColor: 'rgba(75, 192, 192, 0.8)',
-            fill: false,
-            pointRadius: 0,
-        },
-        {
-            label: '90th Percentile', // This dataset defines the upper fill boundary
-            data: Object.values(percentileData).map(p => p[2]),
-            borderColor: 'rgba(255, 159, 64, 0.5)',
-            borderDash: [5, 5],
-            fill: false,
-            pointRadius: 0,
-        },
-        {
-            label: 'Your Baby',
-            data: userData,
-            borderColor: 'rgb(220, 53, 69)',
-            backgroundColor: 'rgba(220, 53, 69, 0.8)',
-            showLine: false,
-            pointRadius: 6,
-            pointHoverRadius: 8,
+    const value = currentMeasurement.measurements[parameter];
+    if (value == null || value <= 0) return null;
+
+    return {
+      // ✨ FIX: X value is now a precise floating-point number representing the week and day.
+      x: reDatedGestationalAgeInDays / 7.0, 
+      y: value,
+      isOfficial: currentMeasurement.id === officialMeasurement?.id,
+      measurement: currentMeasurement,
+    };
+  }).filter((p): p is NonNullable<typeof p> => p !== null);
+
+  // --- DYNAMIC AXIS GENERATION ---
+  // Find the minimum and maximum gestational age from our re-dated data to define the chart's range.
+  const allAgesInWeeks = reDatedUserData.map(d => d.x);
+  const minWeek = Math.floor(Math.min(...allAgesInWeeks, ...Object.keys(percentileData).map(Number)));
+  const maxWeek = Math.ceil(Math.max(...allAgesInWeeks, ...Object.keys(percentileData).map(Number)));
+
+  // Generate the percentile curves dynamically across our new, correct date range.
+  const percentileCurve = (percentileIndex: 0 | 1 | 2) => {
+    const data = [];
+    for (let week = minWeek; week <= maxWeek; week++) {
+      if (percentileData[week]) {
+        data.push({ x: week, y: percentileData[week][percentileIndex] });
+      }
+    }
+    return data;
+  };
+  
+  // --- END: THE FINAL, CORRECT DYNAMIC DATA CALCULATION ---
+  const riverLabelPlugin = {
+        id: 'riverLabel',
+        afterDraw: (chart: any) => {
+            const ctx = chart.ctx;
+            const yAxis = chart.scales.y;
+            // Position the label roughly in the middle of the y-axis
+            const yPos = yAxis.getPixelForValue(yAxis.min + (yAxis.max - yAxis.min) * 0.6); 
+            
+            ctx.save();
+            ctx.font = '600 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto';
+            ctx.fillStyle = 'rgba(100, 116, 139, 0.5)'; // Soft, semi-transparent gray
+            ctx.textAlign = 'center';
+            ctx.fillText(t('charts.typicalRange'), chart.width / 2, yPos);
+            ctx.restore();
         }
+      };
+  const chartData = {
+    // We no longer use 'labels' for a linear scale, the 'x' values in the data are used instead.
+    datasets: [
+      {
+        label: t('charts.typicalRange'),
+        data: percentileCurve(0), // 10th percentile curve
+        backgroundColor: '#e0f2f1',
+        borderColor: 'transparent',
+        pointRadius: 0,
+        fill: '+1', // Fill to the 90th percentile
+        order: 4,
+      },
+      {
+        label: 'Boundary',
+        data: percentileCurve(2), // 90th percentile curve
+        borderColor: 'transparent',
+        pointRadius: 0,
+        fill: false,
+        order: 3,
+      },
+      {
+        label: t('charts.medianJourney'),
+        data: percentileCurve(1), // 50th percentile curve
+        borderColor: '#6366f1',
+        borderWidth: 2,
+        pointRadius: 0,
+        fill: false,
+        order: 2,
+      },
+      {
+        label: t('charts.yourBaby'),
+        data: reDatedUserData,
+        pointRadius: reDatedUserData.map(p => p.isOfficial ? 8 : 6),
+        pointHoverRadius: reDatedUserData.map(p => p.isOfficial ? 10 : 8),
+        backgroundColor: reDatedUserData.map(p => p.isOfficial ? '#facc15' : '#fb923c'),
+        borderColor: reDatedUserData.map(p => p.isOfficial ? '#ca8a04' : '#f97316'),
+        showLine: false,
+        order: 1,
+      }
     ],
   };
 
-  // Configure chart options for a professional look and feel
   const options = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: { position: 'top' as const },
-      title: { display: true, text: title, font: { size: 16 } },
+      // ✨ NEW: The legend is completely disabled
+      legend: {
+        display: false,
+      },
+      title: {
+        display: true,
+        text: t('charts.title', { parameter: parameter.replace('_mm', '').toUpperCase() }),
+        font: { size: 18, weight: 600 }, // Bolder title
+        padding: { top: 10, bottom: 20 },
+      },
+      // ✨ NEW: Custom, empathetic tooltips
       tooltip: {
-        callbacks: {
-          label: function(context: any) {
-            let label = context.dataset.label || '';
-            if (label) {
-              label += ': ';
-            }
-            if (context.parsed.y !== null) {
-              label += `${context.parsed.y} mm`;
-            }
-            return label;
+        enabled: false, // Disable default tooltip
+        external: (context: any) => {
+          // Find or create the tooltip element
+          let tooltipEl = document.getElementById('chartjs-tooltip');
+          if (!tooltipEl) {
+            tooltipEl = document.createElement('div');
+            tooltipEl.id = 'chartjs-tooltip';
+            tooltipEl.innerHTML = '<table></table>';
+            document.body.appendChild(tooltipEl);
           }
-        }
-      }
+
+          // Hide if no tooltip
+          const tooltipModel = context.tooltip;
+          if (tooltipModel.opacity === 0) {
+            tooltipEl.style.opacity = '0';
+            return;
+          }
+          if (!tooltipModel.dataPoints?.[0]?.raw?.measurement) {
+            tooltipEl.style.opacity = '0'; // Hide the tooltip if not on a valid dot
+            return;
+          }
+
+          if (tooltipModel.body) {
+            const dataPoint = tooltipModel.dataPoints[0];
+            const measurement = dataPoint.raw.measurement;
+            const value = dataPoint.raw.y;
+            const week = measurement.gestationalWeek;
+            const day = measurement.gestationalDay;
+
+            const innerHtml = `
+              <div class="chart-tooltip">
+                <div class="tooltip-title">${t('charts.tooltipIntro')}</div>
+                <div class="tooltip-body">
+                  <span class="value">${week}${t('results.weeks')[0]} ${day}${t('results.days')[0]}: ${value}mm</span>
+                  <span class="context">${t('charts.tooltipGrowth')}</span>
+                </div>
+              </div>
+            `;
+
+            tooltipEl.innerHTML = innerHtml;
+          }
+
+          const position = context.chart.canvas.getBoundingClientRect();
+          tooltipEl.style.opacity = '1';
+          tooltipEl.style.position = 'absolute';
+          tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX + 'px';
+          tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY + 'px';
+          tooltipEl.style.transform = 'translate(-50%, -120%)'; // Position above the dot
+        },
+      },
     },
     scales: {
-      x: { title: { display: true, text: 'Gestational Week' } },
-      y: { title: { display: true, text: 'Measurement (mm)' } }
-    }
+      x: {
+        // ✨ THE FIX IS HERE: Add 'as const' to satisfy TypeScript's strict literal type requirement.
+        type: 'linear' as const, 
+        title: { display: true, text: t('charts.xAxisLabel') },
+        grid: { color: '#f8fafc' },
+        min: minWeek,
+        max: maxWeek,
+      },
+      y: {
+        title: { display: true, text: t('charts.yAxisLabel') },
+        grid: { color: '#f1f5f9' },
+        beginAtZero: true,
+      }
+    },
   };
 
   return <div style={{ height: '400px', marginTop: '20px' }}><Line options={options} data={chartData} /></div>;
+  
 };
 
 export default GrowthChart;

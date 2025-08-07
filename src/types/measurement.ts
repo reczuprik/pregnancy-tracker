@@ -12,7 +12,7 @@ export interface Measurement {
     fl_mm?: number;
   };
   estimatedDueDate: string;
-  isOfficial: boolean;
+  isOfficial: number; // FIX: Changed from boolean to number
   createdAt: string;
   updatedAt: string;
 }
