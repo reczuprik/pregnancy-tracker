@@ -6,13 +6,18 @@ import { differenceInDays, format } from 'date-fns';
 import { Measurement } from '../types/measurement';
 import ProgressRing from '../components/dashboard/ProgressRing';
 import { SIZE_COMPARISONS } from '../services/calculations';
+import { enUS, hu, de, fr } from 'date-fns/locale';
+
+import { formatDate } from '../services/formatDate';
 
 interface DashboardScreenProps {
   officialMeasurement: Measurement;
 }
 
 const DashboardScreen: React.FC<DashboardScreenProps> = ({ officialMeasurement }) => {
-  const { t } = useTranslation();
+  const { t,i18n  } = useTranslation();
+
+
 
   // This calculation logic is correct.
   const today = new Date();
@@ -32,10 +37,10 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ officialMeasurement }
     <div className="dashboard-screen">
       {/* ✨ NEW HIERARCHY: Due Date and Current Age are now outside/above the ring */}
       <div className="dashboard-due-date">
-        {format(new Date(officialMeasurement.estimatedDueDate), 'yyyy. MMM dd.')}
+        {formatDate(officialMeasurement.estimatedDueDate)}
       </div>
       <div className="dashboard-current-age">
-        {`${currentWeek}. ${weekText} ${currentDay}${dayText}`}
+        {`${currentWeek}. ${weekText} ${currentDay}. ${dayText}`}
       </div>
 
       <ProgressRing progress={progressPercentage}>

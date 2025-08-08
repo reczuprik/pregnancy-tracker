@@ -341,3 +341,5 @@ i18n
   });
 
 export default i18n;
+
+export type AppLanguage = 'en' | 'hu' | 'de' | 'fr';
