@@ -18,14 +18,14 @@ const Header: React.FC<HeaderProps> = ({ language, onLanguageChange }) => {
         
         <div className="header-language">
           <button
-            className={language === 'hu' ? 'active' : ''}
+            className={`btn btn-secondary ${language === 'hu' ? 'active' : ''}`}
             onClick={() => onLanguageChange('hu')}
             aria-label="Magyar nyelv"
           >
             HU
           </button>
           <button
-            className={language === 'en' ? 'active' : ''}
+            className={`btn btn-secondary ${language === 'en' ? 'active' : ''}`}
             onClick={() => onLanguageChange('en')}
             aria-label="English language"
           >

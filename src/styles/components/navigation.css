@@ -1,0 +1,42 @@
+/* src/styles/components/navigation.css */
+
+.navigation {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background-color: var(--color-bg-card);
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-sm) var(--space-lg);
+  z-index: 100; box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+}
+.navigation-content {
+  max-width: 480px; margin: 0 auto;
+  display: flex; justify-content: space-around;
+}
+
+.nav-button {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 4px; background: none; border: none;
+  padding: var(--space-sm) var(--space-lg); cursor: pointer;
+  transition: all 0.2s; border-radius: var(--radius-sm);
+  min-width: 60px; color: var(--color-text-muted);
+  font-size: 12px; text-decoration: none;
+}
+.nav-button.active {
+  color: var(--color-primary);
+  background-color: var(--color-primary-light);
+}
+.nav-icon { width: 24px; height: 24px; }
+
+.segmented-control {
+  display: flex; gap: var(--space-sm);
+  background-color: var(--color-bg-interactive); padding: 4px;
+  border-radius: var(--radius-md); margin-bottom: var(--space-xl);
+}
+.segmented-control a {
+  flex: 1; text-align: center;
+}
+.segmented-control .btn-tertiary {
+  width: 100%; border: none; box-shadow: none;
+}
+.segmented-control .btn-tertiary.active {
+  background-color: var(--color-bg-card);
+}

@@ -3,6 +3,20 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+// ✨ NEW: Import the entire modular design system globally
+import './styles/variables.css';
+import './styles/base.css';
+import './styles/layout.css';
+// Import all component and view styles
+import './styles/components/buttons.css';
+import './styles/components/forms.css';
+import './styles/components/modal.css';
+import './styles/components/navigation.css';
+import './styles/components/loading.css';
+import './styles/views/dashboard.css';
+import './styles/views/history.css';
+import './styles/views/results.css';
+import './styles/views/empty-state.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

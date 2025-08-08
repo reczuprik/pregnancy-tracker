@@ -1,6 +1,5 @@
-/* src/styles/base.css (Phase 1 Update) */
+/* src/styles/base.css */
 
-/* CSS Reset and Base Styles */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -13,19 +12,15 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* ✨ NEW: A massive, subtle radial-gradient for depth */
-  background: radial-gradient(circle at top left, #ffffff, #f7f7fe 90%);
-  color: #334155;
+  background: var(--color-bg-main);
+  color: var(--color-text-body);
   line-height: 1.6;
 }
 
-/* Accessibility */
 .sr-only {
   position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;

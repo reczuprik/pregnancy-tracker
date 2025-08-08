@@ -47,12 +47,11 @@ const MeasurementCard: React.FC<MeasurementCardProps> = ({ measurement, index, o
       </div>
       <div className="card-actions">
         {isOfficial !== 1 && (
-          // ✨ FIXED: Using the HeartIcon and a more empathetic aria-label
-          <button className="icon-button" onClick={(e) => onSetOfficial(e, id)} aria-label="Pin as official measurement">
+          <button className="icon-button" onClick={(e) => onSetOfficial(e, id)} aria-label={t('history.actions.setOfficial')}>
             <HeartIcon />
           </button>
         )}
-        <button className="icon-button danger" onClick={(e) => onDelete(e, id)} aria-label="Delete">
+        <button className="icon-button danger" onClick={(e) => onDelete(e, id)} aria-label={t('history.actions.delete')}>
           <TrashIcon />
         </button>
       </div>

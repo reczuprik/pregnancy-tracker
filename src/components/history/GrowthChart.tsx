@@ -12,6 +12,23 @@ import { Measurement } from '../../types/measurement';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
 
+// This function gets or creates the tooltip element in the DOM
+const getOrCreateTooltip = (chart: any) => {
+  let tooltipEl = chart.canvas.parentNode.querySelector('div');
+
+  if (!tooltipEl) {
+    tooltipEl = document.createElement('div');
+    tooltipEl.className = 'chart-tooltip-container'; // ✨ Use our CSS class
+
+    const tooltipBody = document.createElement('div');
+    tooltipBody.className = 'chart-tooltip'; // ✨ Use our CSS class
+    
+    tooltipEl.appendChild(tooltipBody);
+    chart.canvas.parentNode.appendChild(tooltipEl);
+  }
+
+  return tooltipEl;
+};
 type ChartableParameter = 'crl_mm' | 'fl_mm' | 'bpd_mm' | 'hc_mm';
 
 interface GrowthChartProps {
@@ -135,10 +152,8 @@ const GrowthChart: React.FC<GrowthChartProps> = ({ measurements, parameter, offi
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      // ✨ NEW: The legend is completely disabled
-      legend: {
-        display: false,
-      },
+      legend: { display: false },
+
       title: {
         display: true,
         text: t('charts.title', { parameter: parameter.replace('_mm', '').toUpperCase() }),
@@ -146,58 +161,57 @@ const GrowthChart: React.FC<GrowthChartProps> = ({ measurements, parameter, offi
         padding: { top: 10, bottom: 20 },
       },
       // ✨ NEW: Custom, empathetic tooltips
-      tooltip: {
-        enabled: false, // Disable default tooltip
+ tooltip: {
+        enabled: false, // We are creating our own.
         external: (context: any) => {
-          // Find or create the tooltip element
-          let tooltipEl = document.getElementById('chartjs-tooltip');
-          if (!tooltipEl) {
-            tooltipEl = document.createElement('div');
-            tooltipEl.id = 'chartjs-tooltip';
-            tooltipEl.innerHTML = '<table></table>';
-            document.body.appendChild(tooltipEl);
-          }
+          const { chart, tooltip } = context;
+          const tooltipEl = getOrCreateTooltip(chart);
 
           // Hide if no tooltip
-          const tooltipModel = context.tooltip;
-          if (tooltipModel.opacity === 0) {
-            tooltipEl.style.opacity = '0';
-            return;
-          }
-          if (!tooltipModel.dataPoints?.[0]?.raw?.measurement) {
-            tooltipEl.style.opacity = '0'; // Hide the tooltip if not on a valid dot
+          if (tooltip.opacity === 0) {
+            tooltipEl.style.opacity = 0;
             return;
           }
 
-          if (tooltipModel.body) {
-            const dataPoint = tooltipModel.dataPoints[0];
+          // Only proceed if we are hovering over one of "Your Baby's" data points
+          if (!tooltip.dataPoints?.[0]?.raw?.measurement) {
+            tooltipEl.style.opacity = 0;
+            return;
+          }
+
+          // Set Text
+          if (tooltip.body) {
+            const dataPoint = tooltip.dataPoints[0];
             const measurement = dataPoint.raw.measurement;
             const value = dataPoint.raw.y;
             const week = measurement.gestationalWeek;
             const day = measurement.gestationalDay;
 
+            const tooltipBody = tooltipEl.querySelector('.chart-tooltip');
+            if (!tooltipBody) return;
+
+            // Use our CSS classes for styling
             const innerHtml = `
-              <div class="chart-tooltip">
-                <div class="tooltip-title">${t('charts.tooltipIntro')}</div>
-                <div class="tooltip-body">
-                  <span class="value">${week}${t('results.weeks')[0]} ${day}${t('results.days')[0]}: ${value}mm</span>
-                  <span class="context">${t('charts.tooltipGrowth')}</span>
-                </div>
+              <div class="tooltip-title">${t('charts.tooltipIntro')}</div>
+              <div class="tooltip-body">
+                <span class="value">${week}${t('results.weeks')} ${day}${t('results.days')}: ${value}mm</span>
+                <span class="context">${t('charts.tooltipGrowth')}</span>
               </div>
             `;
-
-            tooltipEl.innerHTML = innerHtml;
+            
+            tooltipBody.innerHTML = innerHtml;
           }
 
-          const position = context.chart.canvas.getBoundingClientRect();
-          tooltipEl.style.opacity = '1';
-          tooltipEl.style.position = 'absolute';
-          tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX + 'px';
-          tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY + 'px';
-          tooltipEl.style.transform = 'translate(-50%, -120%)'; // Position above the dot
+          const { offsetLeft: positionX, offsetTop: positionY } = chart.canvas;
+
+          // Display and position
+          tooltipEl.style.opacity = 1;
+          tooltipEl.style.left = positionX + tooltip.caretX + 'px';
+          tooltipEl.style.top = positionY + tooltip.caretY + 'px';
         },
       },
     },
+    
     scales: {
       x: {
         // ✨ THE FIX IS HERE: Add 'as const' to satisfy TypeScript's strict literal type requirement.
@@ -215,7 +229,11 @@ const GrowthChart: React.FC<GrowthChartProps> = ({ measurements, parameter, offi
     },
   };
 
-  return <div style={{ height: '400px', marginTop: '20px' }}><Line options={options} data={chartData} /></div>;
+  return (
+      <div style={{ position: 'relative', height: '400px', marginTop: '20px' }}>
+        <Line options={options} data={chartData} />
+      </div>
+  )
   
 };
 

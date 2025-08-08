@@ -5,11 +5,7 @@ import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-do
 import { useTranslation } from 'react-i18next';
 import './i18n';
 
-// Corrected CSS imports
-import './styles/base.css';
-import './styles/layout.css';
-import './styles/components.css';
-import './styles/views.css';
+
 
 import Header from './components/common/Header';
 import Navigation from './components/common/Navigation'; // Using the bottom nav now

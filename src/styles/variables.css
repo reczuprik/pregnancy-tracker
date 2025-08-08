@@ -1,0 +1,54 @@
+/* src/styles/variables.css */
+:root {
+  /* Brand Colors */
+  --color-primary: #6366f1; /* Rich Indigo */
+  --color-primary-light: #eef2ff;
+  --color-primary-border: #c7d2fe;
+
+  --color-accent-start: #fb923c;
+  --color-accent-end: #f97316;
+  --color-accent-hover-start: #fdba74;
+
+  --color-highlight: #facc15; /* Sunny Yellow */
+  --color-highlight-dark: #a16207;
+  --color-highlight-bg: #fefce8;
+  --color-highlight-border: #fde047;
+
+  /* Neutral Text & UI Colors */
+  --color-text-dark: #1e293b;
+  --color-text-body: #334155;
+  --color-text-secondary: #475569;
+  --color-text-muted: #64748b;
+  --color-text-inverted: #ffffff;
+  
+  --color-bg-main: radial-gradient(circle at top left, #ffffff, #f7f7fe 90%);
+  --color-bg-card: #ffffff;
+  --color-bg-subtle: #f8fafc;
+  --color-bg-interactive: #f1f5f9;
+
+  --color-border: #e2e8f0;
+  --color-border-hover: #cbd5e1;
+  --color-border-soft: #f1f5f9;
+
+  /* Status Colors */
+  --color-danger: #ef4444;
+  --color-danger-text: #dc2626;
+  --color-danger-bg: #fee2e2;
+  --color-danger-border: #fecaca;
+  
+  /* Shadows */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 25px rgba(99, 102, 241, 0.12);
+
+  /* Spacing & Radius */
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 24px;
+}

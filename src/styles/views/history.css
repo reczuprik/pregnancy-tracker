@@ -1,0 +1,108 @@
+
+.timeline-container {
+  display: flex; flex-direction: column; margin-top: var(--space-xl);
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.history-view-container .btn-group {
+    margin-top: 0; /* Align button to the top */
+    margin-bottom: var(--space-xl);
+    
+}
+.growth-journey-view {
+  padding-top: var(--space-xl);
+}
+.view-header {
+  margin-bottom: var(--space-xl);
+  display: flex; /* Allow button to take full width */
+}
+.view-header > a, 
+.view-header > .btn-secondary {
+  flex-grow: 1; /* This rule now directly targets the link/button inside the header */
+  justify-content: center; /* Ensures text is centered */
+}
+.back-link {
+  /* ✨ FIX: Style the back link like a secondary button */
+  flex-grow: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: 10px var(--space-lg);
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  min-height: 44px;
+  background-color: var(--color-bg-card);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-xs);
+}
+.back-link:hover {
+  background-color: var(--color-bg-subtle); border-color: var(--color-border-hover);
+  transform: translateY(-1px);
+}
+.measurement-card {
+  display: flex; align-items: center; background: var(--color-bg-card);
+  border-radius: var(--radius-xl); border: 1px solid var(--color-border-soft);
+  box-shadow: var(--shadow-md); cursor: pointer; position: relative;
+  margin-bottom: -24px; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  opacity: 0; animation: fadeInUp 0.5s ease-out forwards;
+}
+.measurement-card:hover {
+  transform: translateY(-6px) scale(1.015);
+  box-shadow: var(--shadow-lg); z-index: 10;
+  border-color: var(--color-primary-light); margin-bottom: 0;
+}
+.measurement-card:last-child { margin-bottom: 0; }
+.card-content { flex-grow: 1; padding: var(--space-lg); }
+.card-header { margin-bottom: var(--space-lg); }
+.card-title { font-weight: 600; color: var(--color-text-dark); font-size: 16px; }
+.card-subtitle { font-size: 14px; color: var(--color-text-muted); }
+.official-badge {
+  position: absolute; top: var(--space-lg); right: var(--space-lg);
+  background-color: var(--color-highlight-bg); color: var(--color-highlight-dark);
+  height: 28px; padding: 0 var(--space-md); display: inline-flex;
+  align-items: center; justify-content: center; border-radius: 99px;
+  font-size: 12px; font-weight: 700; text-transform: uppercase;
+  border: 1px solid var(--color-highlight-border);
+}
+.card-body {
+  display: flex; flex-direction: column; gap: var(--space-sm);
+}
+.measurement-item {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-size: 14px; border-bottom: 1px solid var(--color-bg-subtle);
+  padding-bottom: var(--space-sm);
+}
+.measurement-item:last-child { border-bottom: none; }
+.measurement-item span:first-child { color: var(--color-text-muted); }
+.measurement-item span:last-child { font-weight: 600; color: var(--color-text-body); }
+.card-actions {
+  display: flex; flex-direction: column; justify-content: center;
+  align-items: center; padding: 0 var(--space-lg);
+  border-left: 1px solid var(--color-border-soft); align-self: stretch;
+}
+.icon-button {
+  background: none; border: none; padding: var(--space-sm);
+  border-radius: 50%; cursor: pointer; color: #94a3b8;
+  transition: all 0.2s;
+}
+.icon-button:hover { background-color: var(--color-bg-subtle); color: var(--color-text-body); }
+.icon-button.danger:hover { color: var(--color-danger); }
+.chart-analytics-area {
+  background-color: var(--color-bg-card); border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-xl); padding: 20px;
+  margin-top: var(--space-xl); box-shadow: var(--shadow-md);
+}
+.chart-controls {
+  display: flex; flex-wrap: wrap; gap: var(--space-sm);
+  padding-bottom: 20px; border-bottom: 1px solid var(--color-border-soft);
+}
+.chart-controls .btn-tertiary { flex-grow: 1; }
+.clickable-row:hover { background-color: var(--color-bg-subtle); }

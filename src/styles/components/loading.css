@@ -1,0 +1,13 @@
+/* src/styles/components/loading.css */
+
+.loading-spinner {
+  display: inline-block; border-radius: 50%;
+  border-color: var(--color-border);
+  border-top-color: var(--color-primary);
+  border-style: solid;
+  animation: spin 1s ease-in-out infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.w-4 { width: 1rem; }
+.h-4 { height: 1rem; }
+.border-2 { border-width: 2px; }
