@@ -197,35 +197,43 @@ function App() {
         <main className="app-main">
           <Routes>
             <Route path="/" element={renderMainView()} />
-            <Route 
-              path="/history" 
+            <Route
+              path="/history"
               element={
-                <HistoryView 
-                  measurements={state.measurements} 
-                  officialMeasurement={state.officialMeasurement} 
-                  onMeasurementsChange={loadAllData} 
+                <HistoryView
+                  measurements={state.measurements}
+                  officialMeasurement={state.officialMeasurement}
+                  onMeasurementsChange={loadAllData}
                 />
               }
-            />  
-              
-            <Route path="/journey" element={<
-              GrowthJourneyView measurements={state.measurements} 
-              officialMeasurement={state.officialMeasurement} />} />
-
-
-
-            </Routes>
+            />
+            <Route
+              path="/journey"
+              element={
+                <GrowthJourneyView
+                  measurements={state.measurements}
+                  officialMeasurement={state.officialMeasurement}
+                />
+              }
+            />
+          </Routes>
         </main>
-        <FloatingActionButton onClick={() => dispatch({ type: 'SHOW_FORM' })} />
 
+        <FloatingActionButton onClick={() => dispatch({ type: 'SHOW_FORM' })} />
 
         {state.error && (
           <div className="app-error">
             <p>{state.error}</p>
-            <button onClick={() => dispatch({ type: 'SET_ERROR', payload: undefined })}>{t('common.close')}</button>
+            <button
+              onClick={() =>
+                dispatch({ type: 'SET_ERROR', payload: undefined })
+              }
+            >
+              {t('common.close')}
+            </button>
           </div>
         )}
-      </div>
+     </div>
     </Router>
   );
 }

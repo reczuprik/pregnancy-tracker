@@ -86,10 +86,12 @@ export function calculateGestationalAgeFromHadlock(
   const ga_fl = 10.35 + (2.46 * fl) + (0.17 * Math.pow(fl, 2));
   return ((ga_bpd + ga_hc + ga_ac + ga_fl) / 4) * 7;
 }
+const PREGNANCY_DURATION_DAYS = 280;
+
 
 export function calculateEDD(measurementDate: string, gestationalAgeDays: number): string {
   const measurementDateObj = new Date(measurementDate);
-  const remainingDays = 280 - Math.round(gestationalAgeDays);
+  const remainingDays = PREGNANCY_DURATION_DAYS - Math.round(gestationalAgeDays);
   const eddDate = addDays(measurementDateObj, remainingDays);
   return format(eddDate, 'yyyy-MM-dd');
 }
