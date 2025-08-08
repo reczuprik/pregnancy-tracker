@@ -8,7 +8,7 @@ import './i18n';
 
 
 import Header from './components/common/Header';
-import Navigation from './components/common/Navigation'; // Using the bottom nav now
+import FloatingActionButton from './components/common/FloatingActionButton'; // New FAB
 import LoadingSpinner from './components/common/LoadingSpinner';
 import OfficialStatus from './components/common/OfficialStatus';
 import ResultsCard from './components/common/ResultsCard';
@@ -194,7 +194,8 @@ function App() {
             <Route path="/journey" element={<GrowthJourneyView measurements={state.measurements} officialMeasurement={state.officialMeasurement} />} />
           </Routes>
         </main>
-        <Navigation />
+        <FloatingActionButton onClick={() => dispatch({ type: 'SHOW_FORM' })} />
+
         {state.error && (
           <div className="app-error">
             <p>{state.error}</p>

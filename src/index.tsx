@@ -11,7 +11,7 @@ import './styles/layout.css';
 import './styles/components/buttons.css';
 import './styles/components/forms.css';
 import './styles/components/modal.css';
-import './styles/components/navigation.css';
+
 import './styles/components/loading.css';
 import './styles/views/dashboard.css';
 import './styles/views/history.css';

@@ -67,3 +67,42 @@ text-underline-offset: 3px;
   display: flex;
   gap: var(--space-sm);
 }
+.header-nav-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  transition: all 0.2s;
+}
+.header-nav-button.active {
+  background-color: var(--color-bg-card);
+  color: var(--color-primary);
+  box-shadow: var(--shadow-xs);
+}
+
+.fab {
+  position: fixed;
+  bottom: var(--space-xl);
+  right: var(--space-lg);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000;
+  /* Using our Warm Coral gradient */
+  background: linear-gradient(to right, var(--color-accent-start), var(--color-accent-end));
+  color: var(--color-text-inverted);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: all 0.2s ease-in-out;
+}
+.fab:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
