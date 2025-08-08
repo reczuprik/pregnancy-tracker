@@ -152,9 +152,6 @@ function App() {
       return (
         <>
           <OfficialStatus officialMeasurement={state.officialMeasurement} />
-          <div className="btn-group">
-            <button onClick={() => dispatch({ type: 'SHOW_FORM' })} className="btn btn-primary btn-full">{t('navigation.measurement')}</button>
-          </div>
         </>
       );
     }
@@ -187,6 +184,10 @@ function App() {
     <Router>
       <div className="app">
         <Header language={state.language} onLanguageChange={handleLanguageChange} />
+        <div className="background-blobs">
+          <div className="blob blob-1"></div>
+          <div className="blob blob-2"></div>
+        </div>
         <main className="app-main">
           <Routes>
             <Route path="/" element={renderMainView()} />

@@ -90,22 +90,24 @@ const GrowthChart: React.FC<GrowthChartProps> = ({ measurements, parameter, offi
   };
   
   // --- END: THE FINAL, CORRECT DYNAMIC DATA CALCULATION ---
+   // ✨ NEW: Custom plugin to draw the "River of Normal" label directly on the chart
   const riverLabelPlugin = {
-        id: 'riverLabel',
-        afterDraw: (chart: any) => {
-            const ctx = chart.ctx;
-            const yAxis = chart.scales.y;
-            // Position the label roughly in the middle of the y-axis
-            const yPos = yAxis.getPixelForValue(yAxis.min + (yAxis.max - yAxis.min) * 0.6); 
-            
-            ctx.save();
-            ctx.font = '600 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto';
-            ctx.fillStyle = 'rgba(100, 116, 139, 0.5)'; // Soft, semi-transparent gray
-            ctx.textAlign = 'center';
-            ctx.fillText(t('charts.typicalRange'), chart.width / 2, yPos);
-            ctx.restore();
-        }
-      };
+      id: 'riverLabel',
+      afterDraw: (chart: any) => {
+          const ctx = chart.ctx;
+          const yAxis = chart.scales.y;
+          // Position the label roughly in the middle of the y-axis
+          const yPos = yAxis.getPixelForValue(yAxis.min + (yAxis.max - yAxis.min) * 0.6); 
+          
+          ctx.save();
+          ctx.font = '600 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto';
+          ctx.fillStyle = 'rgba(100, 116, 139, 0.5)'; // Soft, semi-transparent gray
+          ctx.textAlign = 'center';
+          ctx.fillText(t('charts.typicalRange'), chart.width / 2, yPos);
+          ctx.restore();
+      }
+  };
+  
   const chartData = {
     // We no longer use 'labels' for a linear scale, the 'x' values in the data are used instead.
     datasets: [
@@ -231,7 +233,7 @@ const GrowthChart: React.FC<GrowthChartProps> = ({ measurements, parameter, offi
 
   return (
       <div style={{ position: 'relative', height: '400px', marginTop: '20px' }}>
-        <Line options={options} data={chartData} />
+        <Line options={options} data={chartData} plugins={[riverLabelPlugin]} />
       </div>
   )
   
