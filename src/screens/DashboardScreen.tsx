@@ -30,36 +30,20 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ officialMeasurement }
 
   return (
     <div className="dashboard-screen">
-      {/* SVG Gradient Definition for the Progress Ring (This part is correct) */}
-      <svg width="0" height="0" style={{ position: 'absolute' }}>
-        <defs>
-          <linearGradient id="progress-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="var(--color-accent-hover-start)" />
-            <stop offset="100%" stopColor="var(--color-accent-end)" />
-          </linearGradient>
-        </defs>
-      </svg>
-
-      {/* ✨ NEW, CORRECT HIERARCHICAL LAYOUT ✨ */}
-
-      {/* 1. The Official Due Date (Top and Most Prominent) */}
+      {/* ✨ NEW HIERARCHY: Due Date and Current Age are now outside/above the ring */}
       <div className="dashboard-due-date">
         {format(new Date(officialMeasurement.estimatedDueDate), 'yyyy. MMM dd.')}
       </div>
-
-      {/* 2. The Progress Ring with the Illustration INSIDE */}
-      <ProgressRing progress={progressPercentage}>
-        <div className="dashboard-illustration">
-            <span>🍌</span> {/* The banana placeholder */}
-        </div>
-      </ProgressRing>
-
-      {/* 3. The Current Gestational Age (Below the Ring, Secondary) */}
       <div className="dashboard-current-age">
         {`${currentWeek}. ${weekText} ${currentDay}${dayText}`}
       </div>
 
-      {/* 4. The Action Cards (at the bottom) */}
+      <ProgressRing progress={progressPercentage}>
+        <div className="dashboard-illustration">
+            <span>🍌</span>
+        </div>
+      </ProgressRing>
+
       <div className="dashboard-actions">
         <div className="daily-tip-card">💡 {t('dashboard.dailyTip')}</div>
       </div>
