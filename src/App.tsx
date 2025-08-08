@@ -1,12 +1,10 @@
 // src/App.tsx (FINAL, UNIFIED, AND CORRECTED)
 
-import React, { useEffect, useReducer, useCallback } from 'react';
+import React, { useEffect, useReducer, useCallback, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './i18n';
-
-
-
+import ErrorBoundary from './components/common/ErrorBoundary';
 import Header from './components/common/Header';
 import DashboardScreen from './screens/DashboardScreen'; // New
 import FloatingActionButton from './components/common/FloatingActionButton'; // New FAB
@@ -14,10 +12,13 @@ import LoadingSpinner from './components/common/LoadingSpinner';
 import OfficialStatus from './components/common/OfficialStatus';
 import ResultsCard from './components/common/ResultsCard';
 import MeasurementForm from './components/measurements/MeasurementForm';
-import HistoryView from './components/history/HistoryView';
-import GrowthJourneyView from './components/history/GrowthJourneyView';
 import { MeasurementService } from './services/database';
 import { Measurement, CalculationResult, MeasurementInput } from './types/measurement';
+
+// ✅ PERFORMANCE: Lazy load heavy components
+const GrowthJourneyView = lazy(() => import('./components/history/GrowthJourneyView'));
+const HistoryView = lazy(() => import('./components/history/HistoryView'));
+
 
 // UNIFIED STATE INTERFACE
 interface AppState {
@@ -189,51 +190,45 @@ function App() {
     );
   };
 
-  return (
+   return (
     <Router>
       <div className="app">
         <Header language={state.language} onLanguageChange={handleLanguageChange} />
-        {/* Abstract background blobs can be placed here if you wish */}
         <main className="app-main">
-          <Routes>
-            <Route path="/" element={renderMainView()} />
-            <Route
-              path="/history"
-              element={
-                <HistoryView
-                  measurements={state.measurements}
-                  officialMeasurement={state.officialMeasurement}
-                  onMeasurementsChange={loadAllData}
-                />
-              }
-            />
-            <Route
-              path="/journey"
-              element={
-                <GrowthJourneyView
-                  measurements={state.measurements}
-                  officialMeasurement={state.officialMeasurement}
-                />
-              }
-            />
-          </Routes>
+          <ErrorBoundary>
+            <Routes>
+              <Route path="/" element={renderMainView()} />
+              <Route 
+                path="/history" 
+                element={
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <HistoryView 
+                      measurements={state.measurements} 
+                      officialMeasurement={state.officialMeasurement} 
+                      onMeasurementsChange={loadAllData} 
+                    />
+                  </Suspense>
+                }
+              />  
+              <Route 
+                path="/journey" 
+                element={
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <ErrorBoundary fallback={<div>Chart loading failed</div>}>
+                      <GrowthJourneyView 
+                        measurements={state.measurements} 
+                        officialMeasurement={state.officialMeasurement} 
+                      />
+                    </ErrorBoundary>
+                  </Suspense>
+                }
+              />
+            </Routes>
+          </ErrorBoundary>
         </main>
-
         <FloatingActionButton onClick={() => dispatch({ type: 'SHOW_FORM' })} />
-
-        {state.error && (
-          <div className="app-error">
-            <p>{state.error}</p>
-            <button
-              onClick={() =>
-                dispatch({ type: 'SET_ERROR', payload: undefined })
-              }
-            >
-              {t('common.close')}
-            </button>
-          </div>
-        )}
-     </div>
+        {/* ... rest of app */}
+      </div>
     </Router>
   );
 }
