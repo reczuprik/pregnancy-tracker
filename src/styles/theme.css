@@ -1,0 +1,33 @@
+/* src/styles/theme.css (FINAL "Organic" Palette) */
+:root {
+  /* --- The "Organic" Color Palette --- */
+
+  /* Primary Background */
+  --color-bg-app: #f9f6f3; /* A lighter tint for the main background */
+  --color-bg-card: #F6EAE0; /* The warm paper color for cards */
+  --color-bg-interactive: #f3e5d9; /* A slightly darker tint for hover states */
+
+  /* Accent (Celebration & Action) */
+  --color-accent: #ff9a76; /* Vibrant Accent Peach */
+  --color-accent-gradient: linear-gradient(to right, #ffb59d, #ff9a76);
+  
+  /* Secondary Accent (Grounding) */
+  --color-secondary-accent: #d9a58b; /* Dusty Terracotta */
+  --color-secondary-accent-light: #eaddd6; /* A light tint for inactive states */
+  
+  /* Text */
+  --color-text-primary: #5a524c; /* Deep Umber */
+  --color-text-secondary: #8b837d;
+  --color-text-muted: #aeadab;
+  --color-text-inverted: #ffffff;
+  
+  /* Borders */
+  --color-border: #e9e2dc;
+  --color-border-hover: #d9d0c8;
+
+  /* We keep the primary color variable for functional UI elements like active states,
+     but we tie it to the new Terracotta for a grounded feel. */
+  --color-primary: var(--color-secondary-accent);
+  --color-primary-light: var(--color-secondary-accent-light);
+  --color-primary-border: #c8b9b1;
+}

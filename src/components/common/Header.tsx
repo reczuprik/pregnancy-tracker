@@ -17,17 +17,19 @@ const Header: React.FC<HeaderProps> = ({ language, onLanguageChange }) => {
     <header className="header">
       <div className="header-content">
         <div className="header-nav">
-          <NavLink to="/" end className={({isActive}) => `header-nav-button ${isActive ? 'active' : ''}`}>
+          <NavLink to="/" end className={({isActive}) => `header-nav-button ${isActive ? 'active' : ''}`} aria-label="Dashboard">
             <HomeIcon />
           </NavLink>
-          <NavLink to="/history" className={({isActive}) => `header-nav-button ${isActive ? 'active' : ''}`}>
+          <NavLink to="/history" className={({isActive}) => `header-nav-button ${isActive ? 'active' : ''}`} aria-label="History Log">
             <HistoryIcon />
           </NavLink>
         </div>
         
+        <div className="header-title"></div> {/* Empty div to push other elements to the sides */}
+        
         <div className="header-language">
-          <button className={`btn-secondary ${language === 'hu' ? 'active' : ''}`} onClick={() => onLanguageChange('hu')}>HU</button>
-          <button className={`btn-secondary ${language === 'en' ? 'active' : ''}`} onClick={() => onLanguageChange('en')}>EN</button>
+          <button className={`btn-tertiary btn--small ${language === 'hu' ? 'active' : ''}`} onClick={() => onLanguageChange('hu')}>HU</button>
+          <button className={`btn-tertiary btn--small ${language === 'en' ? 'active' : ''}`} onClick={() => onLanguageChange('en')}>EN</button>
         </div>
       </div>
     </header>

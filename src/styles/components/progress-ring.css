@@ -1,0 +1,26 @@
+/* src/styles/components/progress-ring.css */
+
+.progress-ring-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.progress-ring {
+  transform: rotate(-90deg);
+}
+.progress-ring__track {
+  stroke: var(--color-primary-light);
+}
+.progress-ring__fill {
+  stroke: var(--color-accent); /* Use solid color for simplicity, gradient handled in SVG */
+  transition: stroke-dashoffset 0.8s ease-out;
+}
+.progress-ring__content {
+  position: absolute;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

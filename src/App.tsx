@@ -8,6 +8,7 @@ import './i18n';
 
 
 import Header from './components/common/Header';
+import DashboardScreen from './screens/DashboardScreen'; // New
 import FloatingActionButton from './components/common/FloatingActionButton'; // New FAB
 import LoadingSpinner from './components/common/LoadingSpinner';
 import OfficialStatus from './components/common/OfficialStatus';
@@ -147,17 +148,25 @@ function App() {
       );
     }
     
-    // Priority 2: If we should be on the dashboard, show it.
-    if (state.currentView === 'dashboard' && state.officialMeasurement) {
+
+    // Priority 2: If the user explicitly wants to see the form.
+    if (state.currentView === 'form') {
       return (
-        <>
-          <OfficialStatus officialMeasurement={state.officialMeasurement} />
-        </>
+        <MeasurementForm
+          mode={state.mode}
+          onModeChange={handleModeChange}
+          onSaveComplete={handleSaveComplete}
+        />
       );
     }
 
-    // Priority 3: If we have data but no official scan, show the "empty state" prompt.
-    if (state.currentView === 'form' && state.measurements.length > 0 && !state.officialMeasurement) {
+    // Priority 3: If an official measurement exists, the Dashboard is the primary view.
+    if (state.currentView === 'dashboard' && state.officialMeasurement) {
+      return <DashboardScreen officialMeasurement={state.officialMeasurement} />;
+    }
+
+    // Priority 4: If there are measurements but none are official, show the prompt.
+    if (state.measurements.length > 0 && !state.officialMeasurement) {
       return (
         <div className="empty-dashboard">
           <div className="empty-dashboard-icon">🗓️</div>
@@ -170,7 +179,7 @@ function App() {
       );
     }
     
-    // Default: Show the form (no official scan, no data, or user explicitly clicked "add").
+    // Default Fallback: No data at all, show the form.
     return (
       <MeasurementForm
         mode={state.mode}
@@ -184,18 +193,31 @@ function App() {
     <Router>
       <div className="app">
         <Header language={state.language} onLanguageChange={handleLanguageChange} />
-        <div className="background-blobs">
-          <div className="blob blob-1"></div>
-          <div className="blob blob-2"></div>
-        </div>
+        {/* Abstract background blobs can be placed here if you wish */}
         <main className="app-main">
           <Routes>
             <Route path="/" element={renderMainView()} />
-            <Route path="/history" element={<HistoryView measurements={state.measurements} officialMeasurement={state.officialMeasurement} onMeasurementsChange={loadAllData} />} />
-            <Route path="/journey" element={<GrowthJourneyView measurements={state.measurements} officialMeasurement={state.officialMeasurement} />} />
-          </Routes>
+            <Route 
+              path="/history" 
+              element={
+                <HistoryView 
+                  measurements={state.measurements} 
+                  officialMeasurement={state.officialMeasurement} 
+                  onMeasurementsChange={loadAllData} 
+                />
+              }
+            />  
+              
+            <Route path="/journey" element={<
+              GrowthJourneyView measurements={state.measurements} 
+              officialMeasurement={state.officialMeasurement} />} />
+
+
+
+            </Routes>
         </main>
         <FloatingActionButton onClick={() => dispatch({ type: 'SHOW_FORM' })} />
+
 
         {state.error && (
           <div className="app-error">

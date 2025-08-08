@@ -1,34 +1,40 @@
 /* src/styles/components/modal.css */
 
 .modal-overlay {
-  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-  background-color: rgba(15, 23, 42, 0.7);
-  display: flex; align-items: center; justify-content: center;
-  z-index: 2000; padding: var(--space-lg);
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(63, 70, 81, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: var(--space-lg);
 }
 .modal-content {
   background: var(--color-bg-card);
   padding: var(--space-lg);
   border-radius: var(--radius-xl);
-  width: 100%; max-width: 480px;
+  width: 100%;
+  max-width: 480px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
+
 .chart-tooltip-container {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.2s;
   position: absolute;
-  transform: translate(-50%, -120%); /* Position above the dot */
+  transform: translate(-50%, -120%);
   z-index: 3000;
 }
 .chart-tooltip {
-  background: rgba(30, 41, 59, 0.9);
+  background: rgba(63, 70, 81, 0.9);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   color: var(--color-text-inverted);
   border-radius: var(--radius-sm);
   padding: var(--space-sm) var(--space-md);
-  max-width: 180px; /* Smaller, flexible width */
+  max-width: 180px;
   text-align: center;
 }
 .tooltip-title {

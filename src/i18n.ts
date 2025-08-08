@@ -10,7 +10,8 @@ const resources = {
         dashboard: "Your Journey",
         measurement: "New Measurement",
         history: "Your Log", 
-        settings: "Settings"
+        settings: "Settings",
+        
       },
       
       // Measurement Form
@@ -33,11 +34,7 @@ const resources = {
           save: "Save Measurement",
           clear: "Clear Form"
         },
-        dashboard: {
-          setOfficialTitle: "Set Your Official Due Date",
-          setOfficialText: "You have measurements, but none are official. Go to your log to pin the most accurate scan. This will activate your daily dashboard.",
-          goToLog: "Go to Your Log"
-        },
+
         units: {
           mm: "mm"
         },
@@ -49,7 +46,13 @@ const resources = {
             fl: "e.g., 35.2"
         }
       },
-      
+      dashboard: {
+          setOfficialTitle: "Set Your Official Due Date",
+          setOfficialText: "You have measurements, but none are official. Go to your log to pin the most accurate scan. This will activate your daily dashboard.",
+          goToLog: "Go to Your Log",
+          dailyTip: "Daily Tip: Remember to stay hydrated!",
+          viewCalendar: "View Full Calendar"
+        },
       // Results
       results: {
         gestationalAgeTrue: "Gestational Age (Official)",
@@ -220,7 +223,10 @@ const resources = {
       dashboard: {
         setOfficialTitle: "Állítsd be a Hivatalos Dátumot",
         setOfficialText: "Vannak mentett méréseid, de egyik sincs hivatalosként megjelölve. Lépj a naplódba és rögzítsd a legpontosabb mérést a napi műszerfal aktiválásához.",
-        goToLog: "Ugrás a Naplóra"
+        goToLog: "Ugrás a Naplóra",
+        dailyTip: "Napi Tipp: Ne felejts el elég folyadékot inni!",
+        viewCalendar: "Teljes Naptár Megtekintése"
+
       },
       // History
       history: {
