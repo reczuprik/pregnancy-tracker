@@ -91,7 +91,15 @@ const resources = {
           chart: "See Baby's Growth Journey", // ✨ NEW: More celebratory
           hideChart: "Back to Your Log" // ✨ NEW: Softer
         },
-        confirmDelete: "Are you sure you want to delete this measurement from your log?"
+        confirmDelete: "Are you sure you want to delete this measurement from your log?",
+        officialAgeLabel: "Official Age",
+        estimatedAgeLabel: "Estimated Age",
+        measurementDataTitle: "Measurement Data",
+        growthAnalysisTitle: "Growth Analysis",
+        reassuranceText: "Well within the typical range",
+        estimatedAgeFromSize: "est. age (from size)",
+        growthRateLabel: "{{parameter}} Growth Rate", // ✨ NEW
+      
       },
       
       charts: {
@@ -183,7 +191,7 @@ const resources = {
         form: {
           date: "Mérés Dátuma",
           // ✨ NEW: Demystified jargon
-          crl: "Baba Hossza (CRL)",
+          crl: "Baba Ülőhossz (CRL)",
           bpd: "Fej Mérete (BPD)",
           hc: "Fejkörfogat (HC)",
           ac: "Haskörfogat (AC)",
@@ -248,7 +256,15 @@ const resources = {
           chart: "Baba Növekedési Útja", // ✨ NEW: More celebratory
           hideChart: "Vissza a Naplóhoz" // ✨ NEW: Softer
         },
-        confirmDelete: "Biztosan törlöd ezt a mérést a naplódból?"
+        confirmDelete: "Biztosan törlöd ezt a mérést a naplódból?",
+        officialAgeLabel: "Hivatalos Kor",
+        estimatedAgeLabel: "Becsült Kor",
+        measurementDataTitle: "Mérési Adatok",
+        growthAnalysisTitle: "Növekedési Elemzés",
+        reassuranceText: "Teljesen a tipikus tartományon belül",
+        estimatedAgeFromSize: "becsült kor (méret alapján)",
+        growthRateLabel: "{{parameter}} Növekedési Ütem", // ✨ NEW
+
       },
       
       charts: {

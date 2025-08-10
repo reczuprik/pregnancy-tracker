@@ -17,7 +17,7 @@ import { Measurement, CalculationResult, MeasurementInput } from './types/measur
 
 // ✅ PERFORMANCE: Lazy load heavy components
 const GrowthJourneyView = lazy(() => import('./components/history/GrowthJourneyView'));
-const HistoryView = lazy(() => import('./components/history/HistoryView'));
+const HistoryScreen = lazy(() => import('./screens/HistoryScreen'));
 
 
 // UNIFIED STATE INTERFACE
@@ -202,10 +202,11 @@ function App() {
                 path="/history" 
                 element={
                   <Suspense fallback={<LoadingSpinner />}>
-                    <HistoryView 
-                      measurements={state.measurements} 
-                      officialMeasurement={state.officialMeasurement} 
-                      onMeasurementsChange={loadAllData} 
+                    <HistoryScreen
+                      measurements={state.measurements}
+                      // ✨ FIX: Pass the officialMeasurement state down to the History screen
+                      officialMeasurement={state.officialMeasurement}
+                      onMeasurementsChange={loadAllData}
                     />
                   </Suspense>
                 }

@@ -1,18 +1,24 @@
 /* src/styles/views/history.css */
+/* src/styles/views/history.css (Updated for Accordion Cards) */
+/* src/styles/views/history.css (FINAL Polished Version) */
 
-.history-view-container {
+.history-view-container,
+.growth-journey-view {
   padding-top: var(--space-xl);
 }
 
 .history-view-container .btn-group {
   margin-top: 0;
   margin-bottom: var(--space-xl);
+  position: relative;
 }
 
 .timeline-container {
   display: flex;
   flex-direction: column;
   margin-top: var(--space-xl);
+    position: relative;
+
 }
 
 @keyframes fadeInUp {
@@ -20,63 +26,144 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-.measurement-card {
-  display: flex;
-  align-items: center;
-  background: var(--color-bg-card);
-  border-radius: var(--radius-xl);
-  border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-soft);
+.accordion-measurement-card {
+  position: relative; /* ensures z-index works */
   cursor: pointer;
-  position: relative;
-  margin-bottom: -24px;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  z-index: 1; /* default base */
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: var(  --space-md);
+  box-shadow: var(--shadow-soft);
+  /* ✨ FIX: Using your preferred overlap value */
+  margin-bottom: -15px;
+  transition: background-color 0.2s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease, z-index 0s;
   opacity: 0;
   animation: fadeInUp 0.5s ease-out forwards;
-}
-.measurement-card:hover {
-  transform: translateY(-6px) scale(1.015);
-  box-shadow: var(--shadow-lg);
-  z-index: 10;
-  border-color: var(--color-primary-border);
-  margin-bottom: 0;
-}
-.measurement-card:last-child {
-  margin-bottom: 0;
+  overflow: hidden;
+
+  /* ✨ FIX: Giving each card a default stacking context */
+  z-index: 1;
 }
 
-.card-content { flex-grow: 1; padding: var(--space-lg); }
-.card-header { margin-bottom: var(--space-lg); }
-.card-title { font-weight: 600; color: var(--color-text-dark); font-size: 16px; }
-.card-subtitle { font-size: 14px; color: var(--color-text-muted); }
-
-.official-badge {
-  position: absolute;
-  top: var(--space-lg); right: var(--space-lg);
-  background-color: var(--color-highlight-bg);
-  color: var(--color-highlight-dark);
-  height: 28px; padding: 0 var(--space-md);
-  display: inline-flex; align-items: center; justify-content: center;
-  border-radius: 99px; font-size: 12px; font-weight: 700;
-  text-transform: uppercase; border: 1px solid var(--color-highlight-border);
+.accordion-measurement-card.official {
+  z-index: 5; 
+  background: var(--color-bg-card);
+  color: var(--color-text-primary);
 }
 
+.accordion-measurement-card:hover {
+  transform: scale(1.03);
+  box-shadow: var(--shadow-md);
+       z-index: 9999;
+
+}
+.accordion-measurement-card.expanded {
+  margin-bottom: var(--space-lg); border-color: var(--color-primary-border);
+  background: var(--color-bg-card);
+  color: var(--color-text-primary);
+    z-index: 5; /* Higher than default, lower than hover */
+
+}
+.accordion-measurement-card:last-child { margin-bottom: 0; }
+
+/* If you were using negative margins for overlap, keep them but ensure z-index still works */
+.accordion-measurement-card + .accordion-measurement-card {
+  margin-top: -15px; /* controlled overlap */
+}
+
+/* Non-active state */
+.accordion-measurement-card:not(.expanded):not(.official) {
+  background: var(--color-primary-light); /* lighter, greyish base */
+  color: var(--color-text-muted);         /* softer text */
+}
+
+
+/* Collapsed Header */
+.card-header-collapsed {
+  display: flex; align-items: center; padding: var(--space-md) var(--space-lg);
+}
+.collapsed-info { flex-grow: 1; }
+.card-title { font-weight: 600; color: var(--color-text-primary); }
+.collapsed-age { text-align: right; }
+
+
+.card-subtitle, .collapsed-age .age-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+.age-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.5px; color: var(--color-text-muted);
+}
+
+.chevron-container {
+  color: var(--color-text-muted); transition: transform 0.4s ease;
+  margin-left: var(--space-md);
+}
+.accordion-measurement-card.expanded .chevron-container {
+  transform: rotate(90deg);
+}
+
+/* Official Indicator Strip */
+.official-strip {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+  background: var(--color-accent);
+  transform: scaleY(0); transition: transform 0.4s ease;
+}
+.accordion-measurement-card.official .official-strip {
+  transform: scaleY(1);
+}
+.accordion-measurement-card.official .card-header-collapsed {
+  padding-left: calc(var(--space-lg) + 5px);
+}
+.accordion-measurement-card.official .age-label {
+  color: var(--color-accent);
+}
+
+/* Expanded Details */
+.card-details-wrapper {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.5s ease-in-out;
+}
+.accordion-measurement-card.expanded .card-details-wrapper {
+  max-height: 500px;
+}
+.card-details-content {
+  padding: 0 var(--space-lg) var(--space-md) var(--space-lg);
+  display: flex; flex-direction: column; gap: var(--space-lg);
+}
+.details-section {
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-border-soft);
+}
+.details-section-title {
+  font-size: 12px; font-weight: 700; color: var(--color-secondary-accent);
+  letter-spacing: 0.5px;
+  margin-bottom: var(--space-md);
+}
 .card-body {
   display: flex; flex-direction: column; gap: var(--space-sm);
 }
 .measurement-item {
   display: flex; justify-content: space-between; align-items: baseline;
-  font-size: 14px; border-bottom: 1px solid var(--color-bg-subtle);
-  padding-bottom: var(--space-sm);
+  font-size: 14px; padding-bottom: var(--space-sm);
 }
-.measurement-item:last-child { border-bottom: none; }
 .measurement-item span:first-child { color: var(--color-text-muted); }
 .measurement-item span:last-child { font-weight: 600; color: var(--color-text-body); }
-
+.reassurance-text {
+  font-weight: 600; color: var(--color-text-body);
+  font-style: italic; font-size: 12px;
+}
+.measurement-item-deemphasized {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-size: 12px; color: var(--color-text-muted);
+}
 .card-actions {
-  display: flex; flex-direction: column; justify-content: center;
-  align-items: center; padding: 0 var(--space-lg);
-  border-left: 1px solid var(--color-border-soft); align-self: stretch;
+  display: flex; justify-content: flex-end; gap: var(--space-sm);
+  margin-top: var(--space-lg); padding-top: var(--space-md);
+  border-top: 1px solid var(--color-border-soft);
 }
 .icon-button {
   background: none; border: none; padding: var(--space-sm);
@@ -86,24 +173,32 @@
 .icon-button:hover { background-color: var(--color-bg-subtle); color: var(--color-text-body); }
 .icon-button.danger:hover { color: var(--color-danger); }
 
-.chart-analytics-area {
-  background-color: var(--color-bg-card); border: 1px solid var(--color-border-soft);
-  border-radius: var(--radius-xl); padding: 20px;
-  margin-top: var(--space-xl); box-shadow: var(--shadow-md);
-}
-.chart-controls {
-  display: flex; flex-wrap: wrap; gap: var(--space-sm);
-  padding-bottom: 20px; border-bottom: 1px solid var(--color-border-soft);
-}
-.chart-controls .btn-tertiary { flex-grow: 1; }
-.clickable-row:hover { background-color: var(--color-bg-subtle); }
-
-.growth-journey-view { padding-top: var(--space-xl); }
+/* --- Growth Journey View Specific Styles --- */
 .view-header {
   margin-bottom: var(--space-xl);
   display: flex;
 }
-.view-header > .btn-secondary {
-  flex-grow: 1;
+.view-header .btn-secondary {
+  flex-grow: 1; /* Make back button full width */
   justify-content: center;
 }
+.chart-analytics-area {
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-xl);
+  padding: 20px;
+  box-shadow: var(--shadow-md);
+}
+.chart-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--color-border-soft);
+}
+/* ✨ FIX: Make the filter buttons full-width within their container */
+.chart-controls .btn-tertiary {
+  flex-basis: calc(50% - 4px); /* Two buttons per row, accounting for gap */
+  flex-grow: 1;
+}
+
