@@ -8,18 +8,22 @@ import './styles/tokens.css'; // Structural skeleton first
 import './styles/theme.css'; // Then themes
 import './styles/base.css';
 import './styles/layout.css';
+
 // Import all component and view styles
 import './styles/components/buttons.css';
+import './styles/components/header.css';
 import './styles/components/forms.css';
 import './styles/components/modal.css';
 import './styles/components/errorboundary.css';
 import './styles/components/loading.css';
+import './styles/components/progress-ring.css';
+
 import './styles/views/dashboard.css';
 import './styles/views/history.css';
 import './styles/views/results.css';
 import './styles/views/empty-state.css';
 
-import './styles/components/progress-ring.css';
+import './styles/mediaqueries.css'; // Media queries last to ensure they override previous styles
 
 
 const root = ReactDOM.createRoot(

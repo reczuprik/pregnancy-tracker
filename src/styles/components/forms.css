@@ -1,70 +1,335 @@
-/* src/styles/components/forms.css */
+/* src/styles/components/forms.css - ENHANCED VERSION */
 
+/* === FORM CONTAINER === */
+.measurement-form-container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding-bottom: var(--space-xl);
+}
+
+/* === FORM HEADER === */
+.form-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--color-border-soft);
+}
+
+.form-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0;
+  flex-grow: 1;
+}
+
+/* === FORM SECTIONS === */
 .form-section {
   background: var(--color-bg-card);
   border-radius: var(--radius-xl);
-  padding: 20px;
+  padding: 24px;
   margin-bottom: var(--space-xl);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   border: 1px solid var(--color-border-soft);
+  transition: box-shadow 0.2s ease;
 }
+
+.form-section:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
 .form-section-title {
   font-size: 18px;
   font-weight: 600;
-  color: var(--color-text-dark);
+  color: var(--color-text-primary);
   margin-bottom: var(--space-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
 }
+
+.form-section-title::before {
+  content: '';
+  width: 4px;
+  height: 20px;
+  background: var(--gradient-primary);
+  border-radius: 2px;
+}
+
+/* === FORM GROUPS === */
 .form-group {
   margin-bottom: var(--space-lg);
 }
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
 .form-label {
   display: block;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--color-text-primary);
   margin-bottom: var(--space-sm);
   font-size: 14px;
+  line-height: 1.4;
 }
+
 .form-input {
   width: 100%;
-  padding: var(--space-md) var(--space-lg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
+  padding: 14px var(--space-lg);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
   font-size: 16px;
-  transition: all 0.2s;
-  background-color: var(--color-bg-subtle);
+  line-height: 1.4;
+  transition: all 0.2s ease;
+  background-color: var(--color-bg-app);
+  color: var(--color-text-primary);
 }
+
 .form-input:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(167, 169, 255, 0.3);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+  background-color: var(--color-bg-card);
 }
 
+.form-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: var(--color-bg-subtle);
+}
+
+.form-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* === FORM HELP TEXT === */
+.form-help {
+  display: block;
+  margin-top: var(--space-sm);
+  font-size: 12px;
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+/* === MODE SELECTOR === */
 .mode-selector {
   display: flex;
-  gap: var(--space-md);
+  gap: var(--space-sm);
   background-color: var(--color-bg-interactive);
-  padding: 4px;
-  border-radius: var(--radius-md);
+  padding: 6px;
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-md);
 }
+
 .mode-selector button {
   flex: 1;
-  padding: 10px;
-  border-radius: var(--radius-sm);
+  padding: 12px var(--space-md);
+  border-radius: var(--radius-md);
   border: none;
   background-color: transparent;
   font-weight: 600;
   color: var(--color-text-secondary);
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
+  position: relative;
 }
+
+.mode-selector button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .mode-selector button.active {
   background-color: var(--color-bg-card);
   color: var(--color-primary);
-  box-shadow: var(--shadow-xs);
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.15);
+  transform: translateY(-1px);
 }
 
-.header-language {
-  display: flex;
-  gap: var(--space-sm);
+.mode-selector button:not(.active):hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.5);
+  color: var(--color-text-primary);
 }
-/* The language buttons themselves are now styled in buttons.css */
+
+.mode-description {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin: 0;
+  padding: var(--space-md);
+  background-color: var(--color-bg-subtle);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--color-primary-border);
+}
+
+/* === FORM ACTIONS === */
+.form-actions {
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+}
+
+.btn-group {
+  display: flex;
+  gap: var(--space-md);
+  margin-top: 0;
+}
+
+.btn-group .btn {
+  flex: 1;
+}
+
+/* === ERROR HANDLING === */
+.form-error {
+  background-color: var(--color-error-light);
+  border: 2px solid var(--color-error);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  margin-top: var(--space-lg);
+  position: relative;
+  animation: slideInUp 0.3s ease-out;
+}
+
+.form-error p {
+  color: var(--color-error);
+  margin: 0;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.error-close {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  background: none;
+  border: none;
+  color: var(--color-error);
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.error-close:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+/* === VALIDATION STATES === */
+.form-input.error {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.form-input.success {
+  border-color: var(--color-success);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.form-group.required .form-label::after {
+  content: '*';
+  color: var(--color-error);
+  margin-left: 4px;
+}
+
+/* === LOADING STATES === */
+.form-input.loading {
+  background-image: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 768px) {
+  .form-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+  
+  .form-title {
+    font-size: 20px;
+  }
+  
+  .form-section {
+    padding: var(--space-lg);
+    margin-bottom: var(--space-lg);
+  }
+  
+  .btn-group {
+    flex-direction: column-reverse;
+  }
+  
+  .mode-selector {
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+  
+  .mode-selector button {
+    flex: none;
+    padding: var(--space-md);
+  }
+}
+
+/* === ACCESSIBILITY IMPROVEMENTS === */
+@media (prefers-reduced-motion: reduce) {
+  .form-input,
+  .mode-selector button,
+  .form-section {
+    transition: none;
+  }
+  
+  .form-error {
+    animation: none;
+  }
+}
+
+/* === FOCUS IMPROVEMENTS === */
+.form-input:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.mode-selector button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* === HIGH CONTRAST MODE === */
+@media (prefers-contrast: high) {
+  .form-input {
+    border-width: 3px;
+  }
+  
+  .form-section {
+    border-width: 2px;
+  }
+  
+  .mode-selector button.active {
+    background-color: var(--color-primary);
+    color: white;
+  }
+}

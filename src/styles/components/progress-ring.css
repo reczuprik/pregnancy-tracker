@@ -10,11 +10,15 @@
   transform: rotate(-90deg);
 }
 .progress-ring__track {
-  stroke: var(--color-primary-light);
+  stroke: var(--color-bg-interactive); /* Keep track warm and subtle */
 }
+
+
+/* Progress Ring - Add vibrant energy to the most important element */
 .progress-ring__fill {
-  stroke: var(--color-accent); /* Use solid color for simplicity, gradient handled in SVG */
+  stroke: url(#progressGradient); /* We'll define this gradient */
   transition: stroke-dashoffset 0.8s ease-out;
+  filter: drop-shadow(0 0 8px rgba(255, 107, 53, 0.3));
 }
 .progress-ring__content {
   position: absolute;

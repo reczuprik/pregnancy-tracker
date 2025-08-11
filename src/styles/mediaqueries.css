@@ -1,0 +1,83 @@
+
+/* === RESPONSIVE DESIGN === */
+
+@media (max-width: 768px) {
+  .dashboard-screen {
+    padding: var(--space-lg) var(--space-md);
+  }
+  
+  .dashboard-due-date {
+    font-size: 24px;
+  }
+  
+  .dashboard-illustration {
+    width: 100px;
+    height: 100px;
+    font-size: 56px;
+  }
+  
+  .quick-actions {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .empty-dashboard {
+    padding: var(--space-xl) var(--space-lg);
+  }
+}
+
+/* === CELEBRATION ANIMATIONS === */
+
+.celebration-active .dashboard-illustration {
+  animation: celebrationBounce 0.8s ease-in-out;
+}
+
+.celebration-active .dashboard-due-date {
+  animation: celebrationGlow 0.8s ease-in-out;
+}
+
+@keyframes celebrationBounce {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.1); }
+  50% { transform: scale(0.95); }
+  75% { transform: scale(1.05); }
+}
+
+@keyframes celebrationGlow {
+  0%, 100% { 
+    text-shadow: none;
+  }
+  50% { 
+    text-shadow: 0 0 20px rgba(255, 107, 53, 0.4);
+  }
+}
+/* === ACCESSIBILITY IMPROVEMENTS === */
+
+@media (prefers-reduced-motion: reduce) {
+  .dashboard-illustration::before,
+  .status-indicator::before,
+  .progress-bar-fill::after,
+  .celebration-active .dashboard-illustration,
+  .celebration-active .dashboard-due-date {
+    animation: none;
+  }
+  
+  .dashboard-illustration:hover,
+  .quick-action-button:hover,
+  .progress-card:hover {
+    transform: none;
+  }
+}
+
+@media (prefers-contrast: high) {
+  .progress-bar {
+    border: 2px solid var(--color-text-primary);
+  }
+  
+  .status-indicator {
+    border-width: 2px;
+  }
+  
+  .empty-dashboard {
+    border-width: 3px;
+  }
+}

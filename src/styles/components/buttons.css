@@ -1,34 +1,52 @@
-/* src/styles/components/buttons.css */
-
-/* --- Primary Call-to-Action --- */
+/* === PRIMARY CTA (Vibrant Energy on Warm Base) === */
 .btn-primary {
-  padding: 14px var(--space-xl);
+  padding: 16px var(--space-xl);
   border: none;
   border-radius: var(--radius-lg);
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-sm);
-  min-height: 48px;
+  min-height: 52px;
   text-decoration: none;
-  box-shadow: var(--shadow-sm);
-  background: var(--color-accent-gradient);
+  position: relative;
+  overflow: hidden;
+  
+  /* VIBRANT gradient for CTAs - The energy injection */
+  background: var(--gradient-energy);
   color: var(--color-text-inverted);
-}
-.btn-primary:hover {
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-lg);
-  background: linear-gradient(to right, var(--color-accent-hover-start), var(--color-accent));
+  box-shadow: 0 4px 20px rgba(255, 107, 53, 0.25);
 }
 
-/* --- Secondary / Tertiary Button System --- */
-.btn-secondary,
-.btn-tertiary {
-  padding: 10px var(--space-lg);
+.btn-primary:hover {
+  transform: translateY(-2px);
+  background: var(--gradient-celebration);
+  box-shadow: 0 8px 30px rgba(255, 27, 141, 0.35);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  transition: transform 0.1s;
+}
+
+/* Special celebration variant */
+.btn-primary.celebration {
+  background: var(--gradient-celebration);
+  animation: celebrationPulse 2s ease-in-out infinite;
+}
+
+@keyframes celebrationPulse {
+  0%, 100% { box-shadow: 0 4px 20px rgba(255, 27, 141, 0.3); }
+  50% { box-shadow: 0 8px 40px rgba(255, 107, 53, 0.4); }
+}
+
+/* === SECONDARY BUTTONS (Warm & Gentle) === */
+.btn-secondary {
+  padding: 12px var(--space-lg);
   font-size: 14px;
   font-weight: 600;
   border-radius: var(--radius-md);
@@ -40,76 +58,88 @@
   gap: var(--space-sm);
   min-height: 44px;
   text-decoration: none;
+  
+  /* WARM styling - keeps your original gentle feeling */
+  background-color: var(--color-bg-card);
+  color: var(--color-text-primary);
+  border: 2px solid var(--color-border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
-.btn-secondary:hover,
+
+.btn-secondary:hover {
+  transform: translateY(-1px);
+  background-color: var(--color-bg-subtle);
+  border-color: var(--color-accent-primary-light);
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.1);
+  color: var(--color-accent-primary);
+}
+
+/* === TERTIARY BUTTONS (Warm Glass Effect) === */
+.btn-tertiary {
+  padding: 10px var(--space-md);
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  min-height: 40px;
+  text-decoration: none;
+  
+  /* WARM glass morphism */
+  background: rgba(246, 234, 224, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 107, 53, 0.1);
+  color: var(--color-text-secondary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
 .btn-tertiary:hover {
+  background: rgba(246, 234, 224, 0.9);
+  border-color: rgba(255, 107, 53, 0.2);
+  color: var(--color-accent-primary);
   transform: translateY(-1px);
 }
 
-.btn-secondary {
-  background-color: var(--color-bg-card);
-  color: var(--color-text-secondary);
-  border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-xs);
-}
-.btn-secondary:hover {
-  background-color: var(--color-bg-subtle);
-  border-color: var(--color-border-hover);
-}
-
-.btn-tertiary {
-  color: var(--color-text-secondary);
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-}
-.btn-tertiary:hover {
-  background: rgba(255, 255, 255, 0.7);
-  border-color: rgba(255, 255, 255, 0.3);
-}
-
-.btn-secondary.active,
 .btn-tertiary.active {
-  color: var(--color-primary);
-  background-color: var(--color-primary-light);
+  background: var(--color-accent-primary-light);
+  color: var(--color-accent-primary);
   border-color: var(--color-primary-border);
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
-  box-shadow: var(--shadow-xs);
+  box-shadow: inset 0 2px 4px rgba(255, 107, 53, 0.1);
 }
 
-.btn-full { width: 100%; }
-.btn-group { display: flex; gap: var(--space-md); margin-top: 20px; }
+/* === SEMANTIC BUTTON VARIANTS (Strategic Vibrance) === */
+.btn-success {
+  background: linear-gradient(135deg, #2DD881 0%, #28C76F 100%);
+  color: white;
+  box-shadow: 0 4px 14px rgba(45, 216, 129, 0.25);
+}
 
-/* --- Specialized Buttons --- */
-.details-toggle-link {
-  background: none; border: none; padding: var(--space-sm);
-  margin: var(--space-sm) auto 0; display: block;
-  color: var(--color-primary); font-size: 14px; font-weight: 600;
-  cursor: pointer; text-decoration: underline; text-decoration-style: dotted;
-  text-underline-offset: 3px;
+.btn-warning {
+  background: linear-gradient(135deg, #FFB627 0%, #FFA000 100%);
+  color: white;
+  box-shadow: 0 4px 14px rgba(255, 182, 39, 0.25);
 }
-.details-toggle-link:hover { text-decoration-style: solid; }
 
-.header-nav-button {
-  display: flex; align-items: center; justify-content: center;
-  width: 40px; height: 36px;
-  border-radius: var(--radius-sm); color: var(--color-text-secondary);
-  transition: all 0.2s;
+.btn-error {
+  background: linear-gradient(135deg, #FF4757 0%, #FF3742 100%);
+  color: white;
+  box-shadow: 0 4px 14px rgba(255, 71, 87, 0.25);
 }
-.header-nav-button.active {
-    background-color: var(--color-primary-light);
- color: var(--color-primary);
-  box-shadow: var(--shadow-xs);
-}
+
+/* === FLOATING ACTION BUTTON (Pure Vibrant Energy) === */
 .fab {
   position: fixed;
   bottom: var(--space-xl);
   right: var(--space-lg);
-  width: 60px;
-  height: 60px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   border: none;
   display: flex;
@@ -118,13 +148,77 @@
   cursor: pointer;
   z-index: 1000;
   
-  /* ✨ FIX: Using our primary accent gradient and shadow */
-  background: var(--color-accent-gradient);
+  /* MAXIMUM vibrance for the most important action */
+  background: var(--gradient-energy);
   color: var(--color-text-inverted);
-  box-shadow: var(--shadow-md);
-  transition: all 0.2s ease-in-out;
+  box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 .fab:hover {
-  transform: scale(1.05);
-  box-shadow: var(--shadow-lg);
+  transform: scale(1.05) translateY(-2px);
+  background: var(--gradient-celebration);
+  box-shadow: 0 12px 40px rgba(255, 27, 141, 0.4);
+}
+
+.fab:active {
+  transform: scale(0.95);
+  transition: transform 0.1s;
+}
+/* === QUICK ACTIONS (Vibrant CTAs on Warm Base) === */
+
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--space-md);
+  width: 100%;
+  margin-top: var(--space-lg);
+}
+
+.quick-action-button {
+  /* WARM base design */
+  background: var(--color-bg-card);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg) var(--space-md);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: var(--color-text-primary);
+  font-weight: 600;
+  font-size: 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+.quick-action-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-energy);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.quick-action-button:hover::before {
+  transform: scaleX(1);
+}
+
+.quick-action-button:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-accent-primary-light);
+  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.15);
+  color: var(--color-accent-primary);
+}
+
+.quick-action-icon {
+  display: block;
+  font-size: 24px;
+  margin-bottom: var(--space-sm);
+  /* Add subtle vibrant glow */
+  filter: drop-shadow(0 0 8px rgba(255, 182, 39, 0.3));
 }
