@@ -1,4 +1,4 @@
-/* src/styles/views/dashboard.css - REFINED WITH FIXES */
+/* src/styles/04-views/dashboard.css - FIXED WITHOUT EMPTY RULESETS */
 
 /* === DASHBOARD SCREEN LAYOUT === */
 .dashboard-screen {
@@ -11,11 +11,10 @@
   z-index: 10;
 }
 
-/* === BIRTH DATE HIGHLIGHTING (Key Fix) === */
+/* === BIRTH DATE HIGHLIGHTING === */
 .dashboard-due-date {
   font-size: 32px;
   font-weight: 800;
-  /* HIGHLIGHTED: Make birth date prominent */
   color: var(--color-accent-primary);
   text-align: center;
   margin-bottom: var(--space-md);
@@ -23,20 +22,21 @@
   background: var(--color-accent-primary-light);
   border-radius: var(--radius-xl);
   border: 2px solid var(--color-accent-primary-light);
-  /* Subtle text shadow for better readability */
   text-shadow: 0 1px 3px rgba(229, 116, 74, 0.2);
   position: relative;
   z-index: 5;
 }
 
-/* Dark mode birth date visibility */
-[data-theme="dark"] .dashboard-due-date {
-  color: var(--color-accent-primary);
-  background: var(--color-accent-primary-light);
-  text-shadow: 0 1px 3px rgba(242, 132, 92, 0.3);
+/* === CURRENT AGE DISPLAY === */
+.dashboard-current-age {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin-bottom: var(--space-md);
 }
 
-/* === DASHBOARD ILLUSTRATION (Fixed Pulse) === */
+/* === DASHBOARD ILLUSTRATION === */
 .dashboard-illustration {
   font-size: 80px;
   position: relative;
@@ -47,7 +47,6 @@
   height: 140px;
   border-radius: 50%;
   background: var(--color-bg-card);
-  /* SOFT pulse effect as subtle background glow */
   box-shadow: 
     0 0 0 0 var(--pulse-shadow),
     0 4px 20px rgba(0, 0, 0, 0.06);
@@ -57,7 +56,6 @@
   animation: softPulse 4s ease-in-out infinite;
 }
 
-/* FIXED: Much softer, peach-colored pulse */
 @keyframes softPulse {
   0%, 100% { 
     box-shadow: 
@@ -73,16 +71,9 @@
 
 .dashboard-illustration:hover {
   transform: scale(1.02);
-  /* Gentle hover effect, no color change */
   box-shadow: 
     0 0 0 4px var(--pulse-shadow),
     0 8px 28px rgba(0, 0, 0, 0.10);
-}
-
-/* REMOVED: Red pulse elements - replaced with subtle background effect */
-.dashboard-illustration::before,
-.dashboard-illustration::after {
-  display: none; /* Remove the red pulse dots */
 }
 
 /* === STATUS DASHBOARD === */
@@ -100,7 +91,6 @@
   position: relative;
 }
 
-/* Subtle top accent - much softer */
 .status-dashboard::before {
   content: '';
   position: absolute;
@@ -112,7 +102,7 @@
   border-radius: var(--radius-xl) var(--radius-xl) 0 0;
 }
 
-/* === DASHBOARD HEADER (3-Column Layout) === */
+/* === DASHBOARD HEADER === */
 .dashboard-header {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
@@ -196,7 +186,6 @@
   box-shadow: 0 1px 4px var(--pulse-shadow);
 }
 
-/* Softer shimmer effect */
 .progress-bar-fill::after {
   content: '';
   position: absolute;
@@ -356,6 +345,10 @@
     font-size: 24px;
   }
   
+  .dashboard-current-age {
+    font-size: 16px;
+  }
+  
   .dashboard-header {
     grid-template-columns: 1fr;
     gap: var(--space-md);
@@ -373,18 +366,56 @@
   }
 }
 
-/* === DARK MODE SPECIFIC FIXES === */
+/* === DARK MODE SPECIFIC STYLES === */
 [data-theme="dark"] .dashboard-screen {
-  /* Ensure text is readable in dark mode */
+  /* Dark mode specific adjustments */
+  background: transparent;
+}
+
+[data-theme="dark"] .dashboard-due-date {
+  color: var(--color-accent-primary);
+  background: var(--color-accent-primary-light);
+  border-color: var(--color-accent-primary-light);
+  text-shadow: 0 1px 3px rgba(242, 132, 92, 0.3);
+}
+
+[data-theme="dark"] .dashboard-current-age {
+  color: var(--color-text-secondary);
 }
 
 [data-theme="dark"] .status-dashboard {
   background: var(--color-bg-card);
   border-color: var(--color-border);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
 }
 
 [data-theme="dark"] .dashboard-illustration {
   background: var(--color-bg-card);
+  box-shadow: 
+    0 0 0 0 var(--pulse-shadow),
+    0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .daily-tip-card {
+  background: var(--color-bg-card);
+  border-color: var(--color-border);
+  color: var(--color-text-primary);
+}
+
+[data-theme="dark"] .status-item-main {
+  background: var(--color-accent-primary-light);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .progress-bar-track {
+  background: var(--color-bg-interactive);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .size-comparison {
+  background: var(--color-accent-primary-light);
+  border-color: var(--color-border);
+  color: var(--color-accent-primary);
 }
 
 /* === ACCESSIBILITY === */

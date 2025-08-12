@@ -12,7 +12,7 @@ import { formatDate } from '../services/formatDate';
 
 
 
-import StrawberryIllustration from '@/assets/illustrations/strawberry';
+import StrawberryIllustration from '@/assets/illustrations/Strawberry';
 
 
 interface DashboardScreenProps {

@@ -1,4 +1,4 @@
-/* src/styles/components/header.css - FIXED LANGUAGE CONTRAST */
+/* src/styles/02-components/header.css - Fixed with Theme Toggle */
 
 .header {
   background: var(--color-bg-card);
@@ -31,6 +31,7 @@
   text-align: center;
 }
 
+/* Navigation */
 .header-nav {
   display: flex;
   gap: var(--space-sm);
@@ -64,7 +65,45 @@
   color: var(--color-text-primary);
 }
 
-/* === LANGUAGE BUTTONS (Fixed Contrast Issue) === */
+/* Controls Container */
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+/* Theme Toggle Button */
+.theme-toggle-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-bg-interactive);
+  border: 2px solid transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.theme-toggle-button:hover {
+  background: var(--color-accent-primary-light);
+  color: var(--color-accent-primary);
+  transform: rotate(180deg);
+}
+
+.theme-toggle-button:active {
+  transform: rotate(180deg) scale(0.9);
+}
+
+.theme-toggle-button svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Language Buttons */
 .header-language {
   display: flex;
   gap: 2px;
@@ -74,7 +113,6 @@
 }
 
 .header-language button {
-  /* FIXED: Proper contrast for all states */
   padding: 6px 10px;
   border: none;
   border-radius: var(--radius-sm);
@@ -86,38 +124,46 @@
   transition: all 0.2s ease;
   min-width: 32px;
   background: transparent;
-  
-  /* FIXED: Ensure readable text in both modes */
   color: var(--color-text-secondary);
 }
 
-/* FIXED: Inactive button hover state */
 .header-language button:not(.active) {
   color: var(--color-text-secondary);
   background: transparent;
 }
 
 .header-language button:not(.active):hover {
-  /* FIXED: Better contrast on hover */
   color: var(--color-text-primary);
   background: rgba(255, 255, 255, 0.5);
 }
 
-/* Active button state */
 .header-language button.active {
   color: var(--color-accent-primary);
   background: var(--color-bg-card);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-/* === DARK MODE LANGUAGE BUTTON FIXES === */
+/* === DARK MODE STYLES === */
+[data-theme="dark"] .header {
+  background: var(--color-bg-card);
+  border-bottom-color: var(--color-border);
+}
+
+[data-theme="dark"] .theme-toggle-button {
+  background: var(--color-bg-interactive);
+  color: var(--color-accent-secondary);
+}
+
+[data-theme="dark"] .theme-toggle-button:hover {
+  background: var(--color-accent-secondary-light);
+  color: var(--color-accent-secondary);
+}
+
 [data-theme="dark"] .header-language button:not(.active) {
-  /* FIXED: Readable text in dark mode */
   color: var(--color-text-secondary);
 }
 
 [data-theme="dark"] .header-language button:not(.active):hover {
-  /* FIXED: Better contrast on hover in dark mode */
   color: var(--color-text-primary);
   background: rgba(255, 255, 255, 0.1);
 }
@@ -144,6 +190,15 @@
     height: 36px;
   }
   
+  .header-controls {
+    gap: var(--space-sm);
+  }
+  
+  .theme-toggle-button {
+    width: 36px;
+    height: 36px;
+  }
+  
   .header-language {
     gap: 1px;
   }
@@ -166,29 +221,33 @@
   }
   
   .header-title {
-    font-size: 18px;
-    text-align: left;
-    flex-grow: 1;
+    display: none; /* Hide title on mobile to save space */
   }
   
   .header-nav {
     order: 1;
   }
   
-  .header-language {
+  .header-controls {
     order: 2;
+    margin-left: auto;
   }
 }
 
 /* === ACCESSIBILITY === */
 .header-nav-button:focus-visible,
-.header-language button:focus-visible {
+.header-language button:focus-visible,
+.theme-toggle-button:focus-visible {
   outline: 2px solid var(--color-accent-primary);
   outline-offset: 2px;
 }
 
 /* === HIGH CONTRAST MODE === */
 @media (prefers-contrast: high) {
+  .theme-toggle-button {
+    border: 2px solid var(--color-border);
+  }
+  
   .header-language button:not(.active) {
     color: var(--color-text-primary);
     border: 1px solid var(--color-border);

@@ -89,8 +89,8 @@ const GrowthChart: React.FC<GrowthChartProps> = ({ measurements, parameter, offi
       }
       return data;
     };
-    const accentColor = getCssVar('--color-accent');
-    const secondaryAccentColor = getCssVar('--color-secondary-accent');
+    const accentColor = getCssVar('--color-accent-primary');
+    const secondaryAccentColor = getCssVar('--color-accent-secondary');
     return {
       datasets: [
         {

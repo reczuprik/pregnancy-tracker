@@ -1,4 +1,4 @@
-// src/App.tsx - FIXED VERSION with Background Blobs
+// src/App.tsx - FIXED VERSION with Theme Management
 
 import React, { useEffect, useReducer, useCallback, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
@@ -18,7 +18,7 @@ import { Measurement, CalculationResult, MeasurementInput } from './types/measur
 const GrowthJourneyView = lazy(() => import('./components/history/GrowthJourneyView'));
 const HistoryScreen = lazy(() => import('./screens/HistoryScreen'));
 
-// SIMPLIFIED STATE INTERFACE (removed currentView - let React Router handle routing)
+// State interface with theme
 interface AppState {
   measurements: Measurement[];
   officialMeasurement?: Measurement;
@@ -27,23 +27,23 @@ interface AppState {
   error?: string;
   language: 'en' | 'hu';
   mode: 'crl' | 'hadlock';
-  showResultsModal: boolean; // NEW: Separate modal state from routing
+  showResultsModal: boolean;
   theme: 'light' | 'dark';
-
 }
 
-// UPDATED STATE ACTIONS
+// Updated state actions with SET_THEME
 type AppAction =
   | { type: 'SET_LOADING'; payload: boolean }
   | { type: 'SET_ERROR'; payload: string | undefined }
   | { type: 'SET_DATA'; payload: { measurements: Measurement[]; officialMeasurement?: Measurement } }
   | { type: 'SET_LANGUAGE'; payload: 'en' | 'hu' }
   | { type: 'SET_MODE'; payload: 'crl' | 'hadlock' }
+  | { type: 'SET_THEME'; payload: 'light' | 'dark' }
   | { type: 'SHOW_RESULTS_MODAL'; payload: CalculationResult }
   | { type: 'HIDE_RESULTS_MODAL' }
   | { type: 'CLEAR_LAST_RESULT' };
 
-// FIXED REDUCER - Simplified logic, no view management
+// Reducer with theme handling
 function appReducer(state: AppState, action: AppAction): AppState {
   switch (action.type) {
     case 'SET_LOADING':
@@ -66,6 +66,11 @@ function appReducer(state: AppState, action: AppAction): AppState {
       
     case 'SET_MODE':
       return { ...state, mode: action.payload };
+      
+    case 'SET_THEME':
+      // Persist theme preference
+      localStorage.setItem('pregnancy-tracker-theme', action.payload);
+      return { ...state, theme: action.payload };
       
     case 'SHOW_RESULTS_MODAL':
       return { 
@@ -92,16 +97,29 @@ function appReducer(state: AppState, action: AppAction): AppState {
   }
 }
 
+// Initialize theme from localStorage or default to light
+const getInitialTheme = (): 'light' | 'dark' => {
+  const savedTheme = localStorage.getItem('pregnancy-tracker-theme');
+  if (savedTheme === 'dark' || savedTheme === 'light') {
+    return savedTheme;
+  }
+  // Optional: Check system preference
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    return 'dark';
+  }
+  return 'light';
+};
+
 const initialState: AppState = {
   measurements: [],
   isLoading: true,
   language: 'hu',
   mode: 'crl',
   showResultsModal: false,
-  theme: 'light'
+  theme: getInitialTheme()
 };
 
-// MAIN APP COMPONENT
+// Main App component
 function App() {
   return (
     <Router>
@@ -109,17 +127,20 @@ function App() {
     </Router>
   );
 }
-const savedTheme = localStorage.getItem('pregnancy-tracker-theme') || 'light';
 
-
-// SEPARATE CONTENT COMPONENT TO USE ROUTER HOOKS
+// Separate content component to use router hooks
 function AppContent() {
   const { t, i18n } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
   const [state, dispatch] = useReducer(appReducer, initialState);
 
-  // FIXED: Data loading function
+  // Apply theme to document element
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', state.theme);
+  }, [state.theme]);
+
+  // Data loading function
   const loadAllData = useCallback(async () => {
     dispatch({ type: 'SET_LOADING', payload: true });
     try {
@@ -143,28 +164,23 @@ function AppContent() {
     loadAllData();
   }, [loadAllData]);
 
-  // FIXED: Handle form save completion
+  // Handle form save completion
   const handleSaveComplete = async (result: CalculationResult) => {
     try {
-      // 1. Reload data to get the latest state
       await loadAllData();
-      
-      // 2. Show results modal
       dispatch({ type: 'SHOW_RESULTS_MODAL', payload: result });
       
-      // 3. Navigate to dashboard if we have official measurement, or stay if not
       if (state.measurements.length > 0) {
         navigate('/', { replace: true });
       }
-      
     } catch (error) {
       dispatch({ type: 'SET_ERROR', payload: 'Failed to save measurement' });
     }
   };
 
-  // FIXED: Handle FAB click - always navigate to form
+  // Handle FAB click
   const handleFABClick = () => {
-    dispatch({ type: 'CLEAR_LAST_RESULT' }); // Clear any existing results
+    dispatch({ type: 'CLEAR_LAST_RESULT' });
     navigate('/form');
   };
 
@@ -173,16 +189,23 @@ function AppContent() {
     dispatch({ type: 'HIDE_RESULTS_MODAL' });
   };
 
-  // Language and mode handlers
+  // Language handler
   const handleLanguageChange = (lang: 'en' | 'hu') => {
     localStorage.setItem('pregnancy-tracker-language', lang);
     i18n.changeLanguage(lang);
     dispatch({ type: 'SET_LANGUAGE', payload: lang });
   };
 
+  // Mode handler
   const handleModeChange = (mode: 'crl' | 'hadlock') => {
     localStorage.setItem('pregnancy-tracker-mode', mode);
     dispatch({ type: 'SET_MODE', payload: mode });
+  };
+
+  // Theme toggle handler
+  const handleThemeToggle = () => {
+    const newTheme = state.theme === 'light' ? 'dark' : 'light';
+    dispatch({ type: 'SET_THEME', payload: newTheme });
   };
 
   // Loading state
@@ -197,7 +220,7 @@ function AppContent() {
 
   return (
     <>
-      {/* ✨ NEW: Background Blobs - Added here! */}
+      {/* Background Blobs */}
       <div className="background-blobs">
         <div className="blob blob-warm-1"></div>
         <div className="blob blob-vibrant-1"></div>
@@ -206,11 +229,16 @@ function AppContent() {
       </div>
 
       <div className="app">
-        <Header language={state.language} onLanguageChange={handleLanguageChange} />
+        <Header 
+          language={state.language} 
+          onLanguageChange={handleLanguageChange}
+          theme={state.theme}
+          onThemeToggle={handleThemeToggle}
+        />
         
         <main className="app-main">
           <ErrorBoundary>
-            {/* ✨ NEW: SVG Gradient Definitions */}
+            {/* SVG Gradient Definitions */}
             <svg width="0" height="0" style={{ position: 'absolute' }}>
               <defs>
                 <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -221,7 +249,7 @@ function AppContent() {
             </svg>
 
             <Routes>
-              {/* DASHBOARD ROUTE */}
+              {/* Dashboard Route */}
               <Route path="/" element={
                 <DashboardView 
                   measurements={state.measurements}
@@ -230,19 +258,21 @@ function AppContent() {
                 />
               } />
               
-              {/* DEDICATED FORM ROUTE */}
+              {/* Form Route */}
               <Route path="/form" element={
-                <MeasurementForm
-                  mode={state.mode}
-                  onModeChange={handleModeChange}
-                  onSaveComplete={handleSaveComplete}
-                />
+                <div className="form-container">
+                  <MeasurementForm 
+                    mode={state.mode}
+                    onModeChange={handleModeChange}
+                    onSaveComplete={handleSaveComplete}
+                  />
+                </div>
               } />
               
-              {/* HISTORY ROUTE */}
+              {/* History Route */}
               <Route path="/history" element={
                 <Suspense fallback={<LoadingSpinner />}>
-                  <HistoryScreen
+                  <HistoryScreen 
                     measurements={state.measurements}
                     officialMeasurement={state.officialMeasurement}
                     onMeasurementsChange={loadAllData}
@@ -250,54 +280,41 @@ function AppContent() {
                 </Suspense>
               } />
               
-              {/* JOURNEY/CHART ROUTE */}
+              {/* Growth Journey Route */}
               <Route path="/journey" element={
                 <Suspense fallback={<LoadingSpinner />}>
-                  <ErrorBoundary fallback={<div>Chart loading failed</div>}>
-                    <GrowthJourneyView 
-                      measurements={state.measurements} 
-                      officialMeasurement={state.officialMeasurement} 
-                    />
-                  </ErrorBoundary>
+                  <GrowthJourneyView 
+                    measurements={state.measurements}
+                    officialMeasurement={state.officialMeasurement}
+                  />
                 </Suspense>
               } />
             </Routes>
           </ErrorBoundary>
         </main>
 
-        {/* FIXED: FAB only shows on non-form routes */}
-        {location.pathname !== '/form' && (
+        {/* FAB - Show on dashboard and history */}
+        {(location.pathname === '/' || location.pathname === '/history') && (
           <FloatingActionButton onClick={handleFABClick} />
         )}
 
-        {/* RESULTS MODAL - Shows regardless of route */}
+        {/* Results Modal */}
         {state.showResultsModal && state.lastSavedResult && (
           <div className="modal-overlay" onClick={handleResultsModalClose}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
               <ResultsCard 
-                result={state.lastSavedResult} 
-                officialMeasurement={state.officialMeasurement}
+                result={state.lastSavedResult}
                 showTechnicalDetails={true}
+                officialMeasurement={state.officialMeasurement}
               />
-              <div className="btn-group">
-                <button 
-                  onClick={handleResultsModalClose} 
-                  className="btn btn-primary btn-full"
-                >
-                  {t('common.close')}
-                </button>
-              </div>
+              <button 
+                onClick={handleResultsModalClose} 
+                className="btn btn-primary"
+                style={{ width: '100%', marginTop: '1rem' }}
+              >
+                {t('common.close')}
+              </button>
             </div>
-          </div>
-        )}
-
-        {/* ERROR DISPLAY */}
-        {state.error && (
-          <div className="app-error">
-            <p>{state.error}</p>
-            <button onClick={() => dispatch({ type: 'SET_ERROR', payload: undefined })}>
-              {t('common.close')}
-            </button>
           </div>
         )}
       </div>
@@ -305,60 +322,32 @@ function AppContent() {
   );
 }
 
-// DASHBOARD VIEW COMPONENT - Decides what to show on dashboard
-interface DashboardViewProps {
+// Dashboard View Component
+const DashboardView: React.FC<{
   measurements: Measurement[];
   officialMeasurement?: Measurement;
   onNavigateToForm: () => void;
-}
-
-const DashboardView: React.FC<DashboardViewProps> = ({ 
-  measurements, 
-  officialMeasurement, 
-  onNavigateToForm 
-}) => {
+}> = ({ measurements, officialMeasurement, onNavigateToForm }) => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
-
-  // If we have an official measurement, show the dashboard
-  if (officialMeasurement) {
-    return <DashboardScreen officialMeasurement={officialMeasurement} />;
-  }
-
-  // If we have measurements but no official one, prompt to set one
-  if (measurements.length > 0) {
+  
+  // If no measurements or no official measurement, show empty state
+  if (measurements.length === 0 || !officialMeasurement) {
     return (
-      <div className="empty-dashboard">
-        <div className="empty-dashboard-icon">🗓️</div>
-        <h2 className="empty-dashboard-title">{t('dashboard.setOfficialTitle')}</h2>
-        <p className="empty-dashboard-text">{t('dashboard.setOfficialText')}</p>
-        <div className="btn-group">
-          <button 
-            onClick={() => navigate('/history')} 
-            className="btn btn-primary btn-full"
-          >
-            {t('dashboard.goToLog')}
-          </button>
-        </div>
+      <div className="empty-state">
+        <div className="empty-state-icon">👶</div>
+        <h2 className="empty-state-title">{t('dashboard.welcome')}</h2>
+        <p className="empty-state-message">{t('dashboard.getStarted')}</p>
+        <button onClick={onNavigateToForm} className="btn btn-primary">
+          {t('dashboard.addFirstMeasurement')}
+        </button>
       </div>
     );
   }
 
-  // No measurements at all, show welcome state
   return (
-    <div className="empty-dashboard">
-      <div className="empty-dashboard-icon">🤱</div>
-      <h2 className="empty-dashboard-title">{t('dashboard.welcomeTitle')}</h2>
-      <p className="empty-dashboard-text">{t('dashboard.welcomeText')}</p>
-      <div className="btn-group">
-        <button 
-          onClick={onNavigateToForm} 
-          className="btn btn-primary btn-full"
-        >
-          {t('measurement.form.startFirstMeasurement')}
-        </button>
-      </div>
-    </div>
+    <DashboardScreen 
+      officialMeasurement={officialMeasurement}
+    />
   );
 };
 

@@ -1,132 +1,139 @@
-/* src/styles/theme.css - FIXED THEME SYSTEM WITH PROPER DARK MODE */
+/* src/styles/01-foundations/theme.css - FIXED THEME SYSTEM */
 
-:root {
-  /* === LIGHT MODE (Default) === */
-  
+/* === LIGHT MODE (Default) === */
+:root,
+[data-theme="light"] {
   /* Primary Backgrounds */
-  --color-bg-app: #ffffff;            /* Pure white app background */
-  --color-bg-card: #ffffff;           /* Card backgrounds */
-  --color-bg-subtle: #f8f6f4;         /* Subtle warm tint */
-  --color-bg-interactive: #f0ede9;     /* Interactive elements */
+  --color-bg-app: #ffffff;
+  --color-bg-card: #ffffff;
+  --color-bg-subtle: #f8f6f4;
+  --color-bg-interactive: #f0ede9;
   
-  /* Text Colors - Enhanced Contrast */
-  --color-text-primary: #2d2520;      /* Primary text - very dark brown */
-  --color-text-secondary: #5a4d46;    /* Secondary text */
-  --color-text-muted: #8a7b72;        /* Muted text */
-  --color-text-body: #3d342e;         /* Body text */
-  --color-text-inverted: #ffffff;     /* White text for dark backgrounds */
+  /* Text Colors */
+  --color-text-primary: #2d2520;
+  --color-text-secondary: #5a4d46;
+  --color-text-muted: #8a7b72;
+  --color-text-body: #3d342e;
+  --color-text-inverted: #ffffff;
   
   /* Borders */
-  --color-border: #e6ddd4;            /* Default borders */
-  --color-border-soft: #f0e8df;       /* Very soft borders */
-  --color-border-hover: #d4c5b8;      /* Hover borders */
+  --color-border: #e6ddd4;
+  --color-border-soft: #f0e8df;
+  --color-border-hover: #d4c5b8;
   
-  /* === REFINED VIBRANT SYSTEM (Softer & More Balanced) === */
-  
-  /* Primary Accent - Warm Peach (Much Softer) */
-  --color-accent-primary: #E5744A;         /* Softer orange-peach */
-  --color-accent-primary-light: #F8E6DC;   /* Very light peach background */
-  --color-accent-primary-dark: #D4653B;    /* Darker peach */
-  --color-accent-primary-hover: #EA8B65;   /* Gentle hover state */
+  /* Primary Accent - Warm Peach */
+  --color-accent-primary: #E5744A;
+  --color-accent-primary-light: #F8E6DC;
+  --color-accent-primary-dark: #D4653B;
+  --color-accent-primary-hover: #EA8B65;
   
   /* Secondary Accent - Soft Golden */
-  --color-accent-secondary: #D4A574;       /* Muted golden */
-  --color-accent-secondary-light: #F4EDE3; /* Light golden background */
-  --color-accent-secondary-dark: #C19660;  /* Darker golden */
-  --color-accent-secondary-hover: #DCB288;  /* Hover state */
+  --color-accent-secondary: #D4A574;
+  --color-accent-secondary-light: #F4EDE3;
+  --color-accent-secondary-dark: #C19660;
+  --color-accent-secondary-hover: #DCB288;
   
-  /* Tertiary Accent - Subtle Rose (For Special Occasions) */
-  --color-accent-tertiary: #C67B7B;        /* Muted rose */
-  --color-accent-tertiary-light: #F0E6E6;  /* Light rose background */
-  --color-accent-tertiary-dark: #B36A6A;   /* Darker rose */
+  /* Tertiary Accent - Subtle Rose */
+  --color-accent-tertiary: #C67B7B;
+  --color-accent-tertiary-light: #F0E6E6;
+  --color-accent-tertiary-dark: #B36A6A;
   
   /* Support Accent - Calm Sage */
-  --color-accent-support: #7BA68C;         /* Soft sage green */
-  --color-accent-support-light: #E8F0EC;   /* Light sage background */
-  --color-accent-support-dark: #6A957B;    /* Darker sage */
+  --color-accent-support: #7BA68C;
+  --color-accent-support-light: #E8F0EC;
+  --color-accent-support-dark: #6A957B;
   
-  /* === REFINED GRADIENTS (Much Softer) === */
+  /* Gradients */
   --gradient-energy: linear-gradient(135deg, #E5744A 0%, #D4A574 100%);
   --gradient-celebration: linear-gradient(135deg, #C67B7B 0%, #E5744A 100%);
   --gradient-growth: linear-gradient(135deg, #D4A574 0%, #7BA68C 100%);
   --gradient-gentle: linear-gradient(135deg, #F8E6DC 0%, #F4EDE3 100%);
   
-  /* === SEMANTIC COLORS === */
-  --color-success: #4A9B6B;           /* Muted success green */
-  --color-success-light: #E8F4ED;     /* Light success background */
-  --color-warning: #D4A574;           /* Use soft golden for warnings */
-  --color-warning-light: #F4EDE3;     /* Light warning background */
-  --color-error: #C67B7B;             /* Soft error red */
-  --color-error-light: #F0E6E6;       /* Light error background */
-  --color-info: #6B8CB5;              /* Soft info blue */
-  --color-info-light: #E6ECEF;        /* Light info background */
+  /* Semantic Colors */
+  --color-success: #4A9B6B;
+  --color-success-light: #E8F4ED;
+  --color-warning: #D4A574;
+  --color-warning-light: #F4EDE3;
+  --color-error: #C67B7B;
+  --color-error-light: #F0E6E6;
+  --color-info: #6B8CB5;
+  --color-info-light: #E6ECEF;
   
-  /* === PULSE ANIMATION COLOR (Key Fix) === */
-  --pulse-color: #F8E6DC;             /* Very soft peach for pulse */
-  --pulse-shadow: rgba(229, 116, 74, 0.15); /* Subtle peach shadow */
+  /* Pulse Animation Color */
+  --pulse-color: #F8E6DC;
+  --pulse-shadow: rgba(229, 116, 74, 0.15);
   
-  /* === LEGACY SUPPORT === */
+  /* Legacy Support */
   --color-primary: var(--color-accent-primary);
   --color-primary-light: var(--color-accent-primary-light);
   --color-primary-dark: var(--color-accent-primary-dark);
   --color-primary-border: #F0D5C5;
 }
 
-/* === DARK MODE (Completely Redesigned) === */
+/* === DARK MODE === */
 [data-theme="dark"] {
-  /* Dark Backgrounds - True Black Base */
-  --color-bg-app: #000000;            /* Pure black background */
-  --color-bg-card: #1a1614;           /* Very dark warm cards */
-  --color-bg-subtle: #2d2520;         /* Subtle dark tint */
-  --color-bg-interactive: #3a332e;     /* Interactive dark elements */
+  /* Dark Backgrounds */
+  --color-bg-app: #000000;
+  --color-bg-card: #1a1614;
+  --color-bg-subtle: #2d2520;
+  --color-bg-interactive: #3a332e;
   
-  /* Dark Text - High Contrast */
-  --color-text-primary: #f5f0eb;      /* Near-white primary text */
-  --color-text-secondary: #c9beb5;    /* Light secondary text */
-  --color-text-muted: #8a7b72;        /* Muted text (same as light) */
-  --color-text-body: #e0d5cc;         /* Light body text */
-  --color-text-inverted: #000000;     /* Black text for light backgrounds */
+  /* Dark Text */
+  --color-text-primary: #f5f0eb;
+  --color-text-secondary: #c9beb5;
+  --color-text-muted: #8a7b72;
+  --color-text-body: #e0d5cc;
+  --color-text-inverted: #000000;
   
   /* Dark Borders */
-  --color-border: #3a332e;            /* Dark borders */
-  --color-border-soft: #2d2520;       /* Very dark borders */
-  --color-border-hover: #4a3d37;      /* Hover borders */
+  --color-border: #3a332e;
+  --color-border-soft: #2d2520;
+  --color-border-hover: #4a3d37;
   
-  /* Vibrant Accents - Slightly Brighter in Dark Mode */
-  --color-accent-primary: #F2845C;         /* Brighter peach for contrast */
-  --color-accent-primary-light: #2d1f1a;   /* Dark peach background */
-  --color-accent-primary-dark: #E5744A;    /* Standard peach */
-  --color-accent-primary-hover: #F5956F;   /* Bright hover */
+  /* Dark Mode Accents - Brighter */
+  --color-accent-primary: #F2845C;
+  --color-accent-primary-light: #2d1f1a;
+  --color-accent-primary-dark: #E5744A;
+  --color-accent-primary-hover: #F5956F;
   
-  --color-accent-secondary: #E0B584;       /* Brighter golden */
-  --color-accent-secondary-light: #2a231c; /* Dark golden background */
-  --color-accent-secondary-dark: #D4A574;  /* Standard golden */
+  --color-accent-secondary: #E0B584;
+  --color-accent-secondary-light: #2a231c;
+  --color-accent-secondary-dark: #D4A574;
   
-  --color-accent-tertiary: #D48A8A;        /* Brighter rose */
-  --color-accent-tertiary-light: #2a1f1f;  /* Dark rose background */
+  --color-accent-tertiary: #D48A8A;
+  --color-accent-tertiary-light: #2a1f1f;
   
-  --color-accent-support: #8BB89C;         /* Brighter sage */
-  --color-accent-support-light: #1f2721;   /* Dark sage background */
+  --color-accent-support: #8BB89C;
+  --color-accent-support-light: #1f2721;
   
-  /* Dark Mode Pulse Color */
-  --pulse-color: #2d1f1a;             /* Dark peach for pulse */
-  --pulse-shadow: rgba(242, 132, 92, 0.2); /* Brighter peach shadow */
+  /* Dark Mode Pulse */
+  --pulse-color: #2d1f1a;
+  --pulse-shadow: rgba(242, 132, 92, 0.2);
   
-  /* Semantic Colors for Dark Mode */
-  --color-success: #5BAC7B;           /* Brighter success */
-  --color-success-light: #1a2520;     /* Dark success background */
-  --color-warning: #E0B584;           /* Brighter warning */
-  --color-warning-light: #2a231c;     /* Dark warning background */
-  --color-error: #D48A8A;             /* Brighter error */
-  --color-error-light: #2a1f1f;       /* Dark error background */
-  --color-info: #7B9CC5;              /* Brighter info */
-  --color-info-light: #1c2229;        /* Dark info background */
+  /* Dark Mode Semantic Colors */
+  --color-success: #5BAC7B;
+  --color-success-light: #1a2520;
+  --color-warning: #E0B584;
+  --color-warning-light: #2a231c;
+  --color-error: #D48A8A;
+  --color-error-light: #2a1f1f;
+  --color-info: #7B9CC5;
+  --color-info-light: #1c2229;
 }
 
-/* === AUTOMATIC DARK MODE DETECTION (Removed - Use Manual Toggle) === */
-/* We'll control dark mode via data-theme attribute instead of @media queries */
+/* === SMOOTH THEME TRANSITIONS === */
+* {
+  transition: background-color 0.3s ease, 
+              color 0.3s ease, 
+              border-color 0.3s ease;
+}
 
-/* === IMPROVED FOCUS & INTERACTION === */
+/* Disable transitions during theme switch for performance */
+.theme-transitioning * {
+  transition: none !important;
+}
+
+/* === FOCUS STATES === */
 :root {
   --focus-ring: 0 0 0 3px rgba(229, 116, 74, 0.3);
   --focus-ring-error: 0 0 0 3px rgba(198, 123, 123, 0.3);
@@ -139,71 +146,22 @@
   --focus-ring-success: 0 0 0 3px rgba(91, 172, 123, 0.4);
 }
 
-/* === LANGUAGE BUTTON CONTRAST FIX === */
-.header-language button {
-  color: var(--color-text-primary);
-  background: var(--color-bg-interactive);
-  border: 1px solid var(--color-border);
-  transition: all 0.2s ease;
-}
-
-.header-language button:not(.active) {
-  color: var(--color-text-secondary);
-  background: var(--color-bg-subtle);
-}
-
-.header-language button:not(.active):hover {
-  color: var(--color-text-primary);
-  background: var(--color-bg-interactive);
-}
-
-.header-language button.active {
-  color: var(--color-accent-primary);
-  background: var(--color-accent-primary-light);
-  border-color: var(--color-accent-primary);
-}
-
-/* === MEASUREMENT ITEM NON-INTERACTIVE FIX === */
-.measurement-item {
-  cursor: default; /* Remove pointer cursor */
-  transition: none; /* Remove hover transitions */
-}
-
-.measurement-item:hover {
-  background: var(--color-bg-card); /* No hover effect */
-  border-color: var(--color-border-soft);
-  transform: none;
-}
-
-/* === DEEMPHASIZED ITEMS FIX === */
-.measurement-item-deemphasized {
-  background: var(--color-bg-subtle);
-  color: var(--color-text-muted);
-  border: 1px solid var(--color-border-soft);
-  opacity: 0.7;
-}
-
-[data-theme="dark"] .measurement-item-deemphasized {
-  background: var(--color-bg-subtle);
-  color: var(--color-text-muted);
-  opacity: 0.6; /* More faded in dark mode */
-}
-
-/* === OFFICIAL BORDER SOFTENING === */
-.accordion-measurement-card.official {
-  border-color: var(--color-border-hover); /* Much softer border */
-  background: var(--color-bg-card); /* Standard background */
-}
-
-.accordion-measurement-card.official .official-strip {
-  background: var(--color-accent-primary-light); /* Softer strip color */
-  width: 4px; /* Thinner strip */
-}
-
 /* === UTILITY CLASSES === */
-.soft-accent { color: var(--color-accent-primary); }
-.soft-background { background: var(--color-accent-primary-light); }
-.soft-border { border-color: var(--color-accent-primary-light); }
+.theme-light-only {
+  display: block;
+}
+
+.theme-dark-only {
+  display: none;
+}
+
+[data-theme="dark"] .theme-light-only {
+  display: none;
+}
+
+[data-theme="dark"] .theme-dark-only {
+  display: block;
+}
 
 /* === HIGH CONTRAST MODE === */
 @media (prefers-contrast: high) {
@@ -219,5 +177,13 @@
     --color-bg-card: #000000;
     --color-border: #ffffff;
     --color-accent-primary: #FF9466;
+  }
+}
+
+/* === PRINT MODE === */
+@media print {
+  :root {
+    --color-bg-app: #ffffff;
+    --color-text-primary: #000000;
   }
 }

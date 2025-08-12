@@ -59,8 +59,9 @@ const HistoryView: React.FC<HistoryViewProps> = ({ measurements, officialMeasure
           {t('history.actions.chart')}
         </Link>
       </div>
-
-      <div className="timeline-container">
+      
+      <div className="timeline-container ">
+        
         {measurements.map((m, index) => (
           <MeasurementCard
             key={m.id}
@@ -71,6 +72,7 @@ const HistoryView: React.FC<HistoryViewProps> = ({ measurements, officialMeasure
             onDelete={handleDelete}
           />
         ))}
+      
       </div>
 
       {selectedResult && (

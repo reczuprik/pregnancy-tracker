@@ -519,3 +519,7 @@
     opacity: 1;
   }
 }
+
+.desk-pad {
+  outline: 2px solid red;
+}
