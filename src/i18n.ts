@@ -20,13 +20,19 @@ const resources = {
         mode: {
           title: "Measurement Type",
           // ✨ NEW: Demystified jargon
+            crlDescription: "Use this for first-trimester scans where Crown-Rump Length (CRL) is the primary measurement.",
+
           crl: "Early Pregnancy (Baby's Length)",
-          hadlock: "Later Pregnancy (Multiple Measurements)"
+          hadlock: "Later Pregnancy (Multiple Measurements)",
+          hadlockDescription: "Use this for second and third-trimester scans, combining multiple measurements for the best estimate."
+
         },
         form: {
+          title: "Measurement Details", 
           date: "Date of Measurement",
-          // ✨ NEW: Demystified jargon
+          // ✨ NEW: Demystified jargon,
           crl: "Baby's Length (CRL)",
+          crlHelp: "The most accurate measurement for dating in early pregnancy (up to 14 weeks).",
           bpd: "Head Measurement (BPD)",
           hc: "Head Circumference (HC)",
           ac: "Tummy Measurement (AC)",
@@ -184,14 +190,20 @@ const resources = {
         title: "Új Mérés Hozzáadása",
         mode: {
           title: "Mérés Típusa",
+          crlDescription: "Használd ezt az első trimeszteri ultrahangokhoz, ahol az ülő-fejtetői hossz (CRL) az elsődleges méret.",
+
           // ✨ NEW: Demystified jargon
           crl: "Korai Terhesség (Baba Hossza)",
-          hadlock: "Későbbi Terhesség (Több Méret)"
+          hadlock: "Későbbi Terhesség (Több Méret)",
+          hadlockDescription: "Használd ezt a második és harmadik trimeszteri ultrahangokhoz, ahol több méret kombinációja adja a legpontosabb becslést."
         },
         form: {
+          title: "Mérési Részletek",
           date: "Mérés Dátuma",
           // ✨ NEW: Demystified jargon
           crl: "Baba Ülőhossz (CRL)",
+          crlHelp: "A legpontosabb mérés a korai terhesség korának meghatározásához (14. hétig).",
+
           bpd: "Fej Mérete (BPD)",
           hc: "Fejkörfogat (HC)",
           ac: "Haskörfogat (AC)",

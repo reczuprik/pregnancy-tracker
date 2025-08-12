@@ -28,6 +28,8 @@ interface AppState {
   language: 'en' | 'hu';
   mode: 'crl' | 'hadlock';
   showResultsModal: boolean; // NEW: Separate modal state from routing
+  theme: 'light' | 'dark';
+
 }
 
 // UPDATED STATE ACTIONS
@@ -95,7 +97,8 @@ const initialState: AppState = {
   isLoading: true,
   language: 'hu',
   mode: 'crl',
-  showResultsModal: false
+  showResultsModal: false,
+  theme: 'light'
 };
 
 // MAIN APP COMPONENT
@@ -106,6 +109,8 @@ function App() {
     </Router>
   );
 }
+const savedTheme = localStorage.getItem('pregnancy-tracker-theme') || 'light';
+
 
 // SEPARATE CONTENT COMPONENT TO USE ROUTER HOOKS
 function AppContent() {

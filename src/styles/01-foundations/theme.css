@@ -1,137 +1,209 @@
-/* src/styles/theme.css - COMPLETE VIBRANT SYSTEM */
+/* src/styles/theme.css - FIXED THEME SYSTEM WITH PROPER DARK MODE */
 
 :root {
-  /* === WARM PASTEL BASE (Enhanced & Consistent) === */
+  /* === LIGHT MODE (Default) === */
   
-  /* Primary Backgrounds - Warm & Organic */
-  --color-bg-app: #f9f6f3;            /* Main app background */
-  --color-bg-card: #ffffff;           /* Card backgrounds - pure white for contrast */
-  --color-bg-subtle: #f6ede4;         /* Subtle warm tint */
-  --color-bg-interactive: #f0ddd1;     /* Interactive elements */
+  /* Primary Backgrounds */
+  --color-bg-app: #ffffff;            /* Pure white app background */
+  --color-bg-card: #ffffff;           /* Card backgrounds */
+  --color-bg-subtle: #f8f6f4;         /* Subtle warm tint */
+  --color-bg-interactive: #f0ede9;     /* Interactive elements */
   
-  /* Warm Text Colors - Enhanced Contrast */
-  --color-text-primary: #3d312a;      /* Primary text - deep warm brown */
-  --color-text-secondary: #7a6b62;    /* Secondary text - medium brown */
-  --color-text-muted: #a69a91;        /* Muted text - light brown */
-  --color-text-body: #5a4d46;         /* Body text */
+  /* Text Colors - Enhanced Contrast */
+  --color-text-primary: #2d2520;      /* Primary text - very dark brown */
+  --color-text-secondary: #5a4d46;    /* Secondary text */
+  --color-text-muted: #8a7b72;        /* Muted text */
+  --color-text-body: #3d342e;         /* Body text */
   --color-text-inverted: #ffffff;     /* White text for dark backgrounds */
   
-  /* Warm Borders */
-  --color-border: #e6d8ce;            /* Default borders */
-  --color-border-soft: #f0e6dc;       /* Subtle borders */
-  --color-border-hover: #d9c7bb;      /* Hover state borders */
+  /* Borders */
+  --color-border: #e6ddd4;            /* Default borders */
+  --color-border-soft: #f0e8df;       /* Very soft borders */
+  --color-border-hover: #d4c5b8;      /* Hover borders */
   
-  /* === VIBRANT ACCENT SYSTEM === */
+  /* === REFINED VIBRANT SYSTEM (Softer & More Balanced) === */
   
-  /* Primary Vibrant - Orange Energy */
-  --color-accent-primary: #FF6B35;         /* Main vibrant accent */
-  --color-accent-primary-light: #FFE5DC;   /* Light backgrounds */
-  --color-accent-primary-dark: #E5501F;    /* Dark variant */
-  --color-accent-primary-hover: #FF8A5C;   /* Hover state */
+  /* Primary Accent - Warm Peach (Much Softer) */
+  --color-accent-primary: #E5744A;         /* Softer orange-peach */
+  --color-accent-primary-light: #F8E6DC;   /* Very light peach background */
+  --color-accent-primary-dark: #D4653B;    /* Darker peach */
+  --color-accent-primary-hover: #EA8B65;   /* Gentle hover state */
   
-  /* Secondary Vibrant - Golden Yellow */
-  --color-accent-secondary: #FFB627;       /* Golden accent */
-  --color-accent-secondary-light: #FFF4E1; /* Light golden */
-  --color-accent-secondary-dark: #E6A014;  /* Dark golden */
-  --color-accent-secondary-hover: #FFC94D;  /* Hover state */
+  /* Secondary Accent - Soft Golden */
+  --color-accent-secondary: #D4A574;       /* Muted golden */
+  --color-accent-secondary-light: #F4EDE3; /* Light golden background */
+  --color-accent-secondary-dark: #C19660;  /* Darker golden */
+  --color-accent-secondary-hover: #DCB288;  /* Hover state */
   
-  /* Tertiary Vibrant - Hot Pink Celebration */
-  --color-accent-tertiary: #FF1B8D;        /* Celebration pink */
-  --color-accent-tertiary-light: #FFE7F4;  /* Light pink */
-  --color-accent-tertiary-dark: #E6007A;   /* Dark pink */
-  --color-accent-tertiary-hover: #FF4DA6;  /* Hover state */
+  /* Tertiary Accent - Subtle Rose (For Special Occasions) */
+  --color-accent-tertiary: #C67B7B;        /* Muted rose */
+  --color-accent-tertiary-light: #F0E6E6;  /* Light rose background */
+  --color-accent-tertiary-dark: #B36A6A;   /* Darker rose */
   
-  /* Support Vibrant - Fresh Cyan */
-  --color-accent-support: #00D9FF;         /* Fresh cyan */
-  --color-accent-support-light: #E6FCFF;   /* Light cyan */
-  --color-accent-support-dark: #00C2E6;    /* Dark cyan */
-  --color-accent-support-hover: #26E0FF;   /* Hover state */
+  /* Support Accent - Calm Sage */
+  --color-accent-support: #7BA68C;         /* Soft sage green */
+  --color-accent-support-light: #E8F0EC;   /* Light sage background */
+  --color-accent-support-dark: #6A957B;    /* Darker sage */
   
-  /* === VIBRANT GRADIENTS === */
-  --gradient-energy: linear-gradient(135deg, #FF6B35 0%, #FFB627 100%);
-  --gradient-celebration: linear-gradient(135deg, #FF1B8D 0%, #FF6B35 100%);
-  --gradient-growth: linear-gradient(135deg, #FFB627 0%, #00D9FF 100%);
-  --gradient-gentle: linear-gradient(135deg, #FFE5DC 0%, #FFF4E1 100%);
-  --gradient-primary: linear-gradient(135deg, #FF6B35 0%, #FFB627 100%);
+  /* === REFINED GRADIENTS (Much Softer) === */
+  --gradient-energy: linear-gradient(135deg, #E5744A 0%, #D4A574 100%);
+  --gradient-celebration: linear-gradient(135deg, #C67B7B 0%, #E5744A 100%);
+  --gradient-growth: linear-gradient(135deg, #D4A574 0%, #7BA68C 100%);
+  --gradient-gentle: linear-gradient(135deg, #F8E6DC 0%, #F4EDE3 100%);
   
-  /* === SEMANTIC COLORS (Vibrant but Functional) === */
-  --color-success: #10B981;           /* Success green */
-  --color-success-light: #D1FAE5;     /* Light success background */
-  --color-success-dark: #047857;      /* Dark success */
+  /* === SEMANTIC COLORS === */
+  --color-success: #4A9B6B;           /* Muted success green */
+  --color-success-light: #E8F4ED;     /* Light success background */
+  --color-warning: #D4A574;           /* Use soft golden for warnings */
+  --color-warning-light: #F4EDE3;     /* Light warning background */
+  --color-error: #C67B7B;             /* Soft error red */
+  --color-error-light: #F0E6E6;       /* Light error background */
+  --color-info: #6B8CB5;              /* Soft info blue */
+  --color-info-light: #E6ECEF;        /* Light info background */
   
-  --color-warning: #FFB627;           /* Warning yellow (matches accent) */
-  --color-warning-light: #FFF4E1;     /* Light warning background */
-  --color-warning-dark: #E6A014;      /* Dark warning */
+  /* === PULSE ANIMATION COLOR (Key Fix) === */
+  --pulse-color: #F8E6DC;             /* Very soft peach for pulse */
+  --pulse-shadow: rgba(229, 116, 74, 0.15); /* Subtle peach shadow */
   
-  --color-error: #EF4444;             /* Error red */
-  --color-error-light: #FEF2F2;       /* Light error background */
-  --color-error-dark: #B91C1C;        /* Dark error */
-  
-  --color-info: #3B82F6;              /* Info blue */
-  --color-info-light: #EFF6FF;        /* Light info background */
-  --color-info-dark: #1D4ED8;         /* Dark info */
-  
-  /* === STATUS DASHBOARD COLORS === */
-  --status-excellent: var(--color-success);
-  --status-good: var(--color-accent-secondary);
-  --status-attention: var(--color-warning);
-  --status-celebration: var(--gradient-celebration);
-  
-  /* === UNIFIED LEGACY SUPPORT === */
+  /* === LEGACY SUPPORT === */
   --color-primary: var(--color-accent-primary);
   --color-primary-light: var(--color-accent-primary-light);
   --color-primary-dark: var(--color-accent-primary-dark);
-  --color-primary-border: #FFCCB8;
-  
-  /* === PROGRESS & INTERACTION STATES === */
-  --progress-track: var(--color-bg-interactive);
-  --progress-fill: var(--gradient-energy);
-  --progress-celebration: var(--gradient-celebration);
-  
-  /* === FOCUS RINGS === */
-  --focus-ring: 0 0 0 3px rgba(255, 107, 53, 0.3);
-  --focus-ring-error: 0 0 0 3px rgba(239, 68, 68, 0.3);
-  --focus-ring-success: 0 0 0 3px rgba(16, 185, 129, 0.3);
-  
-  /* === SHADOW SYSTEM === */
-  --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.04);
-  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --shadow-strong: 0 8px 24px rgba(0, 0, 0, 0.12);
-  --shadow-vibrant: 0 8px 25px rgba(255, 107, 53, 0.3);
-  --shadow-celebration: 0 12px 40px rgba(255, 27, 141, 0.4);
-  
-  /* === ANIMATION DURATIONS === */
-  --duration-fast: 0.15s;
-  --duration-normal: 0.3s;
-  --duration-slow: 0.6s;
-  --ease-out: cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --color-primary-border: #F0D5C5;
 }
 
-/* === DARK MODE === */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-bg-app: #1a1612;
-    --color-bg-card: #2c221a;
-    --color-bg-subtle: #3d2f25;
-    --color-bg-interactive: #4a3a2e;
-    
-    --color-text-primary: #f5e6d3;
-    --color-text-secondary: #d4c0a9;
-    --color-text-muted: #b39a83;
-    --color-text-body: #e8d5c0;
-    
-    --color-border: #5c3d2a;
-    --color-border-soft: #4a2e1f;
-    --color-border-hover: #6e4935;
-    
-    /* Keep vibrant accents bright in dark mode */
-    --color-accent-primary: #FF7A47;
-    --color-accent-secondary: #FFD93D;
-    --color-accent-tertiary: #FF3DA1;
-    --color-accent-support: #1AE3FF;
-  }
+/* === DARK MODE (Completely Redesigned) === */
+[data-theme="dark"] {
+  /* Dark Backgrounds - True Black Base */
+  --color-bg-app: #000000;            /* Pure black background */
+  --color-bg-card: #1a1614;           /* Very dark warm cards */
+  --color-bg-subtle: #2d2520;         /* Subtle dark tint */
+  --color-bg-interactive: #3a332e;     /* Interactive dark elements */
+  
+  /* Dark Text - High Contrast */
+  --color-text-primary: #f5f0eb;      /* Near-white primary text */
+  --color-text-secondary: #c9beb5;    /* Light secondary text */
+  --color-text-muted: #8a7b72;        /* Muted text (same as light) */
+  --color-text-body: #e0d5cc;         /* Light body text */
+  --color-text-inverted: #000000;     /* Black text for light backgrounds */
+  
+  /* Dark Borders */
+  --color-border: #3a332e;            /* Dark borders */
+  --color-border-soft: #2d2520;       /* Very dark borders */
+  --color-border-hover: #4a3d37;      /* Hover borders */
+  
+  /* Vibrant Accents - Slightly Brighter in Dark Mode */
+  --color-accent-primary: #F2845C;         /* Brighter peach for contrast */
+  --color-accent-primary-light: #2d1f1a;   /* Dark peach background */
+  --color-accent-primary-dark: #E5744A;    /* Standard peach */
+  --color-accent-primary-hover: #F5956F;   /* Bright hover */
+  
+  --color-accent-secondary: #E0B584;       /* Brighter golden */
+  --color-accent-secondary-light: #2a231c; /* Dark golden background */
+  --color-accent-secondary-dark: #D4A574;  /* Standard golden */
+  
+  --color-accent-tertiary: #D48A8A;        /* Brighter rose */
+  --color-accent-tertiary-light: #2a1f1f;  /* Dark rose background */
+  
+  --color-accent-support: #8BB89C;         /* Brighter sage */
+  --color-accent-support-light: #1f2721;   /* Dark sage background */
+  
+  /* Dark Mode Pulse Color */
+  --pulse-color: #2d1f1a;             /* Dark peach for pulse */
+  --pulse-shadow: rgba(242, 132, 92, 0.2); /* Brighter peach shadow */
+  
+  /* Semantic Colors for Dark Mode */
+  --color-success: #5BAC7B;           /* Brighter success */
+  --color-success-light: #1a2520;     /* Dark success background */
+  --color-warning: #E0B584;           /* Brighter warning */
+  --color-warning-light: #2a231c;     /* Dark warning background */
+  --color-error: #D48A8A;             /* Brighter error */
+  --color-error-light: #2a1f1f;       /* Dark error background */
+  --color-info: #7B9CC5;              /* Brighter info */
+  --color-info-light: #1c2229;        /* Dark info background */
 }
+
+/* === AUTOMATIC DARK MODE DETECTION (Removed - Use Manual Toggle) === */
+/* We'll control dark mode via data-theme attribute instead of @media queries */
+
+/* === IMPROVED FOCUS & INTERACTION === */
+:root {
+  --focus-ring: 0 0 0 3px rgba(229, 116, 74, 0.3);
+  --focus-ring-error: 0 0 0 3px rgba(198, 123, 123, 0.3);
+  --focus-ring-success: 0 0 0 3px rgba(74, 155, 107, 0.3);
+}
+
+[data-theme="dark"] {
+  --focus-ring: 0 0 0 3px rgba(242, 132, 92, 0.4);
+  --focus-ring-error: 0 0 0 3px rgba(212, 138, 138, 0.4);
+  --focus-ring-success: 0 0 0 3px rgba(91, 172, 123, 0.4);
+}
+
+/* === LANGUAGE BUTTON CONTRAST FIX === */
+.header-language button {
+  color: var(--color-text-primary);
+  background: var(--color-bg-interactive);
+  border: 1px solid var(--color-border);
+  transition: all 0.2s ease;
+}
+
+.header-language button:not(.active) {
+  color: var(--color-text-secondary);
+  background: var(--color-bg-subtle);
+}
+
+.header-language button:not(.active):hover {
+  color: var(--color-text-primary);
+  background: var(--color-bg-interactive);
+}
+
+.header-language button.active {
+  color: var(--color-accent-primary);
+  background: var(--color-accent-primary-light);
+  border-color: var(--color-accent-primary);
+}
+
+/* === MEASUREMENT ITEM NON-INTERACTIVE FIX === */
+.measurement-item {
+  cursor: default; /* Remove pointer cursor */
+  transition: none; /* Remove hover transitions */
+}
+
+.measurement-item:hover {
+  background: var(--color-bg-card); /* No hover effect */
+  border-color: var(--color-border-soft);
+  transform: none;
+}
+
+/* === DEEMPHASIZED ITEMS FIX === */
+.measurement-item-deemphasized {
+  background: var(--color-bg-subtle);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border-soft);
+  opacity: 0.7;
+}
+
+[data-theme="dark"] .measurement-item-deemphasized {
+  background: var(--color-bg-subtle);
+  color: var(--color-text-muted);
+  opacity: 0.6; /* More faded in dark mode */
+}
+
+/* === OFFICIAL BORDER SOFTENING === */
+.accordion-measurement-card.official {
+  border-color: var(--color-border-hover); /* Much softer border */
+  background: var(--color-bg-card); /* Standard background */
+}
+
+.accordion-measurement-card.official .official-strip {
+  background: var(--color-accent-primary-light); /* Softer strip color */
+  width: 4px; /* Thinner strip */
+}
+
+/* === UTILITY CLASSES === */
+.soft-accent { color: var(--color-accent-primary); }
+.soft-background { background: var(--color-accent-primary-light); }
+.soft-border { border-color: var(--color-accent-primary-light); }
 
 /* === HIGH CONTRAST MODE === */
 @media (prefers-contrast: high) {
@@ -139,91 +211,13 @@
     --color-text-primary: #000000;
     --color-bg-card: #ffffff;
     --color-border: #000000;
-    --color-accent-primary: #CC4400;
-    --color-accent-secondary: #CC9000;
-    --color-accent-tertiary: #CC0066;
+    --color-accent-primary: #B85A32;
   }
-}
-
-/* === UTILITY CLASSES FOR VIBRANT SYSTEM === */
-
-/* Backgrounds */
-.bg-vibrant-primary { background: var(--color-accent-primary); color: white; }
-.bg-vibrant-secondary { background: var(--color-accent-secondary); color: white; }
-.bg-vibrant-gradient { background: var(--gradient-energy); color: white; }
-.bg-celebration { background: var(--gradient-celebration); color: white; }
-
-/* Text Colors */
-.text-vibrant-primary { color: var(--color-accent-primary); }
-.text-vibrant-secondary { color: var(--color-accent-secondary); }
-.text-celebration { color: var(--color-accent-tertiary); }
-
-/* Borders */
-.border-vibrant { border-color: var(--color-accent-primary); }
-.border-celebration { border-color: var(--color-accent-tertiary); }
-
-/* Interactive States */
-.hover-vibrant:hover {
-  background: var(--color-accent-primary-light);
-  color: var(--color-accent-primary);
-  transform: translateY(-1px);
-}
-
-/* Status Indicators */
-.status-excellent { color: var(--color-success); }
-.status-good { color: var(--color-accent-secondary); }
-.status-attention { color: var(--color-warning); }
-.status-celebration { 
-  background: var(--gradient-celebration);
-  color: white;
-  animation: celebrationPulse 2s ease-in-out infinite;
-}
-
-@keyframes celebrationPulse {
-  0%, 100% { box-shadow: 0 4px 20px rgba(255, 27, 141, 0.3); }
-  50% { box-shadow: 0 8px 40px rgba(255, 107, 53, 0.4); }
-}
-
-/* Progress Elements */
-.progress-vibrant .progress-bar-fill {
-  background: var(--gradient-energy);
-  position: relative;
-  overflow: hidden;
-}
-
-.progress-vibrant .progress-bar-fill::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  animation: progressShimmer 2s infinite;
-}
-
-@keyframes progressShimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-/* Celebration Animations */
-.celebration-bounce {
-  animation: celebrationBounce 0.8s ease-in-out;
-}
-
-.celebration-glow {
-  animation: celebrationGlow 0.8s ease-in-out;
-}
-
-@keyframes celebrationBounce {
-  0%, 100% { transform: scale(1); }
-  25% { transform: scale(1.1); }
-  50% { transform: scale(0.95); }
-  75% { transform: scale(1.05); }
-}
-
-@keyframes celebrationGlow {
-  0%, 100% { text-shadow: none; }
-  50% { text-shadow: 0 0 20px rgba(255, 107, 53, 0.4); }
+  
+  [data-theme="dark"] {
+    --color-text-primary: #ffffff;
+    --color-bg-card: #000000;
+    --color-border: #ffffff;
+    --color-accent-primary: #FF9466;
+  }
 }

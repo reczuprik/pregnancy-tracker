@@ -7,7 +7,7 @@
 
 /* === 2. LAYOUT & STRUCTURE === */
 @import './03-layout/app-layout.css';         /* App layout & background blobs */
-@import './03-layout/grid.css';         /* App layout & background blobs */
+@import './03-layout/grid.css';        /*App layout & background blobs */
 @import './03-layout/responsive.css';         /* App layout & background blobs */
 
 /* === 3. COMPONENTS (Alphabetical Order) === */

@@ -1,5 +1,4 @@
-/* src/styles/layout.css - FIXED BACKGROUND BLOBS SYSTEM */
-/* src/styles/base.css */
+/* src/styles/layout.css - FIXED BACKGROUND SYSTEM */
 
 /* === APP LAYOUT === */
 .app {
@@ -9,8 +8,9 @@
   max-width: 100vw;
   overflow-x: hidden;
   position: relative;
-  z-index: 10; /* Above background blobs */
-  background-color: transparent; /* Allow blobs to show through */
+  z-index: 10;
+  /* FIXED: Use proper theme background */
+  background-color: var(--color-bg-app);
 }
 
 .app-main {
@@ -23,80 +23,100 @@
   z-index: 10;
 }
 
-/* === BACKGROUND BLOBS SYSTEM === */
+/* === BACKGROUND BLOBS SYSTEM (Light Mode Only) === */
 .background-blobs {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 0; /* Behind everything */
+  z-index: 0;
   overflow: hidden;
   pointer-events: none;
+  /* FIXED: Only show in light mode */
+  opacity: 1;
+}
+
+/* Hide blobs in dark mode for pure black background */
+[data-theme="dark"] .background-blobs {
+  opacity: 0;
+  visibility: hidden;
 }
 
 .blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
+  filter: blur(60px);
   transition: opacity 0.3s ease;
 }
 
-/* === WARM BASE BLOB (Foundation) === */
+/* === LIGHT MODE BLOBS === */
+/* Warm base blob - very subtle */
 .blob-warm-1 {
-  width: 900px;
-  height: 900px;
-  top: -450px;
-  left: -400px;
-  background: linear-gradient(135deg, #f6ede4 0%, #f0ddd1 100%);
-  opacity: 0.4;
+  width: 800px;
+  height: 800px;
+  top: -400px;
+  left: -350px;
+  background: linear-gradient(135deg, #faf8f6 0%, #f5f1ed 100%);
+  opacity: 0.7;
 }
 
-/* === VIBRANT ACCENT BLOBS (Energy Injection) === */
+/* Subtle accent blobs - barely visible */
 .blob-vibrant-1 {
-  width: 350px;
-  height: 350px;
-  top: 15%;
-  right: -150px;
-  background: var(--color-accent-primary);
-  opacity: 0.08;
-  animation: floatBob 8s ease-in-out infinite;
-}
-
-.blob-vibrant-2 {
-  width: 250px;
-  height: 250px;
-  bottom: -100px;
-  left: 5%;
-  background: var(--color-accent-secondary);
-  opacity: 0.06;
-  animation: floatBob 10s ease-in-out infinite reverse;
-}
-
-.blob-vibrant-3 {
-  width: 180px;
-  height: 180px;
-  top: 55%;
-  left: -80px;
-  background: var(--color-accent-tertiary);
-  opacity: 0.04;
+  width: 300px;
+  height: 300px;
+  top: 20%;
+  right: -120px;
+  background: radial-gradient(circle, #F8E6DC 0%, #F0D5C5 100%);
+  opacity: 0.4;
   animation: floatBob 12s ease-in-out infinite;
 }
 
-/* === BLOB ANIMATIONS === */
+.blob-vibrant-2 {
+  width: 200px;
+  height: 200px;
+  bottom: -80px;
+  left: 10%;
+  background: radial-gradient(circle, #F4EDE3 0%, #EDE4DA 100%);
+  opacity: 0.3;
+  animation: floatBob 15s ease-in-out infinite reverse;
+}
+
+.blob-vibrant-3 {
+  width: 150px;
+  height: 150px;
+  top: 60%;
+  left: -60px;
+  background: radial-gradient(circle, #F0E6E6 0%, #E8DEDE 100%);
+  opacity: 0.2;
+  animation: floatBob 18s ease-in-out infinite;
+}
+
+/* === GENTLE BLOB ANIMATIONS === */
 @keyframes floatBob {
   0%, 100% {
     transform: translate(0, 0) scale(1);
   }
   25% {
-    transform: translate(20px, -30px) scale(1.05);
+    transform: translate(10px, -15px) scale(1.02);
   }
   50% {
-    transform: translate(-15px, -20px) scale(0.95);
+    transform: translate(-8px, -10px) scale(0.98);
   }
   75% {
-    transform: translate(10px, -40px) scale(1.02);
+    transform: translate(5px, -20px) scale(1.01);
   }
+}
+
+/* === DARK MODE BACKGROUNDS === */
+[data-theme="dark"] .app {
+  /* Pure black background in dark mode */
+  background-color: #000000;
+}
+
+[data-theme="dark"] .app-main {
+  /* Ensure main content area is also black */
+  background-color: transparent;
 }
 
 /* === RESPONSIVE BLOB ADJUSTMENTS === */
@@ -109,21 +129,21 @@
   }
   
   .blob-vibrant-1 {
-    width: 250px;
-    height: 250px;
-    right: -100px;
+    width: 220px;
+    height: 220px;
+    right: -90px;
   }
   
   .blob-vibrant-2 {
-    width: 180px;
-    height: 180px;
-    left: -50px;
+    width: 150px;
+    height: 150px;
+    left: -40px;
   }
   
   .blob-vibrant-3 {
-    width: 120px;
-    height: 120px;
-    left: -60px;
+    width: 100px;
+    height: 100px;
+    left: -50px;
   }
 }
 
@@ -136,41 +156,21 @@
   }
   
   .blob-vibrant-1 {
-    width: 180px;
-    height: 180px;
-    opacity: 0.06;
+    width: 160px;
+    height: 160px;
+    opacity: 0.3;
   }
   
   .blob-vibrant-2 {
-    width: 120px;
-    height: 120px;
-    opacity: 0.04;
+    width: 100px;
+    height: 100px;
+    opacity: 0.2;
   }
   
   .blob-vibrant-3 {
-    width: 80px;
-    height: 80px;
-    opacity: 0.03;
-  }
-}
-
-/* === DARK MODE BLOB ADJUSTMENTS === */
-@media (prefers-color-scheme: dark) {
-  .blob-warm-1 {
-    background: linear-gradient(135deg, #2c221a 0%, #3d2f25 100%);
-    opacity: 0.6;
-  }
-  
-  .blob-vibrant-1 {
-    opacity: 0.12;
-  }
-  
-  .blob-vibrant-2 {
-    opacity: 0.10;
-  }
-  
-  .blob-vibrant-3 {
-    opacity: 0.08;
+    width: 70px;
+    height: 70px;
+    opacity: 0.15;
   }
 }
 
@@ -186,7 +186,7 @@
 /* === HIGH CONTRAST MODE === */
 @media (prefers-contrast: high) {
   .background-blobs {
-    display: none; /* Remove all blobs for maximum contrast */
+    display: none;
   }
   
   .app {
@@ -196,24 +196,21 @@
 
 /* === CONTENT SECTIONS === */
 .content-section {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-soft);
   border-radius: var(--radius-xl);
   padding: var(--space-xl);
   margin-bottom: var(--space-lg);
   position: relative;
   z-index: 10;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 107, 53, 0.1);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-soft);
   border-radius: var(--radius-xl);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 /* === FLOATING ELEMENTS === */
@@ -223,35 +220,7 @@
 }
 
 .floating-element:hover {
-  transform: translateY(-4px);
-}
-
-/* === SPECIAL CELEBRATION LAYOUT === */
-.celebration-mode .background-blobs .blob-vibrant-1,
-.celebration-mode .background-blobs .blob-vibrant-2,
-.celebration-mode .background-blobs .blob-vibrant-3 {
-  opacity: 0.15;
-  animation-duration: 4s;
-  filter: blur(60px);
-}
-
-.celebration-mode .background-blobs::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: 
-    radial-gradient(circle at 20% 30%, rgba(255, 27, 141, 0.05) 0%, transparent 40%),
-    radial-gradient(circle at 80% 20%, rgba(255, 107, 53, 0.05) 0%, transparent 40%),
-    radial-gradient(circle at 40% 80%, rgba(255, 182, 39, 0.05) 0%, transparent 40%);
-  animation: celebrationShimmer 3s ease-in-out infinite alternate;
-}
-
-@keyframes celebrationShimmer {
-  0% { opacity: 0.3; }
-  100% { opacity: 0.7; }
+  transform: translateY(-2px);
 }
 
 /* === LAYOUT UTILITIES === */
@@ -269,29 +238,37 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .safe-area-bottom {
   padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* === CONTAINER QUERIES (Future Enhancement) === */
-@container (min-width: 480px) {
-  .app-main {
-    padding: var(--space-xl) var(--space-lg) 120px var(--space-lg);
-  }
+/* === THEME SWITCHING ANIMATION === */
+.app {
+  transition: background-color 0.3s ease;
+}
+
+.background-blobs {
+  transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
 /* === PRINT STYLES === */
 @media print {
   .background-blobs,
-  .floating-action-button {
+  .fab {
     display: none;
   }
   
   .app {
-    background: white;
+    background: white !important;
+  }
+  
+  .content-section,
+  .glass-card {
+    box-shadow: none;
+    border: 1px solid #ccc;
   }
 }

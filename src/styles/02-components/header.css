@@ -1,44 +1,44 @@
+/* src/styles/components/header.css - FIXED LANGUAGE CONTRAST */
 
 .header {
   background: var(--color-bg-card);
   border-bottom: 1px solid var(--color-border);
   padding: var(--space-lg);
-  
   position: sticky;
   top: 0;
-
   z-index: 100;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
+
 .header-content {
-  max-width: 480px; margin: 0 auto;
-  display: flex; 
-  justify-content: space-between; 
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  /* ✨ FIX: Aligns header content with app-main content */
   padding: 0 var(--space-lg);
   width: 100%;
-  gap: var(--space-md); /* Add gap for spacing */
-
+  gap: var(--space-md);
 }
+
 .header-title {
   font-size: 20px;
   font-weight: 600;
-  color: #0f172a;
+  color: var(--color-text-primary);
   margin: 0;
-  flex-grow: 1; /* Allows nav to sit on the left */
-  text-align: center; /* Optional: if you want a title later */
+  flex-grow: 1;
+  text-align: center;
 }
-
 
 .header-nav {
-    /* ✨ FIX: Ensure the nav icons are laid out in a row */
-    display: flex;
-    gap: var(--space-sm);
-    background-color: var(--color-bg-interactive);
-    padding: 4px;
-    border-radius: var(--radius-md);
+  display: flex;
+  gap: var(--space-sm);
+  background-color: var(--color-bg-interactive);
+  padding: 4px;
+  border-radius: var(--radius-md);
 }
-/* === HEADER NAVIGATION (Warm + Subtle Vibrant Hints) === */
+
 .header-nav-button {
   display: flex;
   align-items: center;
@@ -49,17 +49,154 @@
   color: var(--color-text-secondary);
   transition: all 0.2s ease;
   border: 2px solid transparent;
-  /* Keep warm and subtle */
+  text-decoration: none;
 }
 
 .header-nav-button.active {
   background: var(--color-accent-primary-light);
   color: var(--color-accent-primary);
-  border-color: var(--color-primary-border);
-  box-shadow: 0 2px 8px rgba(255, 107, 53, 0.15);
+  border-color: var(--color-accent-primary-light);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .header-nav-button:hover:not(.active) {
   background-color: var(--color-bg-interactive);
   color: var(--color-text-primary);
+}
+
+/* === LANGUAGE BUTTONS (Fixed Contrast Issue) === */
+.header-language {
+  display: flex;
+  gap: 2px;
+  background: var(--color-bg-interactive);
+  padding: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.header-language button {
+  /* FIXED: Proper contrast for all states */
+  padding: 6px 10px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 32px;
+  background: transparent;
+  
+  /* FIXED: Ensure readable text in both modes */
+  color: var(--color-text-secondary);
+}
+
+/* FIXED: Inactive button hover state */
+.header-language button:not(.active) {
+  color: var(--color-text-secondary);
+  background: transparent;
+}
+
+.header-language button:not(.active):hover {
+  /* FIXED: Better contrast on hover */
+  color: var(--color-text-primary);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Active button state */
+.header-language button.active {
+  color: var(--color-accent-primary);
+  background: var(--color-bg-card);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* === DARK MODE LANGUAGE BUTTON FIXES === */
+[data-theme="dark"] .header-language button:not(.active) {
+  /* FIXED: Readable text in dark mode */
+  color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .header-language button:not(.active):hover {
+  /* FIXED: Better contrast on hover in dark mode */
+  color: var(--color-text-primary);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .header-language button.active {
+  color: var(--color-accent-primary);
+  background: var(--color-bg-card);
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 768px) {
+  .header-content {
+    padding: 0 var(--space-md);
+    gap: var(--space-sm);
+  }
+  
+  .header-nav {
+    gap: 2px;
+    padding: 2px;
+  }
+  
+  .header-nav-button {
+    width: 40px;
+    height: 36px;
+  }
+  
+  .header-language {
+    gap: 1px;
+  }
+  
+  .header-language button {
+    padding: 4px 8px;
+    font-size: 11px;
+    min-width: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: var(--space-md);
+  }
+  
+  .header-content {
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .header-title {
+    font-size: 18px;
+    text-align: left;
+    flex-grow: 1;
+  }
+  
+  .header-nav {
+    order: 1;
+  }
+  
+  .header-language {
+    order: 2;
+  }
+}
+
+/* === ACCESSIBILITY === */
+.header-nav-button:focus-visible,
+.header-language button:focus-visible {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: 2px;
+}
+
+/* === HIGH CONTRAST MODE === */
+@media (prefers-contrast: high) {
+  .header-language button:not(.active) {
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border);
+  }
+  
+  .header-language button.active {
+    background: var(--color-accent-primary);
+    color: white;
+    border: 1px solid var(--color-accent-primary);
+  }
 }
