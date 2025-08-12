@@ -25,31 +25,6 @@
   }
 }
 
-/* === CELEBRATION ANIMATIONS === */
-
-.celebration-active .dashboard-illustration {
-  animation: celebrationBounce 0.8s ease-in-out;
-}
-
-.celebration-active .dashboard-due-date {
-  animation: celebrationGlow 0.8s ease-in-out;
-}
-
-@keyframes celebrationBounce {
-  0%, 100% { transform: scale(1); }
-  25% { transform: scale(1.1); }
-  50% { transform: scale(0.95); }
-  75% { transform: scale(1.05); }
-}
-
-@keyframes celebrationGlow {
-  0%, 100% { 
-    text-shadow: none;
-  }
-  50% { 
-    text-shadow: 0 0 20px rgba(255, 107, 53, 0.4);
-  }
-}
 /* === ACCESSIBILITY IMPROVEMENTS === */
 
 @media (prefers-reduced-motion: reduce) {

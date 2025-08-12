@@ -1,0 +1,229 @@
+/* src/styles/theme.css - COMPLETE VIBRANT SYSTEM */
+
+:root {
+  /* === WARM PASTEL BASE (Enhanced & Consistent) === */
+  
+  /* Primary Backgrounds - Warm & Organic */
+  --color-bg-app: #f9f6f3;            /* Main app background */
+  --color-bg-card: #ffffff;           /* Card backgrounds - pure white for contrast */
+  --color-bg-subtle: #f6ede4;         /* Subtle warm tint */
+  --color-bg-interactive: #f0ddd1;     /* Interactive elements */
+  
+  /* Warm Text Colors - Enhanced Contrast */
+  --color-text-primary: #3d312a;      /* Primary text - deep warm brown */
+  --color-text-secondary: #7a6b62;    /* Secondary text - medium brown */
+  --color-text-muted: #a69a91;        /* Muted text - light brown */
+  --color-text-body: #5a4d46;         /* Body text */
+  --color-text-inverted: #ffffff;     /* White text for dark backgrounds */
+  
+  /* Warm Borders */
+  --color-border: #e6d8ce;            /* Default borders */
+  --color-border-soft: #f0e6dc;       /* Subtle borders */
+  --color-border-hover: #d9c7bb;      /* Hover state borders */
+  
+  /* === VIBRANT ACCENT SYSTEM === */
+  
+  /* Primary Vibrant - Orange Energy */
+  --color-accent-primary: #FF6B35;         /* Main vibrant accent */
+  --color-accent-primary-light: #FFE5DC;   /* Light backgrounds */
+  --color-accent-primary-dark: #E5501F;    /* Dark variant */
+  --color-accent-primary-hover: #FF8A5C;   /* Hover state */
+  
+  /* Secondary Vibrant - Golden Yellow */
+  --color-accent-secondary: #FFB627;       /* Golden accent */
+  --color-accent-secondary-light: #FFF4E1; /* Light golden */
+  --color-accent-secondary-dark: #E6A014;  /* Dark golden */
+  --color-accent-secondary-hover: #FFC94D;  /* Hover state */
+  
+  /* Tertiary Vibrant - Hot Pink Celebration */
+  --color-accent-tertiary: #FF1B8D;        /* Celebration pink */
+  --color-accent-tertiary-light: #FFE7F4;  /* Light pink */
+  --color-accent-tertiary-dark: #E6007A;   /* Dark pink */
+  --color-accent-tertiary-hover: #FF4DA6;  /* Hover state */
+  
+  /* Support Vibrant - Fresh Cyan */
+  --color-accent-support: #00D9FF;         /* Fresh cyan */
+  --color-accent-support-light: #E6FCFF;   /* Light cyan */
+  --color-accent-support-dark: #00C2E6;    /* Dark cyan */
+  --color-accent-support-hover: #26E0FF;   /* Hover state */
+  
+  /* === VIBRANT GRADIENTS === */
+  --gradient-energy: linear-gradient(135deg, #FF6B35 0%, #FFB627 100%);
+  --gradient-celebration: linear-gradient(135deg, #FF1B8D 0%, #FF6B35 100%);
+  --gradient-growth: linear-gradient(135deg, #FFB627 0%, #00D9FF 100%);
+  --gradient-gentle: linear-gradient(135deg, #FFE5DC 0%, #FFF4E1 100%);
+  --gradient-primary: linear-gradient(135deg, #FF6B35 0%, #FFB627 100%);
+  
+  /* === SEMANTIC COLORS (Vibrant but Functional) === */
+  --color-success: #10B981;           /* Success green */
+  --color-success-light: #D1FAE5;     /* Light success background */
+  --color-success-dark: #047857;      /* Dark success */
+  
+  --color-warning: #FFB627;           /* Warning yellow (matches accent) */
+  --color-warning-light: #FFF4E1;     /* Light warning background */
+  --color-warning-dark: #E6A014;      /* Dark warning */
+  
+  --color-error: #EF4444;             /* Error red */
+  --color-error-light: #FEF2F2;       /* Light error background */
+  --color-error-dark: #B91C1C;        /* Dark error */
+  
+  --color-info: #3B82F6;              /* Info blue */
+  --color-info-light: #EFF6FF;        /* Light info background */
+  --color-info-dark: #1D4ED8;         /* Dark info */
+  
+  /* === STATUS DASHBOARD COLORS === */
+  --status-excellent: var(--color-success);
+  --status-good: var(--color-accent-secondary);
+  --status-attention: var(--color-warning);
+  --status-celebration: var(--gradient-celebration);
+  
+  /* === UNIFIED LEGACY SUPPORT === */
+  --color-primary: var(--color-accent-primary);
+  --color-primary-light: var(--color-accent-primary-light);
+  --color-primary-dark: var(--color-accent-primary-dark);
+  --color-primary-border: #FFCCB8;
+  
+  /* === PROGRESS & INTERACTION STATES === */
+  --progress-track: var(--color-bg-interactive);
+  --progress-fill: var(--gradient-energy);
+  --progress-celebration: var(--gradient-celebration);
+  
+  /* === FOCUS RINGS === */
+  --focus-ring: 0 0 0 3px rgba(255, 107, 53, 0.3);
+  --focus-ring-error: 0 0 0 3px rgba(239, 68, 68, 0.3);
+  --focus-ring-success: 0 0 0 3px rgba(16, 185, 129, 0.3);
+  
+  /* === SHADOW SYSTEM === */
+  --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-strong: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-vibrant: 0 8px 25px rgba(255, 107, 53, 0.3);
+  --shadow-celebration: 0 12px 40px rgba(255, 27, 141, 0.4);
+  
+  /* === ANIMATION DURATIONS === */
+  --duration-fast: 0.15s;
+  --duration-normal: 0.3s;
+  --duration-slow: 0.6s;
+  --ease-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* === DARK MODE === */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg-app: #1a1612;
+    --color-bg-card: #2c221a;
+    --color-bg-subtle: #3d2f25;
+    --color-bg-interactive: #4a3a2e;
+    
+    --color-text-primary: #f5e6d3;
+    --color-text-secondary: #d4c0a9;
+    --color-text-muted: #b39a83;
+    --color-text-body: #e8d5c0;
+    
+    --color-border: #5c3d2a;
+    --color-border-soft: #4a2e1f;
+    --color-border-hover: #6e4935;
+    
+    /* Keep vibrant accents bright in dark mode */
+    --color-accent-primary: #FF7A47;
+    --color-accent-secondary: #FFD93D;
+    --color-accent-tertiary: #FF3DA1;
+    --color-accent-support: #1AE3FF;
+  }
+}
+
+/* === HIGH CONTRAST MODE === */
+@media (prefers-contrast: high) {
+  :root {
+    --color-text-primary: #000000;
+    --color-bg-card: #ffffff;
+    --color-border: #000000;
+    --color-accent-primary: #CC4400;
+    --color-accent-secondary: #CC9000;
+    --color-accent-tertiary: #CC0066;
+  }
+}
+
+/* === UTILITY CLASSES FOR VIBRANT SYSTEM === */
+
+/* Backgrounds */
+.bg-vibrant-primary { background: var(--color-accent-primary); color: white; }
+.bg-vibrant-secondary { background: var(--color-accent-secondary); color: white; }
+.bg-vibrant-gradient { background: var(--gradient-energy); color: white; }
+.bg-celebration { background: var(--gradient-celebration); color: white; }
+
+/* Text Colors */
+.text-vibrant-primary { color: var(--color-accent-primary); }
+.text-vibrant-secondary { color: var(--color-accent-secondary); }
+.text-celebration { color: var(--color-accent-tertiary); }
+
+/* Borders */
+.border-vibrant { border-color: var(--color-accent-primary); }
+.border-celebration { border-color: var(--color-accent-tertiary); }
+
+/* Interactive States */
+.hover-vibrant:hover {
+  background: var(--color-accent-primary-light);
+  color: var(--color-accent-primary);
+  transform: translateY(-1px);
+}
+
+/* Status Indicators */
+.status-excellent { color: var(--color-success); }
+.status-good { color: var(--color-accent-secondary); }
+.status-attention { color: var(--color-warning); }
+.status-celebration { 
+  background: var(--gradient-celebration);
+  color: white;
+  animation: celebrationPulse 2s ease-in-out infinite;
+}
+
+@keyframes celebrationPulse {
+  0%, 100% { box-shadow: 0 4px 20px rgba(255, 27, 141, 0.3); }
+  50% { box-shadow: 0 8px 40px rgba(255, 107, 53, 0.4); }
+}
+
+/* Progress Elements */
+.progress-vibrant .progress-bar-fill {
+  background: var(--gradient-energy);
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-vibrant .progress-bar-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: progressShimmer 2s infinite;
+}
+
+@keyframes progressShimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Celebration Animations */
+.celebration-bounce {
+  animation: celebrationBounce 0.8s ease-in-out;
+}
+
+.celebration-glow {
+  animation: celebrationGlow 0.8s ease-in-out;
+}
+
+@keyframes celebrationBounce {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.1); }
+  50% { transform: scale(0.95); }
+  75% { transform: scale(1.05); }
+}
+
+@keyframes celebrationGlow {
+  0%, 100% { text-shadow: none; }
+  50% { text-shadow: 0 0 20px rgba(255, 107, 53, 0.4); }
+}

@@ -18,6 +18,7 @@ const ProgressRing: React.FC<ProgressRingProps> = ({ progress, children }) => {
 
   return (
     <div className="progress-ring-container">
+      
       <svg className="progress-ring" width="220" height="220">
         <circle
           className="progress-ring__track"
@@ -40,6 +41,7 @@ const ProgressRing: React.FC<ProgressRingProps> = ({ progress, children }) => {
           }}
         />
       </svg>
+
       <div className="progress-ring__content">
         {children}
       </div>

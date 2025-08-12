@@ -1,4 +1,4 @@
-// src/App.tsx - FIXED VERSION (Hook and Navigation Issues Resolved)
+// src/App.tsx - FIXED VERSION with Background Blobs
 
 import React, { useEffect, useReducer, useCallback, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
@@ -191,92 +191,112 @@ function AppContent() {
   }
 
   return (
-    <div className="app">
-      <Header language={state.language} onLanguageChange={handleLanguageChange} />
-      
-      <main className="app-main">
-        <ErrorBoundary>
-          <Routes>
-            {/* DASHBOARD ROUTE */}
-            <Route path="/" element={
-              <DashboardView 
-                measurements={state.measurements}
-                officialMeasurement={state.officialMeasurement}
-                onNavigateToForm={handleFABClick}
-              />
-            } />
-            
-            {/* DEDICATED FORM ROUTE */}
-            <Route path="/form" element={
-              <MeasurementForm
-                mode={state.mode}
-                onModeChange={handleModeChange}
-                onSaveComplete={handleSaveComplete}
-              />
-            } />
-            
-            {/* HISTORY ROUTE */}
-            <Route path="/history" element={
-              <Suspense fallback={<LoadingSpinner />}>
-                <HistoryScreen
+    <>
+      {/* ✨ NEW: Background Blobs - Added here! */}
+      <div className="background-blobs">
+        <div className="blob blob-warm-1"></div>
+        <div className="blob blob-vibrant-1"></div>
+        <div className="blob blob-vibrant-2"></div>
+        <div className="blob blob-vibrant-3"></div>
+      </div>
+
+      <div className="app">
+        <Header language={state.language} onLanguageChange={handleLanguageChange} />
+        
+        <main className="app-main">
+          <ErrorBoundary>
+            {/* ✨ NEW: SVG Gradient Definitions */}
+            <svg width="0" height="0" style={{ position: 'absolute' }}>
+              <defs>
+                <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#FF6B35" />
+                  <stop offset="100%" stopColor="#FFB627" />
+                </linearGradient>
+              </defs>
+            </svg>
+
+            <Routes>
+              {/* DASHBOARD ROUTE */}
+              <Route path="/" element={
+                <DashboardView 
                   measurements={state.measurements}
                   officialMeasurement={state.officialMeasurement}
-                  onMeasurementsChange={loadAllData}
+                  onNavigateToForm={handleFABClick}
                 />
-              </Suspense>
-            } />
-            
-            {/* JOURNEY/CHART ROUTE */}
-            <Route path="/journey" element={
-              <Suspense fallback={<LoadingSpinner />}>
-                <ErrorBoundary fallback={<div>Chart loading failed</div>}>
-                  <GrowthJourneyView 
-                    measurements={state.measurements} 
-                    officialMeasurement={state.officialMeasurement} 
+              } />
+              
+              {/* DEDICATED FORM ROUTE */}
+              <Route path="/form" element={
+                <MeasurementForm
+                  mode={state.mode}
+                  onModeChange={handleModeChange}
+                  onSaveComplete={handleSaveComplete}
+                />
+              } />
+              
+              {/* HISTORY ROUTE */}
+              <Route path="/history" element={
+                <Suspense fallback={<LoadingSpinner />}>
+                  <HistoryScreen
+                    measurements={state.measurements}
+                    officialMeasurement={state.officialMeasurement}
+                    onMeasurementsChange={loadAllData}
                   />
-                </ErrorBoundary>
-              </Suspense>
-            } />
-          </Routes>
-        </ErrorBoundary>
-      </main>
+                </Suspense>
+              } />
+              
+              {/* JOURNEY/CHART ROUTE */}
+              <Route path="/journey" element={
+                <Suspense fallback={<LoadingSpinner />}>
+                  <ErrorBoundary fallback={<div>Chart loading failed</div>}>
+                    <GrowthJourneyView 
+                      measurements={state.measurements} 
+                      officialMeasurement={state.officialMeasurement} 
+                    />
+                  </ErrorBoundary>
+                </Suspense>
+              } />
+            </Routes>
+          </ErrorBoundary>
+        </main>
 
-      {/* FIXED: FAB only shows on non-form routes */}
-      {location.pathname !== '/form' && (
-        <FloatingActionButton onClick={handleFABClick} />
-      )}
+        {/* FIXED: FAB only shows on non-form routes */}
+        {location.pathname !== '/form' && (
+          <FloatingActionButton onClick={handleFABClick} />
+        )}
 
-      {/* RESULTS MODAL - Shows regardless of route */}
-      {state.showResultsModal && state.lastSavedResult && (
-        <div className="modal-overlay" onClick={handleResultsModalClose}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <ResultsCard 
-              result={state.lastSavedResult} 
-              officialMeasurement={state.officialMeasurement}
-              showTechnicalDetails={true}
-            />
-            <div className="btn-group">
-              <button 
-                onClick={handleResultsModalClose} 
-                className="btn btn-primary btn-full"
-              >
-                {t('common.close')}
-              </button>
+        {/* RESULTS MODAL - Shows regardless of route */}
+        {state.showResultsModal && state.lastSavedResult && (
+          <div className="modal-overlay" onClick={handleResultsModalClose}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              <ResultsCard 
+                result={state.lastSavedResult} 
+                officialMeasurement={state.officialMeasurement}
+                showTechnicalDetails={true}
+              />
+              <div className="btn-group">
+                <button 
+                  onClick={handleResultsModalClose} 
+                  className="btn btn-primary btn-full"
+                >
+                  {t('common.close')}
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* ERROR DISPLAY */}
-      {state.error && (
-        <div className="app-error">
-          <p>{state.error}</p>
-          <button onClick={() => dispatch({ type: 'SET_ERROR', payload: undefined })}>
-            {t('common.close')}
-          </button>
-        </div>
-      )}
-    </div>
+        {/* ERROR DISPLAY */}
+        {state.error && (
+          <div className="app-error">
+            <p>{state.error}</p>
+            <button onClick={() => dispatch({ type: 'SET_ERROR', payload: undefined })}>
+              {t('common.close')}
+            </button>
+          </div>
+        )}
+      </div>
+    </>
   );
 }
 

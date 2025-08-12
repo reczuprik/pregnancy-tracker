@@ -10,6 +10,11 @@ import { enUS, hu, de, fr } from 'date-fns/locale';
 
 import { formatDate } from '../services/formatDate';
 
+
+
+import StrawberryIllustration from '@/assets/illustrations/strawberry';
+
+
 interface DashboardScreenProps {
   officialMeasurement: Measurement;
 }
@@ -45,7 +50,8 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ officialMeasurement }
 
       <ProgressRing progress={progressPercentage}>
         <div className="dashboard-illustration">
-            <span>🍌</span>
+            {/* ✨ FIXED: Replaced the placeholder with our new component */}
+            <StrawberryIllustration />
         </div>
       </ProgressRing>
 

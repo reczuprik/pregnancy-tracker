@@ -10,6 +10,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "types": ["vite/client"],
+
     
     // Path mapping (if you want to use aliases)
     "baseUrl": ".",
