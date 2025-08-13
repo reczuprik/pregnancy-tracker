@@ -140,6 +140,23 @@
   font-size: 12px;
   min-height: 32px;
 }
+/* 4. ENSURE btn-tertiary WORKS IN DARK MODE */
+[data-theme="dark"] .btn-tertiary {
+  background: rgba(26, 22, 20, 0.9) !important;
+  border: 1px solid rgba(242, 132, 92, 0.3) !important;
+  color: #f0e8df !important;
+}
+
+[data-theme="dark"] .btn-tertiary:hover {
+  background: rgba(242, 132, 92, 0.2) !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .btn-tertiary.active {
+  background: var(--color-accent-primary-light) !important;
+  color: var(--color-accent-primary) !important;
+  border-color: var(--color-accent-primary) !important;
+}
 
 /* === SEMANTIC BUTTON VARIANTS === */
 .btn-success {
@@ -524,3 +541,5 @@
     -webkit-backdrop-filter: none;
   }
 }
+
+

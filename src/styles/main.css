@@ -97,11 +97,3 @@ PERFORMANCE OPTIMIZATIONS:
     page-break-inside: avoid;
   }
 }
-
-/* === CSS CUSTOM PROPERTY FALLBACKS === */
-:root {
-  /* Ensure fallbacks for older browsers */
-  --color-accent-primary: #FF6B35;
-  --color-bg-app: #f9f6f3;
-  --color-text-primary: #3d312a;
-}

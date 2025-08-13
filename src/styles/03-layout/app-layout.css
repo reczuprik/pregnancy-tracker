@@ -272,3 +272,43 @@
     border: 1px solid #ccc;
   }
 }
+
+/* === CUSTOM SCROLLBAR === */
+.history-screen,
+.app-main {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-accent-primary-light) transparent;
+}
+
+.history-screen::-webkit-scrollbar,
+.app-main::-webkit-scrollbar {
+  width: 6px;
+}
+
+.history-screen::-webkit-scrollbar-track,
+.app-main::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.history-screen::-webkit-scrollbar-thumb,
+.app-main::-webkit-scrollbar-thumb {
+  background: var(--color-accent-primary-light);
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.history-screen::-webkit-scrollbar-thumb:hover,
+.app-main::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-primary);
+}
+
+/* Dark mode scrollbar */
+[data-theme="dark"] .history-screen::-webkit-scrollbar-thumb,
+[data-theme="dark"] .app-main::-webkit-scrollbar-thumb {
+  background: #444;
+}
+
+[data-theme="dark"] .history-screen::-webkit-scrollbar-thumb:hover,
+[data-theme="dark"] .app-main::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-primary);
+}

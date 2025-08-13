@@ -78,19 +78,19 @@
   --color-bg-subtle: #2d2520;
   --color-bg-interactive: #3a332e;
   
-  /* Dark Text */
-  --color-text-primary: #f5f0eb;
-  --color-text-secondary: #c9beb5;
-  --color-text-muted: #8a7b72;
-  --color-text-body: #e0d5cc;
-  --color-text-inverted: #000000;
+  /* FIXED: Dark Text - High Contrast */
+  --color-text-primary: #ffffff;      /* Pure white for maximum contrast */
+  --color-text-secondary: #d4c5b8;    /* Lighter secondary text */
+  --color-text-muted: #8a7b72;        /* Keep same as light mode */
+  --color-text-body: #f0e8df;         /* Very light body text */
+  --color-text-inverted: #000000;     /* Black for light backgrounds */
   
   /* Dark Borders */
   --color-border: #3a332e;
   --color-border-soft: #2d2520;
   --color-border-hover: #4a3d37;
   
-  /* Dark Mode Accents - Brighter */
+  /* Dark Mode Accents - Brighter for contrast */
   --color-accent-primary: #F2845C;
   --color-accent-primary-light: #2d1f1a;
   --color-accent-primary-dark: #E5744A;
@@ -120,6 +120,8 @@
   --color-info: #7B9CC5;
   --color-info-light: #1c2229;
 }
+
+
 
 /* === SMOOTH THEME TRANSITIONS === */
 * {
