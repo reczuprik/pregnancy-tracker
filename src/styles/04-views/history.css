@@ -120,11 +120,7 @@
 .accordion-measurement-card.official .official-strip {
   transform: scaleY(1);
 }
-/* Adjust padding to account for the border/strip */
 
-.accordion-measurement-card.official .card-header-collapsed {
-  
-}
 
 /* Non-official cards remain the same as other cards */
 .accordion-measurement-card:not(.expanded):not(.official) {

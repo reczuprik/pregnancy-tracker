@@ -1,30 +1,63 @@
-/* src/styles/components/progress-ring.css */
+/* src/styles/02-components/progress-ring.css */
 
 .progress-ring-container {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 260px; /* Increased to accommodate 140px illustration + ring */
+  height: 260px;
+  overflow: visible; /* Allow pulse to show */
 }
+
 .progress-ring {
   transform: rotate(-90deg);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
+
 .progress-ring__track {
-  stroke: var(--color-bg-interactive); /* Keep track warm and subtle */
+  stroke: var(--color-bg-interactive);
 }
 
-
-/* Progress Ring - Add vibrant energy to the most important element */
 .progress-ring__fill {
-  stroke: url(#progressGradient); /* We'll define this gradient */
+  stroke: url(#progressGradient);
   transition: stroke-dashoffset 0.8s ease-out;
   filter: drop-shadow(0 0 8px rgba(255, 107, 53, 0.3));
+  stroke-linecap: round; /* Rounded ends for better appearance */
 }
+
 .progress-ring__content {
-  position: absolute;
+  position: relative;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  z-index: 2;
+}
+
+/* Responsive scaling */
+@media (min-width: 769px) {
+  .progress-ring-container {
+    width: 260px; /* Large enough for 140px illustration */
+    height: 260px;
+  }
+}
+
+@media (max-width: 768px) {
+  .progress-ring-container {
+    width: 220px; /* For 120px illustration */
+    height: 220px;
+  }
+}
+
+@media (max-width: 480px) {
+  .progress-ring-container {
+    width: 180px; /* For 100px illustration */
+    height: 180px;
+  }
 }

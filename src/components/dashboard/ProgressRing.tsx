@@ -3,13 +3,14 @@
 import React, { useEffect, useState } from 'react';
 
 interface ProgressRingProps {
-  progress: number; // A value from 0 to 100
+  progress: number;
   children: React.ReactNode;
 }
 
 const ProgressRing: React.FC<ProgressRingProps> = ({ progress, children }) => {
   const [offset, setOffset] = useState(0);
-  const circumference = 339.292; // 2 * pi * 54 (radius)
+  const radius = 120; // Increased radius for larger ring
+  const circumference = 2 * Math.PI * radius;
 
   useEffect(() => {
     const progressOffset = ((100 - progress) / 100) * circumference;
@@ -18,23 +19,32 @@ const ProgressRing: React.FC<ProgressRingProps> = ({ progress, children }) => {
 
   return (
     <div className="progress-ring-container">
-      
-      <svg className="progress-ring" width="220" height="220">
+      <svg 
+        className="progress-ring"
+        viewBox="0 0 260 260" // Larger viewBox
+        preserveAspectRatio="xMidYMid meet"
+      >
+        <defs>
+          <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#FF6B35" />
+            <stop offset="100%" stopColor="#F28456" />
+          </linearGradient>
+        </defs>
         <circle
           className="progress-ring__track"
-          strokeWidth="12"
+          strokeWidth="8"
           fill="transparent"
-          r="54"
-          cx="110"
-          cy="110"
+          r={radius}
+          cx="130"
+          cy="130"
         />
         <circle
           className="progress-ring__fill"
-          strokeWidth="12"
+          strokeWidth="8"
           fill="transparent"
-          r="54"
-          cx="110"
-          cy="110"
+          r={radius}
+          cx="130"
+          cy="130"
           style={{
             strokeDasharray: circumference,
             strokeDashoffset: offset,

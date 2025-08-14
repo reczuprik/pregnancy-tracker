@@ -103,7 +103,7 @@ const resources = {
         measurementDataTitle: "Measurement Data",
         growthAnalysisTitle: "Growth Analysis",
         reassuranceText: "Well within the typical range",
-        estimatedAgeFromSize: "est. age (from size)",
+        estimatedAgeFromSize: "estimated age (from size)",
         growthRateLabel: "{{parameter}} Growth Rate", // ✨ NEW
       
       },
