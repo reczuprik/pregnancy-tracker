@@ -135,10 +135,7 @@
 
 /* Official badge/icon - make it stand out */
 .accordion-measurement-card.official .collapsed-age {
-  background: var(--color-accent-secondary-light) !important;
-  border: 2px solid var(--color-accent-secondary) !important;
-  color: var(--color-accent-secondary) !important;
-  font-weight: 800;
+  
   position: relative;
 }
 /* Add a small crown or star icon for official items */
