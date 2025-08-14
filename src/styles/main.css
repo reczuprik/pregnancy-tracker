@@ -2,12 +2,12 @@
 
 /* === 1. FOUNDATIONS (Load First) === */
 @import './01-foundations/reset.css';           /* CSS reset & base styles */
-@import './01-foundations/tokens.css';           /* CSS reset & base styles */
 @import './01-foundations/theme.css';           /* CSS reset & base styles */
+@import './01-foundations/tokens.css';           /* CSS reset & base styles */
+
 
 /* === 2. LAYOUT & STRUCTURE === */
 @import './03-layout/app-layout.css';         /* App layout & background blobs */
-@import './03-layout/grid.css';        /*App layout & background blobs */
 @import './03-layout/responsive.css';         /* App layout & background blobs */
 
 /* === 3. COMPONENTS (Alphabetical Order) === */
@@ -24,37 +24,3 @@
 @import './04-views/empty-state.css';       /*empty State (empty dashboard) */
 @import './04-views/history.css';  /* History view (vibrant accordions) */
 @import './04-views/results.css';       /* Results display */
-
-
-/* === REDUNDANCIES REMOVED === */
-/*
-The following files had redundant styles that have been consolidated:
-
-REMOVED REDUNDANCIES:
-- Multiple button definitions → Consolidated into components/buttons.css
-- Duplicate color variables → Unified in theme.css
-- Scattered vibrant implementations → Centralized system
-- Repeated responsive rules → Organized in mediaqueries.css
-- Multiple progress bar styles → Standardized in components/progress-ring.css
-
-VARIABLE CLEANUP COMPLETED:
-- ❌ --color-primary (use --color-accent-primary)
-- ❌ --color-secondary-accent (use --color-accent-secondary) 
-- ❌ --color-accent (use --color-accent-primary)
-- ❌ --color-highlight-* (use --color-accent-*-light)
-
-NEW VIBRANT SYSTEM IMPLEMENTED:
-- ✅ Complete gradient system (--gradient-energy, --gradient-celebration, etc.)
-- ✅ Status dashboard with vibrant indicators
-- ✅ Background blobs system with animations
-- ✅ Accordion cards with full vibrant states
-- ✅ Button consolidation with all variants
-- ✅ Progress elements with shimmer effects
-- ✅ Celebration modes and animations
-
-PERFORMANCE OPTIMIZATIONS:
-- Reduced CSS file size by ~30%
-- Eliminated duplicate rules
-- Optimized animation performance
-- Better cascade order
-*/

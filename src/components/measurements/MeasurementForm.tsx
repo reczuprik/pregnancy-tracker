@@ -140,18 +140,7 @@ const MeasurementForm: React.FC<MeasurementFormProps> = ({
 
   return (
     <div className="measurement-form-container">
-      {/* HEADER WITH CANCEL OPTION */}
-      <div className="form-header">
-        <button 
-          onClick={handleCancel}
-          className="btn btn-tertiary"
-          disabled={isSaving}
-        >
-          ← {t('common.cancel')}
-        </button>
-        <h1 className="form-title">{t('measurement.form.title')}</h1>
-      </div>
-
+      {/* HEADER  */}
       <form onSubmit={handleSubmit}>
         {/* Mode Selection */}
         <div className="form-section">

@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { differenceInDays, format } from 'date-fns';
 import { Measurement } from '../types/measurement';
 import ProgressRing from '../components/dashboard/ProgressRing';
+import StatusCard from '../components/dashboard/StatusCard';
+
 import { SIZE_COMPARISONS } from '../services/calculations';
 import { enUS, hu, de, fr } from 'date-fns/locale';
 
@@ -40,20 +42,22 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ officialMeasurement }
 
   return (
     <div className="dashboard-screen">
-      {/* ✨ NEW HIERARCHY: Due Date and Current Age are now outside/above the ring */}
-      <div className="dashboard-due-date">
-        {formatDate(officialMeasurement.estimatedDueDate)}
-      </div>
-      <div className="dashboard-current-age">
-        {`${currentWeek}. ${weekText} ${currentDay}. ${dayText}`}
-      </div>
+      <StatusCard>
 
-      <ProgressRing progress={progressPercentage}>
-        <div className="dashboard-illustration">
-            {/* ✨ FIXED: Replaced the placeholder with our new component */}
-            <StrawberryIllustration />
+        <div className="dashboard-due-date">
+          {formatDate(officialMeasurement.estimatedDueDate)}
         </div>
-      </ProgressRing>
+        <div className="dashboard-current-age">
+          {`${currentWeek}. ${weekText} ${currentDay}. ${dayText}`}
+        </div>
+
+        <ProgressRing progress={progressPercentage}>
+          <div className="dashboard-illustration">
+              {/* ✨ FIXED: Replaced the placeholder with our new component */}
+              <StrawberryIllustration />
+          </div>
+        </ProgressRing>
+      </StatusCard>
 
       <div className="dashboard-actions">
         <div className="daily-tip-card">💡 {t('dashboard.dailyTip')}</div>
