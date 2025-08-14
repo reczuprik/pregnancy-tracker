@@ -229,7 +229,8 @@
 }
 
 .accordion-measurement-card.expanded .card-details-wrapper {
-  max-height: 600px;
+  max-height: none; /* Remove fixed 600px limit */
+  height: auto;     /* Allow natural content height */
 }
 
 .card-details-content {

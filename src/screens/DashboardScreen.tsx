@@ -15,6 +15,7 @@ import { formatDate } from '../services/formatDate';
 
 
 import StrawberryIllustration from '@/assets/illustrations/Strawberry';
+import DailyTipCard from '../components/dashboard/DailyTipCard';
 
 
 interface DashboardScreenProps {
@@ -60,7 +61,8 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ officialMeasurement }
       </StatusCard>
 
       <div className="dashboard-actions">
-        <div className="daily-tip-card">💡 {t('dashboard.dailyTip')}</div>
+                <DailyTipCard />
+
       </div>
     </div>
   );
