@@ -25,9 +25,10 @@ const ProgressRing: React.FC<ProgressRingProps> = ({ progress, children }) => {
         preserveAspectRatio="xMidYMid meet"
       >
         <defs>
+          {/* Enhanced beautiful gradient from Accent Peach to Sunny Glow */}
           <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#FF6B35" />
-            <stop offset="100%" stopColor="#F28456" />
+            <stop offset="0%" stopColor="#E5744A" />
+            <stop offset="100%" stopColor="#D4A574" />
           </linearGradient>
         </defs>
         <circle

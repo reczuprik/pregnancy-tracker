@@ -50,33 +50,32 @@
   height: 140px;
   border-radius: 50%;
   background: var(--color-bg-card);
-  box-shadow: 
-    0 0 0 0 var(--pulse-shadow),
-    0 4px 20px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+
   transition: all 0.4s var(--ease-out);
   margin: var(--space-lg) 0;
   z-index: 5;
-  animation: softPulse 1.5s ease-in-out infinite;
-}
-
-@keyframes softPulse {
-  0%, 100% { 
-    box-shadow: 
-      0 0 0 0 var(--pulse-shadow),
-      0 4px 20px rgba(0, 0, 0, 0.06);
-  }
-  50% { 
-    box-shadow: 
-      0 0 0 8px var(--pulse-shadow),
-      0 6px 24px rgba(0, 0, 0, 0.08);
-  }
 }
 
 .dashboard-illustration:hover {
   transform: scale(1.02); 
-  box-shadow: 
-    0 0 0 12px var(--pulse-shadow),
-    0 8px 28px rgba(0, 0, 0, 0.10);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.10);
+
+}
+
+/* === NEW: PULSATING STRAWBERRY ANIMATION === */
+.dashboard-illustration img {
+  animation: heartbeat 3s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes heartbeat {
+  0%, 100% { 
+    transform: scale(1);
+  }
+  50% { 
+    transform: scale(1.04);
+  }
 }
 
 /* === STATUS DASHBOARD === */
@@ -406,9 +405,7 @@
 
 [data-theme="dark"] .dashboard-illustration {
   background: var(--color-bg-card);
-  box-shadow: 
-    0 0 0 0 var(--pulse-shadow),
-    0 4px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 [data-theme="dark"] .daily-tip-card {
@@ -445,6 +442,9 @@
   .progress-bar-fill::after,
   .size-comparison::before,
   .milestone-card::before {
+    animation: none;
+  }
+  .dashboard-illustration img {
     animation: none;
   }
   

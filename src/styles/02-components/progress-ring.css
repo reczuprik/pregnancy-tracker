@@ -26,10 +26,12 @@
 .progress-ring__fill {
   stroke: url(#progressGradient);
   transition: stroke-dashoffset 0.8s ease-out;
-  filter: drop-shadow(0 0 8px rgba(255, 107, 53, 0.3));
-  stroke-linecap: round; /* Rounded ends for better appearance */
+  filter: drop-shadow(0 0 8px rgba(229, 116, 74, 0.3));
+  stroke-linecap: round;
 }
-
+.progress-ring-container svg defs linearGradient {
+  background: linear-gradient(45deg, #E5744A 0%, #D4A574 100%);
+}
 .progress-ring__content {
   position: relative;
   text-align: center;
