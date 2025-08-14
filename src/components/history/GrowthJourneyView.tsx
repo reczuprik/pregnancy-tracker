@@ -19,7 +19,7 @@ const GrowthJourneyView: React.FC<GrowthJourneyViewProps> = ({ measurements, off
   return (
     <div className="growth-journey-view">
       <div className="view-header">
-        <NavLink to="/history" className="btn btn-secondary">
+        <NavLink to="/history" className="btn btn-secondary btn-full">
           &lt; {t('history.actions.hideChart')}
         </NavLink>
       </div>
