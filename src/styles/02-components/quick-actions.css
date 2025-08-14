@@ -1,0 +1,206 @@
+/* src/styles/02-components/quick-actions.css */
+
+/* === QUICK ACTIONS COMPONENT === */
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--space-md);
+  width: 100%;
+  margin-top: var(--space-lg);
+}
+
+.quick-action-button {
+  background: white;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg) var(--space-md);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-out);
+  text-decoration: none;
+  color: var(--color-text-primary);
+  font-weight: 600;
+  font-size: 14px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.quick-action-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-energy);
+  transform: scaleX(0);
+  transition: transform 0.3s var(--ease-out);
+}
+
+.quick-action-button:hover::before {
+  transform: scaleX(1);
+}
+
+.quick-action-button:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-accent-primary-light);
+  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.15);
+  color: var(--color-accent-primary);
+}
+
+.quick-action-icon {
+  display: block;
+  font-size: 28px;
+  margin-bottom: var(--space-xs);
+  filter: drop-shadow(0 0 8px rgba(255, 182, 39, 0.3));
+  transition: filter 0.3s var(--ease-out);
+}
+
+.quick-action-button:hover .quick-action-icon {
+  filter: drop-shadow(0 0 12px rgba(255, 107, 53, 0.5));
+}
+
+/* === QUICK ACTION VARIANTS === */
+.quick-action-button--primary {
+  background: var(--color-accent-primary-light);
+  border-color: var(--color-accent-primary);
+  color: var(--color-accent-primary-dark);
+}
+
+.quick-action-button--primary:hover {
+  background: var(--color-accent-primary);
+  color: white;
+}
+
+.quick-action-button--secondary {
+  background: var(--color-bg-interactive);
+  border-color: var(--color-border);
+}
+
+.quick-action-button--danger {
+  border-color: var(--color-danger-light);
+  color: var(--color-danger);
+}
+
+.quick-action-button--danger:hover {
+  background: var(--color-danger-light);
+  border-color: var(--color-danger);
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.15);
+}
+
+.quick-action-button--danger::before {
+  background: var(--gradient-danger);
+}
+
+/* === SIZE VARIANTS === */
+.quick-actions--small {
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: var(--space-sm);
+}
+
+.quick-actions--small .quick-action-button {
+  padding: var(--space-md) var(--space-sm);
+  font-size: 12px;
+}
+
+.quick-actions--small .quick-action-icon {
+  font-size: 20px;
+}
+
+.quick-actions--large {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-lg);
+}
+
+.quick-actions--large .quick-action-button {
+  padding: var(--space-xl) var(--space-lg);
+  font-size: 16px;
+}
+
+.quick-actions--large .quick-action-icon {
+  font-size: 36px;
+}
+
+/* === LAYOUT VARIANTS === */
+.quick-actions--vertical {
+  grid-template-columns: 1fr;
+  max-width: 200px;
+}
+
+.quick-actions--horizontal {
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+}
+
+.quick-actions--compact {
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+/* === DARK MODE === */
+[data-theme="dark"] .quick-action-button {
+  background: var(--color-bg-card);
+  border-color: var(--color-border);
+  color: var(--color-text-primary);
+}
+
+[data-theme="dark"] .quick-action-button:hover {
+  border-color: var(--color-accent-primary);
+  box-shadow: 0 6px 20px rgba(242, 132, 92, 0.2);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .quick-actions {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .quick-action-button {
+    padding: var(--space-md);
+    font-size: 13px;
+  }
+  
+  .quick-action-icon {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .quick-actions {
+    grid-template-columns: 1fr;
+  }
+  
+  .quick-actions--small {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* === ACCESSIBILITY === */
+@media (prefers-reduced-motion: reduce) {
+  .quick-action-button {
+    transition: none;
+  }
+  
+  .quick-action-button:hover {
+    transform: none;
+  }
+  
+  .quick-action-button::before {
+    transition: none;
+  }
+}
+
+.quick-action-button:focus-visible {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: 2px;
+}
+
+/* === HIGH CONTRAST === */
+@media (prefers-contrast: high) {
+  .quick-action-button {
+    border-width: 3px;
+  }
+}

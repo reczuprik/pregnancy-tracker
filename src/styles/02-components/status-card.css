@@ -1,0 +1,117 @@
+/* src/styles/02-components/status-card.css */
+
+/* === STATUS CARD COMPONENT === */
+.status-card {
+  width: 100%;
+  max-width: 400px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  position: relative;
+}
+
+/* === STATUS DASHBOARD VARIANT === */
+.status-dashboard {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  background: linear-gradient(135deg, #fbfbfb 0%, #f8f8f8 100%);
+  border: 1px solid rgba(229, 116, 74, 0.08);
+  padding: var(--space-xl);
+  box-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    0 0 0 1px rgba(229, 116, 74, 0.02),
+    0 2px 12px rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--color-border-soft);
+  position: relative;
+  border-radius: var(--radius-xl);
+}
+
+.status-dashboard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-gentle);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+}
+
+/* === STATUS ITEMS === */
+.status-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  align-items: center;
+}
+
+.status-item-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  align-items: center;
+  padding: var(--space-md);
+  background: var(--color-accent-primary-light);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-soft);
+}
+
+/* === STATUS VALUES & LABELS === */
+.status-value {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-accent-primary);
+  line-height: 1;
+}
+
+.status-value-main {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--color-accent-primary-dark);
+  line-height: 1;
+}
+
+.status-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1;
+}
+
+.status-label-main {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-accent-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1;
+}
+
+/* === DARK MODE === */
+[data-theme="dark"] .status-card {
+  background: var(--color-bg-card);
+  border-color: var(--color-border);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .status-dashboard {
+  background: var(--color-bg-card);
+  border-color: var(--color-border);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .status-item-main {
+  background: var(--color-accent-primary-light);
+  border-color: var(--color-border);
+}

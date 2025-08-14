@@ -1,0 +1,155 @@
+/* src/styles/02-components/dashboard-header.css */
+
+/* === DASHBOARD HEADER COMPONENT === */
+.dashboard-header {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: var(--space-md);
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+/* === DATE DISPLAY === */
+.dashboard-due-date {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--color-accent-primary);
+  text-align: center;
+  margin-bottom: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  background: var(--color-accent-primary-light);
+  border-radius: var(--radius-xl);
+  border: 2px solid var(--color-accent-primary-light);
+  box-shadow: 
+    0 2px 8px rgba(229, 116, 74, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  text-shadow: 0 1px 3px rgba(229, 116, 74, 0.2);
+  position: relative;
+  z-index: 5;
+  transition: all 0.3s var(--ease-out);
+}
+
+.dashboard-due-date:hover {
+  transform: translateY(-1px);
+  box-shadow: 
+    0 4px 12px rgba(229, 116, 74, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* === CURRENT AGE DISPLAY === */
+.dashboard-current-age {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin-bottom: var(--space-sm);
+  opacity: 0.9;
+}
+
+/* === SIZE VARIANTS === */
+.dashboard-due-date--small {
+  font-size: 24px;
+  padding: var(--space-sm) var(--space-md);
+}
+
+.dashboard-due-date--large {
+  font-size: 40px;
+  padding: var(--space-lg) var(--space-xl);
+}
+
+.dashboard-current-age--small {
+  font-size: 14px;
+}
+
+.dashboard-current-age--large {
+  font-size: 22px;
+}
+
+/* === CELEBRATION STATE === */
+.dashboard-due-date--celebration {
+  animation: celebration-glow 2s ease-in-out;
+  background: var(--gradient-celebration);
+}
+
+@keyframes celebration-glow {
+  0%, 100% {
+    box-shadow: 
+      0 2px 8px rgba(229, 116, 74, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    box-shadow: 
+      0 6px 20px rgba(229, 116, 74, 0.3),
+      0 0 20px rgba(229, 116, 74, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* === URGENCY STATES === */
+.dashboard-due-date--urgent {
+  background: var(--color-warning-light);
+  color: var(--color-warning-dark);
+  border-color: var(--color-warning);
+  animation: gentle-pulse 3s ease-in-out infinite;
+}
+
+.dashboard-due-date--overdue {
+  background: var(--color-danger-light);
+  color: var(--color-danger-dark);
+  border-color: var(--color-danger);
+  animation: urgent-pulse 2s ease-in-out infinite;
+}
+
+@keyframes gentle-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.9; }
+}
+
+@keyframes urgent-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+/* === DARK MODE === */
+[data-theme="dark"] .dashboard-due-date {
+  color: var(--color-accent-primary);
+  background: var(--color-accent-primary-light);
+  border-color: var(--color-accent-primary-light);
+  text-shadow: 0 1px 3px rgba(242, 132, 92, 0.3);
+}
+
+[data-theme="dark"] .dashboard-current-age {
+  color: var(--color-text-secondary);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .dashboard-header {
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+  }
+  
+  .dashboard-due-date {
+    font-size: 24px;
+    padding: var(--space-sm) var(--space-md);
+    margin-bottom: var(--space-sm);
+  }
+  
+  .dashboard-current-age {
+    font-size: 16px;
+  }
+}
+
+/* === ACCESSIBILITY === */
+@media (prefers-reduced-motion: reduce) {
+  .dashboard-due-date--celebration,
+  .dashboard-due-date--urgent,
+  .dashboard-due-date--overdue {
+    animation: none;
+  }
+  
+  .dashboard-due-date:hover {
+    transform: none;
+  }
+}

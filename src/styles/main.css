@@ -1,26 +1,34 @@
-/* src/styles/main.css - REORGANIZED IMPORT STRUCTURE */
+/* src/styles/main.css - UPDATED WITH EXTRACTED COMPONENTS */
 
 /* === 1. FOUNDATIONS (Load First) === */
 @import './01-foundations/reset.css';           /* CSS reset & base styles */
-@import './01-foundations/theme.css';           /* CSS reset & base styles */
-@import './01-foundations/tokens.css';           /* CSS reset & base styles */
-
+@import './01-foundations/theme.css';           /* Theme variables */
+@import './01-foundations/tokens.css';          /* Design tokens */
 
 /* === 2. LAYOUT & STRUCTURE === */
-@import './03-layout/app-layout.css';         /* App layout & background blobs */
-@import './03-layout/responsive.css';         /* App layout & background blobs */
+@import './03-layout/app-layout.css';           /* App layout & background blobs */
+@import './03-layout/responsive.css';           /* Responsive utilities */
 
 /* === 3. COMPONENTS (Alphabetical Order) === */
-@import './02-components/buttons.css';        /* All button variants (consolidated) */
-@import './02-components/errorboundary.css';  /* Error boundary styles */
-@import './02-components/forms.css';          /* Form inputs & controls */
-@import './02-components/header.css';         /* Header & navigation */
-@import './02-components/loading.css';        /* Loading spinner styles */
-@import './02-components/modal.css';          /* Modal overlays & dialogs */
-@import './02-components/progress-ring.css';  /* Progress ring component */
+@import './02-components/animations.css';       /* Animation utilities & keyframes */
+@import './02-components/buttons.css';          /* All button variants */
+@import './02-components/daily-tip-card.css';   /* Daily tip card with gradient border */
+@import './02-components/dashboard-header.css'; /* Dashboard date & age display */
+@import './02-components/errorboundary.css';    /* Error boundary styles */
+@import './02-components/forms.css';            /* Form inputs & controls */
+@import './02-components/header.css';           /* Header & navigation */
+@import './02-components/illustration.css';     /* Baby illustration component */
+@import './02-components/loading.css';          /* Loading spinner styles */
+@import './02-components/milestone-card.css';   /* Milestone celebration cards */
+@import './02-components/modal.css';            /* Modal overlays & dialogs */
+@import './02-components/progress-bar.css';     /* Progress bar component */
+@import './02-components/progress-ring.css';    /* Progress ring component */
+@import './02-components/quick-actions.css';    /* Quick action button grid */
+@import './02-components/size-comparison.css';  /* Size comparison cards */
+@import './02-components/status-card.css';      /* Status cards & dashboard */
 
 /* === 4. VIEW-SPECIFIC STYLES === */
-@import './04-views/dashboard.css';     /* Dashboard screen (complete vibrant) */
-@import './04-views/empty-state.css';       /*empty State (empty dashboard) */
-@import './04-views/history.css';  /* History view (vibrant accordions) */
-@import './04-views/results.css';       /* Results display */
+@import './04-views/dashboard.css';             /* Dashboard screen (simplified) */
+@import './04-views/empty-state.css';           /* Empty state dashboard */
+@import './04-views/history.css';               /* History view */
+@import './04-views/results.css';               /* Results display */

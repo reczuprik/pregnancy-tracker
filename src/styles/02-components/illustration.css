@@ -1,0 +1,147 @@
+/* src/styles/02-components/illustration.css */
+
+/* === ILLUSTRATION COMPONENT === */
+.illustration {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color-bg-card);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  transition: all 0.4s var(--ease-out);
+  z-index: 5;
+}
+
+.illustration:hover {
+  transform: scale(1.02); 
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.10);
+}
+
+/* === SIZE VARIANTS === */
+.illustration--small {
+  width: 80px;
+  height: 80px;
+  font-size: 36px;
+}
+
+.illustration--medium {
+  width: 100px;
+  height: 100px;
+  font-size: 48px;
+}
+
+.illustration--large {
+  width: 140px;
+  height: 140px;
+  font-size: 60px;
+  margin: var(--space-lg) 0;
+}
+
+.illustration--xlarge {
+  width: 180px;
+  height: 180px;
+  font-size: 80px;
+}
+
+/* === DASHBOARD SPECIFIC === */
+.dashboard-illustration {
+  font-size: 60px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: var(--color-bg-card);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  transition: all 0.4s var(--ease-out);
+  margin: var(--space-lg) 0;
+  z-index: 5;
+}
+
+.dashboard-illustration:hover {
+  transform: scale(1.02); 
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.10);
+}
+
+/* === ANIMATIONS === */
+.illustration img,
+.dashboard-illustration img {
+  animation: heartbeat 3s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes heartbeat {
+  0%, 100% { 
+    transform: scale(1);
+  }
+  50% { 
+    transform: scale(1.04);
+  }
+}
+
+/* === PULSING VARIANT === */
+.illustration--pulse::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 50%;
+  background: var(--color-accent-primary);
+  opacity: 0.1;
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.1;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* === CELEBRATION VARIANT === */
+.illustration--celebration {
+  animation: celebration-bounce 1s ease-out;
+}
+
+@keyframes celebration-bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  40% {
+    transform: translateY(-10px) scale(1.05);
+  }
+  60% {
+    transform: translateY(-5px) scale(1.02);
+  }
+}
+
+/* === DARK MODE === */
+[data-theme="dark"] .illustration,
+[data-theme="dark"] .dashboard-illustration {
+  background: var(--color-bg-card);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* === ACCESSIBILITY === */
+@media (prefers-reduced-motion: reduce) {
+  .illustration img,
+  .dashboard-illustration img,
+  .illustration--pulse::before,
+  .illustration--celebration {
+    animation: none;
+  }
+  
+  .illustration:hover,
+  .dashboard-illustration:hover {
+    transform: none;
+  }
+}

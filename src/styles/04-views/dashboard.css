@@ -1,497 +1,67 @@
-/* src/styles/04-views/dashboard.css - FIXED WITHOUT EMPTY RULESETS */
+/* src/styles/04-views/dashboard.css - SIMPLIFIED AFTER COMPONENT EXTRACTION */
 
 /* === DASHBOARD SCREEN LAYOUT === */
 .dashboard-screen {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-md); /* Reduced from var(--space-lg) */
+  gap: var(--space-lg);
   padding-top: var(--space-xl);
   position: relative;
   z-index: 10;
 }
 
-/* === BIRTH DATE HIGHLIGHTING === */
-.dashboard-due-date {
-  font-size: 32px;
-  font-weight: 800;
-  color: var(--color-accent-primary);
-  text-align: center;
-  margin-bottom: var(--space-md);
-  padding: var(--space-md) var(--space-lg);
-  background: var(--color-accent-primary-light);
-  border-radius: var(--radius-xl);
-  border: 2px solid var(--color-accent-primary-light);
-    box-shadow: 
-    0 2px 8px rgba(229, 116, 74, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  text-shadow: 0 1px 3px rgba(229, 116, 74, 0.2);
-  position: relative;
-  z-index: 5;
+/* === DASHBOARD SPECIFIC COMPONENT COMPOSITIONS === */
+
+/* Dashboard Header Grid Layout */
+.dashboard-screen .dashboard-header {
+  margin-bottom: var(--space-lg);
 }
 
-/* === CURRENT AGE DISPLAY === */
-.dashboard-current-age {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--color-text-secondary);
-  text-align: center;
-  margin-bottom: var(--space-sm);
-}
-
-/* === DASHBOARD ILLUSTRATION === */
-.dashboard-illustration {
-  font-size: 60px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  background: var(--color-bg-card);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-
-  transition: all 0.4s var(--ease-out);
+/* Dashboard Illustration Spacing */
+.dashboard-screen .dashboard-illustration {
   margin: var(--space-lg) 0;
-  z-index: 5;
 }
 
-.dashboard-illustration:hover {
-  transform: scale(1.02); 
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.10);
-
+/* Status Dashboard Container */
+.dashboard-screen .status-dashboard {
+  margin-bottom: var(--space-lg); /* FIXED: Same spacing as other components */
 }
 
-/* === NEW: PULSATING STRAWBERRY ANIMATION === */
-.dashboard-illustration img {
-  animation: heartbeat 3s ease-in-out infinite;
-  transform-origin: center;
-}
-
-@keyframes heartbeat {
-  0%, 100% { 
-    transform: scale(1);
-  }
-  50% { 
-    transform: scale(1.04);
-  }
-}
-
-/* === STATUS DASHBOARD === */
-.status-dashboard {
+/* Daily Tip Card - Full Width */
+.dashboard-screen .daily-tip-card {
   width: 100%;
-  max-width: 400px;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-lg);
-  background: linear-gradient(135deg, #fbfbfb 0%, #f8f8f8 100%);
-  border: 1px solid rgba(229, 116, 74, 0.08);
-  padding: var(--space-xl);
-    box-shadow: 
-    0 1px 3px rgba(0, 0, 0, 0.04),
-    0 0 0 1px rgba(229, 116, 74, 0.02),
-    0 2px 12px rgba(0, 0, 0, 0.04);
-  border: 1px solid var(--color-border-soft);
-  position: relative;
+  max-width: 400px; /* FIXED: Match status dashboard width */
 }
 
-.status-dashboard::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: var(--gradient-gentle);
-  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-}
-
-/* === DASHBOARD HEADER === */
-.dashboard-header {
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  gap: var(--space-md);
-  align-items: center;
-  text-align: center;
-}
-
-.status-item {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-  align-items: center;
-}
-
-.status-item-main {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-  align-items: center;
-  padding: var(--space-md);
-  background: var(--color-accent-primary-light);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-border-soft);
-}
-
-.status-value {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--color-accent-primary);
-  line-height: 1;
-}
-
-.status-value-main {
-  font-size: 18px;
-  font-weight: 800;
-  color: var(--color-accent-primary-dark);
-  line-height: 1;
-}
-
-.status-label {
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--color-text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  line-height: 1;
-}
-
-.status-label-main {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--color-accent-primary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  line-height: 1;
-}
-
-/* === PROGRESS BAR === */
-.progress-bar-container {
-  width: 100%;
-  padding: var(--space-md) 0;
-}
-
-.progress-bar-track {
-  width: 100%;
-  height: 10px;
-  background: var(--color-bg-interactive);
-  border-radius: 5px;
-  overflow: hidden;
-  position: relative;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.progress-bar-fill {
-  height: 100%;
-  background: var(--gradient-energy);
-  border-radius: 5px;
-  transition: width 1s var(--ease-out);
-  position: relative;
-  box-shadow: 0 1px 4px var(--pulse-shadow);
-}
-
-.progress-bar-fill::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  animation: progressShimmer 3s infinite;
-}
-
-@keyframes progressShimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-.progress-bar-labels {
-  display: flex;
-  justify-content: space-between;
-  margin-top: var(--space-sm);
-}
-
-.progress-bar-labels span {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--color-text-muted);
-}
-
-/* === SIZE COMPARISON === */
-.size-comparison {
-  background: var(--color-accent-primary-light);
-  border: 1px solid var(--color-border-soft);
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg);
-  text-align: center;
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--color-accent-primary-dark);
-  position: relative;
-}
-
-.size-comparison::before {
-  content: '✨';
-  position: absolute;
-  top: var(--space-sm);
-  right: var(--space-sm);
-  font-size: 16px;
-  animation: gentleSparkle 3s ease-in-out infinite;
-}
-
-@keyframes gentleSparkle {
-  0%, 100% { opacity: 0.6; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.1); }
-}
-
-/* === DASHBOARD ACTIONS === */
+/* Dashboard Actions Container - FIXED PADDING */
 .dashboard-actions {
   width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center; /* FIXED: Center align all children */
   gap: var(--space-md);
   margin-top: var(--space-xl);
-  max-width: 400px;
-}
-/* === DAILY TIP CARD === */
-.daily-tip-card {
-  background: var(--color-bg-card);
-  color: var(--color-text-primary);
-  padding: var(--space-xl) var(--space-lg) var(--space-lg);
-  border-radius: var(--radius-xl);
-  font-weight: 500;
-  text-align: center;
-  position: relative;
-  transition: all 0.3s var(--ease-out);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  line-height: 1.6;
-  border: 1px solid transparent;
+  padding: 0 var(--space-xl); /* FIXED: Add horizontal padding to match status dashboard */
+  /* REMOVED: max-width: 400px; - This was constraining the daily tip */
 }
 
-/* Gradient border using box-shadow technique */
-.daily-tip-card::before {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  background: linear-gradient(135deg, #E5744A, #FFCC5C);
-  border-radius: inherit;
-  z-index: -1;
-}
-
-.daily-tip-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--color-bg-card);
-  border-radius: calc(var(--radius-xl) - 2px);
-  z-index: -1;
-}
-
-/* Icon interruption with gradient background */
-.daily-tip-card .tip-icon {
-  position: absolute;
-  top: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: linear-gradient(135deg, #E5744A, #FFCC5C);
-  color: white;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  z-index: 2;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-.daily-tip-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-}
-
-.daily-tip-card:hover::before {
-  background: linear-gradient(135deg, #EA8B65, #FFD666);
-}
-
-.daily-tip-card:hover .tip-icon {
-  background: linear-gradient(135deg, #EA8B65, #FFD666);
-}
-/* === MILESTONE CARD === */
-.milestone-card {
-  background: var(--gradient-celebration);
-  color: white;
-  padding: var(--space-xl);
-  border-radius: var(--radius-xl);
-  text-align: center;
-  font-weight: 700;
-  font-size: 16px;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 6px 20px rgba(198, 123, 123, 0.2);
-  border: none;
-}
-
-.milestone-card::before {
-  content: '🎉';
-  position: absolute;
-  top: var(--space-md);
-  right: var(--space-md);
-  font-size: 28px;
-  animation: gentleBounce 2.5s infinite;
-}
-
-@keyframes gentleBounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
-}
-
-/* === RESPONSIVE DESIGN === */
+/* === RESPONSIVE OVERRIDES === */
 @media (max-width: 768px) {
   .dashboard-screen {
     padding: var(--space-lg) var(--space-md);
-    gap: var(--space-md);
-  }
-  
-  .dashboard-due-date {
-    font-size: 28px;
-    padding: var(--space-sm) var(--space-md);
-    
-  }
-  
-  .dashboard-illustration {
-    width: 120px;
-    height: 120px;
-    font-size:70px;
-  }
-  
-  .dashboard-header {
-    grid-template-columns: 1fr 1.5fr 1fr;
     gap: var(--space-sm);
   }
-  
-  .status-dashboard {
-    padding: var(--space-lg);
-  }
 }
 
-@media (max-width: 480px) {
-  .dashboard-due-date {
-    font-size: 24px;
-  }
-  
-  .dashboard-current-age {
-    font-size: 16px;
-  }
-  
-  .dashboard-header {
-    grid-template-columns: 1fr;
-    gap: var(--space-md);
-  }
-  
-  .status-item-main {
-    grid-column: 1;
-    order: -1;
-  }
-  
-  .dashboard-illustration {
-    width: 100px;
-    height: 100px;
-    font-size: 60px;
-  }
-}
-
-/* === STATUS CARD === */
-.status-card {
-  width: 100%;
-  max-width: 400px;
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border-soft);
-  border-radius: var(--radius-xl);
-  padding: var(--space-xl);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-lg);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  position: relative;
-}
-
-
-
-
-/* === DARK MODE SPECIFIC STYLES === */
+/* === DARK MODE OVERRIDES === */
 [data-theme="dark"] .dashboard-screen {
-  /* Dark mode specific adjustments */
   background: transparent;
-}
-
-[data-theme="dark"] .dashboard-due-date {
-  color: var(--color-accent-primary);
-  background: var(--color-accent-primary-light);
-  border-color: var(--color-accent-primary-light);
-  text-shadow: 0 1px 3px rgba(242, 132, 92, 0.3);
-}
-
-[data-theme="dark"] .dashboard-current-age {
-  color: var(--color-text-secondary);
-}
-
-[data-theme="dark"] .status-dashboard {
-  background: var(--color-bg-card);
-  border-color: var(--color-border);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
-}
-
-[data-theme="dark"] .dashboard-illustration {
-  background: var(--color-bg-card);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-[data-theme="dark"] .daily-tip-card {
-  background: var(--color-bg-card);
-  border-color: var(--color-border);
-/*  color: var(--color-text-primary);*/
-}
-
-[data-theme="dark"] .status-item-main {
-  background: var(--color-accent-primary-light);
-  border-color: var(--color-border);
-}
-
-[data-theme="dark"] .progress-bar-track {
-  background: var(--color-bg-interactive);
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
-}
-
-[data-theme="dark"] .size-comparison {
-  background: var(--color-accent-primary-light);
-  border-color: var(--color-border);
-  color: var(--color-accent-primary);
-}
-
-[data-theme="dark"] .status-card {
-  background: var(--color-bg-card);
-  border-color: var(--color-border);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* === ACCESSIBILITY === */
 @media (prefers-reduced-motion: reduce) {
-  .dashboard-illustration,
-  .progress-bar-fill::after,
-  .size-comparison::before,
-  .milestone-card::before {
-    animation: none;
-  }
-  .dashboard-illustration img {
-    animation: none;
-  }
-  
-  .dashboard-illustration:hover {
-    transform: none;
+  .dashboard-screen * {
+    transition: none;
   }
 }
