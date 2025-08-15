@@ -171,15 +171,7 @@
   padding-top: var(--space-lg);
 }
 
-.btn-group {
-  display: flex;
-  gap: var(--space-md);
-  margin-top: 0;
-}
 
-.btn-group .btn {
-  flex: 1;
-}
 
 /* === ERROR HANDLING === */
 .form-error {

@@ -88,7 +88,7 @@
 
 /* === SECONDARY BUTTONS (Warm with Vibrant Accents) === */
 .btn-secondary {
-  background: white;
+  background: var(--color-secondary);
   color: var(--color-text-primary);
   border-color: var(--color-border);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
