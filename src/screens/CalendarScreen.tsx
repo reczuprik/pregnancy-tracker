@@ -3,9 +3,18 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DayPicker } from 'react-day-picker';
-import 'react-day-picker/dist/style.css'; // Import the default styles
+import 'react-day-picker/dist/style.css';
 import { format } from 'date-fns';
-import { MeasurementService, CalendarEvent } from '../services/database';
+// Fix: Check if CalendarEvent type exists in your database service
+// import { MeasurementService, CalendarEvent } from '../services/database';
+
+// Temporary interface until you implement CalendarEvent in database
+interface CalendarEvent {
+  id: string;
+  title: string;
+  date: Date;
+  type: 'appointment' | 'milestone' | 'note';
+}
 
 const CalendarScreen: React.FC = () => {
   const { t } = useTranslation();
@@ -13,8 +22,17 @@ const CalendarScreen: React.FC = () => {
   const [events, setEvents] = useState<CalendarEvent[]>([]);
 
   useEffect(() => {
+    // Fix: Add mock data or implement getEventsForDate in your service
     if (selectedDay) {
-      MeasurementService.getEventsForDate(selectedDay).then(setEvents);
+      // Temporarily use mock data until you implement the service method
+      const mockEvents: CalendarEvent[] = [
+        // Example events - replace with actual data fetching
+        // { id: '1', title: 'Doctor Appointment', date: selectedDay, type: 'appointment' }
+      ];
+      setEvents(mockEvents);
+      
+      // When ready, uncomment this:
+      // MeasurementService.getEventsForDate(selectedDay).then(setEvents);
     }
   }, [selectedDay]);
 
@@ -38,13 +56,15 @@ const CalendarScreen: React.FC = () => {
         <h3>Events for {selectedDay ? format(selectedDay, 'MMM dd') : '...'}</h3>
         {events.length > 0 ? (
           <ul>
-            {events.map(event => <li key={event.id}>{event.title}</li>)}
+            {events.map(event => (
+              <li key={event.id}>{event.title}</li>
+            ))}
           </ul>
         ) : (
           <p>No events for this day.</p>
         )}
       </div>
-      {/* We will add the "Add Event" button here later */}
+      {/* Add Event button will go here later */}
     </div>
   );
 };

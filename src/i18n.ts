@@ -53,6 +53,10 @@ const resources = {
         }
       },
       dashboard: {
+          welcome: "Welcome! 👶",
+          getStarted: "Let's get started with your pregnancy journey",
+          addFirstMeasurement: "Add First Measurement",
+  
           setOfficialTitle: "Set Your Official Due Date",
           setOfficialText: "You have measurements, but none are official. Go to your log to pin the most accurate scan. This will activate your daily dashboard.",
           goToLog: "Go to Your Log",
