@@ -1,4 +1,4 @@
-// src/components/history/GrowthJourneyView.tsx
+// Updated GrowthJourneyView.tsx with better grouped controls
 
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -10,7 +10,8 @@ interface GrowthJourneyViewProps {
   measurements: Measurement[];
   officialMeasurement?: Measurement;
 }
-type ChartableParameter = 'crl_mm' | 'fl_mm' | 'bpd_mm' | 'hc_mm';
+
+type ChartableParameter = 'crl_mm' | 'fl_mm' | 'bpd_mm' | 'hc_mm' | 'ac_mm';
 
 const GrowthJourneyView: React.FC<GrowthJourneyViewProps> = ({ measurements, officialMeasurement }) => {
   const { t } = useTranslation();
@@ -26,12 +27,51 @@ const GrowthJourneyView: React.FC<GrowthJourneyViewProps> = ({ measurements, off
       
       <div className="chart-analytics-area">
         <div className="chart-controls">
-          {/* ✨ FIX: The onClick handlers now set the state with the correct '_mm' suffix. */}
-          <button onClick={() => setActiveChart('crl_mm')} className={`btn-tertiary ${activeChart === 'crl_mm' ? 'active' : ''}`}>CRL</button>
-          <button onClick={() => setActiveChart('bpd_mm')} className={`btn-tertiary ${activeChart === 'bpd_mm' ? 'active' : ''}`}>BPD</button>
-          <button onClick={() => setActiveChart('hc_mm')} className={`btn-tertiary ${activeChart === 'hc_mm' ? 'active' : ''}`}>HC</button>
-          <button onClick={() => setActiveChart('fl_mm')} className={`btn-tertiary ${activeChart === 'fl_mm' ? 'active' : ''}`}>FL</button>
+          {/* Early Pregnancy Group */}
+          <div className="measurement-group early-pregnancy">
+            <span className="group-label">Early Pregnancy</span>
+            <div className="group-buttons">
+              <button 
+                onClick={() => setActiveChart('crl_mm')} 
+                className={`btn-tertiary ${activeChart === 'crl_mm' ? 'active' : ''}`}
+              >
+                CRL
+              </button>
+            </div>
+          </div>
+
+          {/* Later Pregnancy Group */}
+          <div className="measurement-group later-pregnancy">
+            <span className="group-label">Biometric Parameters</span>
+            <div className="group-buttons">
+              <button 
+                onClick={() => setActiveChart('bpd_mm')} 
+                className={`btn-tertiary ${activeChart === 'bpd_mm' ? 'active' : ''}`}
+              >
+                BPD
+              </button>
+              <button 
+                onClick={() => setActiveChart('hc_mm')} 
+                className={`btn-tertiary ${activeChart === 'hc_mm' ? 'active' : ''}`}
+              >
+                HC
+              </button>
+              <button 
+                onClick={() => setActiveChart('ac_mm')} 
+                className={`btn-tertiary ${activeChart === 'ac_mm' ? 'active' : ''}`}
+              >
+                AC
+              </button>
+              <button 
+                onClick={() => setActiveChart('fl_mm')} 
+                className={`btn-tertiary ${activeChart === 'fl_mm' ? 'active' : ''}`}
+              >
+                FL
+              </button>
+            </div>
+          </div>
         </div>
+        
         <GrowthChart 
           measurements={measurements} 
           parameter={activeChart} 

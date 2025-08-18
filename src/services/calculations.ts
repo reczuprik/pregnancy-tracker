@@ -56,6 +56,16 @@ export const FL_PERCENTILES: PercentileData = {
   38: [68, 75, 81], 39: [69, 76, 82], 40: [70, 77, 83]
 };
 
+export const AC_PERCENTILES: PercentileData = {
+  14: [69, 79, 89], 15: [80, 92, 104], 16: [90, 103, 117], 17: [100, 115, 131],
+  18: [113, 128, 144], 19: [125, 142, 158], 20: [136, 152, 169], 21: [146, 163, 180],
+  22: [158, 175, 192], 23: [169, 188, 205], 24: [179, 199, 217], 25: [190, 210, 230],
+  26: [200, 221, 242], 27: [210, 231, 254], 28: [220, 242, 266], 29: [230, 253, 278],
+  30: [240, 264, 290], 31: [250, 275, 302], 32: [260, 286, 314], 33: [270, 297, 326],
+  34: [279, 308, 338], 35: [288, 319, 350], 36: [296, 329, 361], 37: [304, 338, 372],
+  38: [310, 347, 382], 39: [316, 355, 391], 40: [321, 361, 399]
+};
+
 // Size comparisons for weeks
 export const SIZE_COMPARISONS: { [week: number]: string } = {
   4: "poppy seed", 5: "sesame seed", 6: "lentil", 7: "blueberry",
@@ -139,12 +149,13 @@ export function calculateMeasurement(input: MeasurementInput): CalculationResult
   const percentiles = [];
   
   // Define a mapping of measurement keys to their respective percentile data and display names.
-  const percentileMapping: Array<{ key: keyof Omit<MeasurementInput, 'date'>, data: PercentileData, name: string }> = [
-      { key: 'crl_mm', data: CRL_PERCENTILES, name: 'CRL' },
-      { key: 'bpd_mm', data: BPD_PERCENTILES, name: 'BPD' },
-      { key: 'hc_mm', data: HC_PERCENTILES, name: 'HC' },
-      { key: 'fl_mm', data: FL_PERCENTILES, name: 'FL' }
-  ];
+const percentileMapping: Array<{ key: keyof Omit<MeasurementInput, 'date'>, data: PercentileData, name: string }> = [
+    { key: 'crl_mm', data: CRL_PERCENTILES, name: 'CRL' },
+    { key: 'bpd_mm', data: BPD_PERCENTILES, name: 'BPD' },
+    { key: 'hc_mm', data: HC_PERCENTILES, name: 'HC' },
+    { key: 'ac_mm', data: AC_PERCENTILES, name: 'AC' }, 
+    { key: 'fl_mm', data: FL_PERCENTILES, name: 'FL' }
+];
 
   // Loop through the defined mapping to ensure type safety.
   for (const mapping of percentileMapping) {

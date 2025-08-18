@@ -7,7 +7,7 @@ import { differenceInDays } from 'date-fns';
 import {
   Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler,
 } from 'chart.js';
-import { CRL_PERCENTILES, FL_PERCENTILES, BPD_PERCENTILES, HC_PERCENTILES } from '../../services/calculations';
+import { CRL_PERCENTILES, FL_PERCENTILES, BPD_PERCENTILES, HC_PERCENTILES,AC_PERCENTILES  } from '../../services/calculations';
 import { Measurement } from '../../types/measurement';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
@@ -28,7 +28,7 @@ const getOrCreateTooltip = (chart: any) => {
   return tooltipEl;
 };
 
-type ChartableParameter = 'crl_mm' | 'fl_mm' | 'bpd_mm' | 'hc_mm';
+type ChartableParameter = 'crl_mm' | 'fl_mm' | 'bpd_mm' | 'hc_mm' | 'ac_mm';
 
 interface GrowthChartProps {
   measurements: Measurement[];
@@ -46,6 +46,8 @@ const GrowthChart: React.FC<GrowthChartProps> = ({ measurements, parameter, offi
     const percentileDataMap = {
       crl_mm: CRL_PERCENTILES, fl_mm: FL_PERCENTILES,
       bpd_mm: BPD_PERCENTILES, hc_mm: HC_PERCENTILES,
+      ac_mm: AC_PERCENTILES
+
     };
     const percentileData = percentileDataMap[parameter];
     if (!percentileData) return null;

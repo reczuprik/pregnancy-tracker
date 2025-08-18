@@ -471,12 +471,14 @@
 }
 
 .chart-controls {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-sm);
-  padding-bottom: var(--space-xl);
-  border-bottom: 1px solid var(--color-border-soft);
-  margin-bottom: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+  padding: var(--space-lg);
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-soft);
 }
 
 .chart-controls .btn-tertiary {
@@ -491,6 +493,82 @@
   background: var(--color-accent-primary);
   color: white;
   border-color: var(--color-accent-primary);
+}
+
+.measurement-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.group-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-accent-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: var(--space-xs);
+}
+
+.group-buttons {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+/* Early pregnancy styling */
+.early-pregnancy .group-label {
+  color: var(--color-accent-secondary);
+}
+
+.early-pregnancy .btn-tertiary {
+  background: var(--color-accent-secondary-light);
+  color: var(--color-accent-secondary);
+  border: 2px solid var(--color-accent-secondary-light);
+  font-weight: 600;
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+}
+
+.early-pregnancy .btn-tertiary:hover {
+  background: var(--color-accent-secondary);
+  color: white;
+  transform: translateY(-1px);
+}
+
+.early-pregnancy .btn-tertiary.active {
+  background: var(--color-accent-secondary);
+  color: white;
+  box-shadow: 0 2px 8px rgba(212, 165, 116, 0.3);
+}
+
+/* Later pregnancy styling */
+.later-pregnancy .group-label {
+  color: var(--color-accent-primary);
+}
+
+.later-pregnancy .btn-tertiary {
+  background: var(--color-accent-primary-light);
+  color: var(--color-accent-primary);
+  border: 2px solid var(--color-accent-primary-light);
+  font-weight: 600;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+  min-width: 50px;
+}
+
+.later-pregnancy .btn-tertiary:hover {
+  background: var(--color-accent-primary);
+  color: white;
+  transform: translateY(-1px);
+}
+
+.later-pregnancy .btn-tertiary.active {
+  background: var(--color-accent-primary);
+  color: white;
+  box-shadow: 0 2px 8px rgba(229, 116, 74, 0.3);
 }
 
 /* === NO DATA STATE === */
@@ -512,6 +590,26 @@
   opacity: 0.7;
 }
 
+/* Responsive design */
+@media (min-width: 768px) {
+  .chart-controls {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--space-xl);
+  }
+
+  .measurement-group {
+    flex: 1;
+  }
+
+  .early-pregnancy {
+    flex: 0.4;
+  }
+
+  .later-pregnancy {
+    flex: 0.6;
+  }
+}
 /* === RESPONSIVE DESIGN === */
 @media (max-width: 768px) {
   .timeline-container::before {
@@ -540,6 +638,7 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
 
 @media (max-width: 480px) {
   .card-header-collapsed {
@@ -600,3 +699,5 @@
   background: var(--color-bg-card);
   color: var(--color-accent-secondary);
 }
+
+
