@@ -1,4 +1,4 @@
-// src/components/common/Header.tsx - Fixed with Theme Toggle
+// src/components/common/Header.tsx - Updated with Logo
 
 import React from 'react';
 import { NavLink } from 'react-router-dom';
@@ -36,6 +36,18 @@ const MoonIcon = () => (
   </svg>
 );
 
+// Emberly Logo Component - using actual image
+const EmberlyLogo = () => (
+  <img 
+    src="/src/assets/emberly-logo.png" 
+    alt="Emberly" 
+    width="40" 
+    height="40"
+    style={{ userSelect: 'none', pointerEvents: 'none' }}
+    draggable={false}
+  />
+);
+
 const Header: React.FC<HeaderProps> = ({ language, onLanguageChange, theme, onThemeToggle }) => {
   return (
     <header className="header">
@@ -50,8 +62,10 @@ const Header: React.FC<HeaderProps> = ({ language, onLanguageChange, theme, onTh
           </NavLink>
         </div>
         
-        {/* Title (empty for spacing) */}
-        <div className="header-title"></div>
+        {/* Logo - Center */}
+        <div className="header-logo">
+          <EmberlyLogo />
+        </div>
         
         {/* Controls: Theme Toggle + Language */}
         <div className="header-controls">
