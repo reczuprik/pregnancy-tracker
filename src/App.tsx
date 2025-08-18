@@ -13,6 +13,7 @@ import ResultsCard from './components/common/ResultsCard';
 import MeasurementForm from './components/measurements/MeasurementForm';
 import { MeasurementService } from './services/database';
 import { Measurement, CalculationResult, MeasurementInput } from './types/measurement';
+import CalendarScreen from './screens/CalendarScreen'; // ✨ NEW Import
 
 // Lazy load heavy components
 const GrowthJourneyView = lazy(() => import('./components/history/GrowthJourneyView'));
@@ -289,6 +290,8 @@ function AppContent() {
                   />
                 </Suspense>
               } />
+              <Route path="/calendar" element={<CalendarScreen />} />
+
             </Routes>
           </ErrorBoundary>
         </main>

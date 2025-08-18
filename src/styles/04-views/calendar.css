@@ -1,0 +1,18 @@
+/* src/styles/views/calendar.css */
+.calendar-container {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-xl);
+  padding: var(--space-sm);
+  box-shadow: var(--shadow-soft);
+}
+/* Style overrides for react-day-picker */
+.rdp {
+  --rdp-cell-size: 40px;
+  --rdp-accent-color: var(--color-accent);
+  --rdp-background-color: var(--color-primary-light);
+  --rdp-accent-color-dark: var(--color-accent);
+  --rdp-background-color-dark: var(--color-primary-light);
+}
+.event-list {
+  margin-top: var(--space-xl);
+}

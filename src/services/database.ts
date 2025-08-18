@@ -3,14 +3,24 @@ import Dexie, { Table } from 'dexie';
 import { Measurement, MeasurementInput } from '../types/measurement';
 import { calculateMeasurement } from './calculations';
 import { v4 as uuidv4 } from 'uuid';
+import { format, startOfMonth as startOfMonthFn, endOfMonth as endOfMonthFn } from 'date-fns'
+
 
 export class PregnancyDatabase extends Dexie {
   measurements!: Table<Measurement>;
+  appointments!: Table<CalendarEvent>; // ✨ NEW: The appointments table
+
 
   constructor() {
     super('PregnancyTracker');
     this.version(1).stores({
       measurements: 'id, date, gestationalWeek, isOfficial, createdAt'
+    });
+        // ✨ NEW: Upgrade the database to version 2
+    this.version(2).stores({
+      measurements: 'id, date, gestationalWeek, isOfficial, createdAt',
+      // '++id' creates an auto-incrementing primary key. '&date' makes the date an index for fast lookups.
+      appointments: '++id, &date' 
     });
   }
 }
@@ -21,8 +31,8 @@ export class MeasurementService {
   
   /**
    * Add a new measurement
-   */
-static async addMeasurement(input: MeasurementInput): Promise<Measurement | null> {
+   */ 
+  static async addMeasurement(input: MeasurementInput): Promise<Measurement | null> {
     try {
       const calculationResult = calculateMeasurement(input);
       if (!calculationResult) {
@@ -77,6 +87,22 @@ static async addMeasurement(input: MeasurementInput): Promise<Measurement | null
       return undefined;
     }
   }
+  static async addCalendarEvent(event: CalendarEvent): Promise<number> {
+  return await db.appointments.add(event);
+}
+
+static async getEventsForMonth(month: Date): Promise<CalendarEvent[]> {
+  const startOfMonth = format(startOfMonthFn(month), 'yyyy-MM-dd');
+  const endOfMonth = format(endOfMonthFn(month), 'yyyy-MM-dd');
+  return await db.appointments
+    .where('date').between(startOfMonth, endOfMonth)
+    .toArray();
+}
+
+static async getEventsForDate(date: Date): Promise<CalendarEvent[]> {
+  const dateString = format(date, 'yyyy-MM-dd');
+  return await db.appointments.where('date').equals(dateString).toArray();
+}
 
   /**
    * Update existing measurement
@@ -240,4 +266,13 @@ static async addMeasurement(input: MeasurementInput): Promise<Measurement | null
       return undefined;
     }
   }
+}
+
+export interface CalendarEvent {
+  id?: number; // Optional because it's auto-incrementing
+  title: string;
+  date: string; // Stored as "YYYY-MM-DD"
+  time?: string;
+  type: 'appointment' | 'medication' | 'milestone';
+  notes?: string;
 }
