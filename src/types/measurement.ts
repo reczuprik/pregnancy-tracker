@@ -34,11 +34,15 @@ export interface CalculationResult {
   gestationalDay: number;
   estimatedDueDate: string;
   sizeComparison: string;
-  percentiles?: {
-    parameter: string;
-    value: number;
-    percentile: number;
+  percentiles?: { 
+    parameter: string; 
+    value: number; 
+    percentile: number; 
   }[];
+
+  
+  basedOn: 'CRL' | 'Hadlock';  // <-- add this
+
 }
 
 export interface PercentileData {

@@ -112,17 +112,29 @@ const resources = {
       
       },
       calendar: {
-        eventsFor: "Események -",
-        noEvents: "Nincsenek események ezen a napon.",
-        addEventButton: "Új Esemény Hozzáadása",
-        addEventTitle: "Hozzáadás a Naptárhoz",
-        eventTitleLabel: "Esemény Neve",
-        eventTypeLabel: "Esemény Típusa",
-        notesLabel: "Jegyzetek (Opcionális)",
+        upcomingEvents: "Upcoming Events",
+        noUpcomingEvents: "No upcoming events",
+        addFirstEvent: "Add your first event to start planning your pregnancy journey.",
+        eventsFor: "Events for",
+        noEvents: "No events on this day.",
+        addEventButton: "Add New Event",
+        addEventTitle: "Add to Calendar",
+        eventTitleLabel: "Event Name",
+        eventTypeLabel: "Event Type",
+        notesLabel: "Notes (Optional)",
+        date: "Date",
+        time: "Time",
+        notes: "Notes",
+        today: "Today",
+        tomorrow: "Tomorrow",
+        yesterday: "Yesterday",
+        daysAway: "{{count}} days away",
+        daysAgo: "{{count}} days ago",
+        type: "Type",
         types: {
-          appointment: "Orvosi Időpont",
-          medication: "Gyógyszer Emlékeztető",
-          milestone: "Személyes Mérföldkő"
+          appointment: "Medical Appointment",
+          medication: "Medication Reminder",
+          milestone: "Personal Milestone"
         }
       },
       charts: {
@@ -295,6 +307,32 @@ const resources = {
         estimatedAgeFromSize: "becsült kor (méret alapján)",
         growthRateLabel: "{{parameter}} Növekedési Ütem", // ✨ NEW
 
+      },
+      calendar: {
+        upcomingEvents: "Közelgő Események",
+        noUpcomingEvents: "Nincsenek közelgő események",
+        addFirstEvent: "Add hozzá az első eseményedet, hogy elkezdd tervezni a terhességi utadat.",
+        eventsFor: "Események -",
+        noEvents: "Nincsenek események ezen a napon.",
+        addEventButton: "Új Esemény Hozzáadása",
+        addEventTitle: "Hozzáadás a Naptárhoz",
+        eventTitleLabel: "Esemény Neve",
+        eventTypeLabel: "Esemény Típusa",
+        notesLabel: "Jegyzetek (Opcionális)",
+        date: "Dátum",
+        time: "Időpont",
+        notes: "Jegyzetek",
+        today: "Ma",
+        tomorrow: "Holnap",
+        yesterday: "Tegnap",
+        daysAway: "{{count}} nap múlva",
+        daysAgo: "{{count}} napja",
+        type: "Típus",
+        types: {
+          appointment: "Orvosi Időpont",
+          medication: "Gyógyszer Emlékeztető",
+          milestone: "Személyes Mérföldkő"
+        }
       },
       
       charts: {

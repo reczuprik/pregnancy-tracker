@@ -172,15 +172,28 @@ const percentileMapping: Array<{ key: keyof Omit<MeasurementInput, 'date'>, data
           }
       }
   }
+  if (input.crl_mm) {
+    return {
+      date: input.date,
+      gestationalAgeInDays: roundedDays,
+      gestationalWeek,
+      gestationalDay,
+      estimatedDueDate,
+      sizeComparison,
+      percentiles: percentiles.length > 0 ? percentiles : undefined,
+      basedOn: 'CRL'
+    };
+  } else {
+      return {
+      date: input.date,
+      gestationalAgeInDays: roundedDays,
+      gestationalWeek,
+      gestationalDay,
+      estimatedDueDate,
+      sizeComparison,
+      percentiles: percentiles.length > 0 ? percentiles : undefined,
+        basedOn: 'Hadlock'
+    };
+  }
 
-  return {
-    date: input.date,
-
-    gestationalAgeInDays: roundedDays,
-    gestationalWeek,
-    gestationalDay,
-    estimatedDueDate,
-    sizeComparison,
-    percentiles: percentiles.length > 0 ? percentiles : undefined
-  };
 }

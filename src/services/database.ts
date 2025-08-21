@@ -40,18 +40,22 @@ export class MeasurementService {
       }
       const existingCount = await db.measurements.count();
       const isFirstMeasurement = existingCount === 0;
+      const measurementValues: { [key in keyof Omit<MeasurementInput, 'date'>]?: number } = {};
+
+      if (input.crl_mm !== undefined) measurementValues.crl_mm = input.crl_mm;
+      if (input.bpd_mm !== undefined) measurementValues.bpd_mm = input.bpd_mm;
+      if (input.hc_mm !== undefined) measurementValues.hc_mm = input.hc_mm;
+      if (input.ac_mm !== undefined) measurementValues.ac_mm = input.ac_mm;
+      if (input.fl_mm !== undefined) measurementValues.fl_mm = input.fl_mm;
 
       const measurement: Measurement = {
         id: uuidv4(),
         date: input.date,
         gestationalWeek: calculationResult.gestationalWeek,
         gestationalDay: calculationResult.gestationalDay,
-        measurements: {
-          crl_mm: input.crl_mm, bpd_mm: input.bpd_mm, hc_mm: input.hc_mm,
-          ac_mm: input.ac_mm, fl_mm: input.fl_mm
-        },
+        measurements: measurementValues, // Use the cleaned object here
         estimatedDueDate: calculationResult.estimatedDueDate,
-        isOfficial: isFirstMeasurement ? 1 : 0, // FIX: Save as number 1 or 0
+        isOfficial: isFirstMeasurement ? 1 : 0,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
       };
@@ -104,6 +108,25 @@ static async getEventsForDate(date: Date): Promise<CalendarEvent[]> {
   return await db.appointments.where('date').equals(dateString).toArray();
 }
 
+static async getUpcomingEvents(daysAhead: number = 30): Promise<CalendarEvent[]> {
+  const today = format(new Date(), 'yyyy-MM-dd');
+  const futureDate = format(new Date(Date.now() + daysAhead * 24 * 60 * 60 * 1000), 'yyyy-MM-dd');
+  
+  return await db.appointments
+    .where('date').between(today, futureDate, true, true)
+    .toArray();
+}
+
+static async deleteCalendarEvent(id: number): Promise<boolean> {
+  try {
+    await db.appointments.delete(id);
+    return true;
+  } catch (error) {
+    console.error('Error deleting calendar event:', error);
+    return false;
+  }
+}
+
   /**
    * Update existing measurement
    */
@@ -119,6 +142,13 @@ static async getEventsForDate(date: Date): Promise<CalendarEvent[]> {
       if (!calculationResult) {
         throw new Error('Invalid measurement data');
       }
+      const measurementValues: { [key in keyof Omit<MeasurementInput, 'date'>]?: number } = {};
+
+      if (input.crl_mm !== undefined) measurementValues.crl_mm = input.crl_mm;
+      if (input.bpd_mm !== undefined) measurementValues.bpd_mm = input.bpd_mm;
+      if (input.hc_mm !== undefined) measurementValues.hc_mm = input.hc_mm;
+      if (input.ac_mm !== undefined) measurementValues.ac_mm = input.ac_mm;
+      if (input.fl_mm !== undefined) measurementValues.fl_mm = input.fl_mm;
 
       // Update measurement
       const updatedMeasurement: Measurement = {
@@ -126,13 +156,7 @@ static async getEventsForDate(date: Date): Promise<CalendarEvent[]> {
         date: input.date,
         gestationalWeek: calculationResult.gestationalWeek,
         gestationalDay: calculationResult.gestationalDay,
-        measurements: {
-          crl_mm: input.crl_mm,
-          bpd_mm: input.bpd_mm,
-          hc_mm: input.hc_mm,
-          ac_mm: input.ac_mm,
-          fl_mm: input.fl_mm
-        },
+        measurements: measurementValues, // Use the cleaned object here
         estimatedDueDate: calculationResult.estimatedDueDate,
         updatedAt: new Date().toISOString()
       };

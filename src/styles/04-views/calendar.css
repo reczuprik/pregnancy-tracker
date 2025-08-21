@@ -1,18 +1,221 @@
 /* src/styles/views/calendar.css */
-.calendar-container {
+
+/* Calendar Screen Layout */
+.calendar-screen {
+  padding: var(--space-lg);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.screen-header {
+  margin-bottom: var(--space-xl);
+}
+
+.screen-header h2 {
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+/* Events Smart Stack */
+.events-smart-stack {
+  margin-bottom: var(--space-xl);
+}
+
+.event-cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+/* Calendar Event Card */
+.calendar-event-card {
   background: var(--color-bg-card);
-  border-radius: var(--radius-xl);
-  padding: var(--space-sm);
-  box-shadow: var(--shadow-soft);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-default);
+  cursor: pointer;
+  overflow: hidden;
 }
-/* Style overrides for react-day-picker */
-.rdp {
-  --rdp-cell-size: 40px;
-  --rdp-accent-color: var(--color-accent);
-  --rdp-background-color: var(--color-primary-light);
-  --rdp-accent-color-dark: var(--color-accent);
-  --rdp-background-color-dark: var(--color-primary-light);
+
+.calendar-event-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
 }
-.event-list {
-  margin-top: var(--space-xl);
+
+.calendar-event-card.expanded {
+  box-shadow: var(--shadow-lg);
+}
+
+/* Urgency Classes */
+.calendar-event-card.overdue {
+  border-left: 4px solid var(--color-danger);
+}
+
+.calendar-event-card.urgent {
+  border-left: 4px solid var(--color-warning);
+}
+
+.calendar-event-card.soon {
+  border-left: 4px solid var(--color-accent);
+}
+
+.calendar-event-card.future {
+  border-left: 4px solid var(--color-primary);
+}
+
+/* Card Header (Collapsed State) */
+.card-header-collapsed {
+  display: flex;
+  align-items: center;
+  padding: var(--space-md);
+  gap: var(--space-sm);
+}
+
+.event-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-subtle);
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+.collapsed-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.card-title {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-xs);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-meta {
+  display: flex;
+  gap: var(--space-sm);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.event-type {
+  white-space: nowrap;
+}
+
+.event-date {
+  white-space: nowrap;
+}
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.chevron-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+  transition: var(--transition-default);
+}
+
+.chevron-indicator.rotated {
+  transform: rotate(90deg);
+}
+
+/* Expanded Content */
+.card-content-expanded {
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-md);
+  background: var(--color-bg-subtle);
+}
+
+.event-details {
+  margin-bottom: var(--space-md);
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: var(--space-xs) 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-label {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  min-width: 80px;
+  flex-shrink: 0;
+}
+
+.detail-value {
+  color: var(--color-text-primary);
+  text-align: right;
+  word-break: break-word;
+}
+
+.detail-value.notes-text {
+  text-align: left;
+  margin-left: var(--space-sm);
+}
+
+.card-expanded-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-xs);
+}
+
+/* Empty and Loading States */
+.empty-state {
+  text-align: center;
+  padding: var(--space-xxl);
+  color: var(--color-text-secondary);
+}
+
+.empty-state-subtitle {
+  font-size: var(--text-sm);
+  margin-top: var(--space-sm);
+}
+
+.loading-state {
+  text-align: center;
+  padding: var(--space-xxl);
+  color: var(--color-text-secondary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .calendar-screen {
+    padding: var(--space-md);
+  }
+  
+  .card-meta {
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+  
+  .detail-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-xs);
+  }
+  
+  .detail-value {
+    text-align: left;
+  }
 }
