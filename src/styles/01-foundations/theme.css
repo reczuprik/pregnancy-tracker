@@ -8,6 +8,7 @@
   --color-bg-card: #ffffff;
   --color-bg-subtle: #f8f6f4;
   --color-bg-interactive: #f0ede9;
+  --color-secondary: #f8f6f4;
   
   /* Text Colors */
   --color-text-primary: #2d2520;
@@ -68,6 +69,10 @@
   --color-primary-light: var(--color-accent-primary-light);
   --color-primary-dark: var(--color-accent-primary-dark);
   --color-primary-border: #F0D5C5;
+  
+  /* Additional missing variables */
+  --color-neutral: #8a7b72;
+  --color-neutral-light: #f0e8df;
 }
 
 /* === DARK MODE === */
@@ -77,6 +82,7 @@
   --color-bg-card: #1a1614;
   --color-bg-subtle: #2d2520;
   --color-bg-interactive: #3a332e;
+  --color-secondary: #2d2520;
   
   /* FIXED: Dark Text - High Contrast */
   --color-text-primary: #ffffff;      /* Pure white for maximum contrast */
@@ -119,6 +125,10 @@
   --color-error-light: #2a1f1f;
   --color-info: #7B9CC5;
   --color-info-light: #1c2229;
+  
+  /* Additional dark mode variables */
+  --color-neutral: #8a7b72;
+  --color-neutral-light: #2d2520;
 }
 
 

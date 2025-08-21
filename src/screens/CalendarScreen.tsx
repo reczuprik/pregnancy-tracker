@@ -1,44 +1,44 @@
 // src/screens/CalendarScreen.tsx
 
 import React, { useState, useEffect } from 'react';
+// src/screens/CalendarScreen.tsx (FINAL Interactive Version)
+
+
 import { useTranslation } from 'react-i18next';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import { format } from 'date-fns';
-// Fix: Check if CalendarEvent type exists in your database service
-// import { MeasurementService, CalendarEvent } from '../services/database';
-
-// Temporary interface until you implement CalendarEvent in database
-interface CalendarEvent {
-  id: string;
-  title: string;
-  date: Date;
-  type: 'appointment' | 'milestone' | 'note';
-}
+import { MeasurementService, CalendarEvent } from '../services/database';
+import AddEventModal from '../components/calendar/AddEventModal'; // <-- Import the new component
 
 const CalendarScreen: React.FC = () => {
   const { t } = useTranslation();
   const [selectedDay, setSelectedDay] = useState<Date | undefined>(new Date());
   const [events, setEvents] = useState<CalendarEvent[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false); // <-- NEW state for modal
+
+  const fetchEvents = (day: Date) => {
+    setIsLoading(true);
+    MeasurementService.getEventsForDate(day)
+      .then(setEvents)
+      .finally(() => setIsLoading(false));
+  };
 
   useEffect(() => {
-    // Fix: Add mock data or implement getEventsForDate in your service
     if (selectedDay) {
-      // Temporarily use mock data until you implement the service method
-      const mockEvents: CalendarEvent[] = [
-        // Example events - replace with actual data fetching
-        // { id: '1', title: 'Doctor Appointment', date: selectedDay, type: 'appointment' }
-      ];
-      setEvents(mockEvents);
-      
-      // When ready, uncomment this:
-      // MeasurementService.getEventsForDate(selectedDay).then(setEvents);
+      fetchEvents(selectedDay);
     }
   }, [selectedDay]);
 
-  const footer = selectedDay 
-    ? <p>You selected {format(selectedDay, 'PPP')}.</p>
-    : <p>Please pick a day.</p>;
+  // ✨ NEW: Handler for saving the event from the modal
+  const handleSaveEvent = async (event: CalendarEvent) => {
+    await MeasurementService.addCalendarEvent(event);
+    setIsModalOpen(false); // Close the modal
+    if (selectedDay) {
+      fetchEvents(selectedDay); // Refresh the event list for the selected day
+    }
+  };
 
   return (
     <div className="calendar-screen">
@@ -47,24 +47,41 @@ const CalendarScreen: React.FC = () => {
           mode="single"
           selected={selectedDay}
           onSelect={setSelectedDay}
-          footer={footer}
           showOutsideDays
           fixedWeeks
+          className="glassmorphism"
         />
       </div>
+
       <div className="event-list">
-        <h3>Events for {selectedDay ? format(selectedDay, 'MMM dd') : '...'}</h3>
-        {events.length > 0 ? (
+        <h3>{t('calendar.eventsFor')} {selectedDay ? format(selectedDay, 'MMM dd') : '...'}</h3>
+        {isLoading ? (
+          <p>{t('common.loading')}</p>
+        ) : events.length > 0 ? (
           <ul>
-            {events.map(event => (
-              <li key={event.id}>{event.title}</li>
-            ))}
+            {events.map(event => <li key={event.id}>{event.title}</li>)}
           </ul>
         ) : (
-          <p>No events for this day.</p>
+          <p>{t('calendar.noEvents')}</p>
         )}
       </div>
-      {/* Add Event button will go here later */}
+
+      {/* ✨ NEW: The "Add Event" button */}
+      <div className="btn-group">
+        <button className="btn btn-primary btn-full" onClick={() => setIsModalOpen(true)}>
+          {t('calendar.addEventButton')}
+        </button>
+      </div>
+      
+      {/* ✨ NEW: The Modal component */}
+      {selectedDay && (
+        <AddEventModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onSave={handleSaveEvent}
+          selectedDate={selectedDay}
+        />
+      )}
     </div>
   );
 };

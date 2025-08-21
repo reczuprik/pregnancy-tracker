@@ -269,9 +269,9 @@ static async getEventsForDate(date: Date): Promise<CalendarEvent[]> {
 }
 
 export interface CalendarEvent {
-  id?: number; // Optional because it's auto-incrementing
+  id?: number;
   title: string;
-  date: string; // Stored as "YYYY-MM-DD"
+  date: string;
   time?: string;
   type: 'appointment' | 'medication' | 'milestone';
   notes?: string;

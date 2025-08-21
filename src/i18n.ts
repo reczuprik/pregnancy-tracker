@@ -111,7 +111,20 @@ const resources = {
         growthRateLabel: "{{parameter}} Growth Rate", // ✨ NEW
       
       },
-      
+      calendar: {
+        eventsFor: "Események -",
+        noEvents: "Nincsenek események ezen a napon.",
+        addEventButton: "Új Esemény Hozzáadása",
+        addEventTitle: "Hozzáadás a Naptárhoz",
+        eventTitleLabel: "Esemény Neve",
+        eventTypeLabel: "Esemény Típusa",
+        notesLabel: "Jegyzetek (Opcionális)",
+        types: {
+          appointment: "Orvosi Időpont",
+          medication: "Gyógyszer Emlékeztető",
+          milestone: "Személyes Mérföldkő"
+        }
+      },
       charts: {
         title: "{{parameter}} Growth Journey",
         yAxisLabel: "Measurement (mm)",
@@ -164,6 +177,7 @@ const resources = {
       },
       // Common
       common: {
+        save: "Save",
         loading: "Loading...",
         error: "An error occurred",
         success: "Success!",
@@ -337,6 +351,7 @@ const resources = {
       
       // Common
       common: {
+        save: "Mentés",
         loading: "Betöltés...",
         error: "Hiba történt",
         success: "Sikeres!",

@@ -1,35 +1,58 @@
-/* src/styles/main.css - UPDATED WITH EXTRACTED COMPONENTS */
+/* src/styles/main.css - Organized CSS Architecture */
 
-/* === 1. FOUNDATIONS (Load First) === */
-@import './01-foundations/reset.css';           /* CSS reset & base styles */
-@import './01-foundations/theme.css';           /* Theme variables */
-@import './01-foundations/tokens.css';          /* Design tokens */
+/* === 1. FOUNDATIONS (Critical - Load First) === */
+/* Design tokens and CSS custom properties */
+@import './01-foundations/tokens.css';
+/* CSS reset and base styles */  
+@import './01-foundations/reset.css';
+/* Theme system (light/dark mode) */
+@import './01-foundations/theme.css';
+/* Utility classes for rapid development */
+@import './01-foundations/utilities.css';
 
-/* === 2. LAYOUT & STRUCTURE === */
-@import './03-layout/app-layout.css';           /* App layout & background blobs */
-@import './03-layout/responsive.css';           /* Responsive utilities */
+/* === 2. LAYOUT SYSTEM === */
+/* App structure and background elements */
+@import './03-layout/app-layout.css';
+/* Responsive utilities and breakpoints */
+@import './03-layout/responsive.css';
 
-/* === 3. COMPONENTS (Alphabetical Order) === */
-@import './02-components/animations.css';       /* Animation utilities & keyframes */
-@import './02-components/buttons.css';          /* All button variants */
-@import './02-components/daily-tip-card.css';   /* Daily tip card with gradient border */
-@import './02-components/dashboard-header.css'; /* Dashboard date & age display */
-@import './02-components/errorboundary.css';    /* Error boundary styles */
-@import './02-components/forms.css';            /* Form inputs & controls */
-@import './02-components/header.css';           /* Header & navigation */
-@import './02-components/illustration.css';     /* Baby illustration component */
-@import './02-components/loading.css';          /* Loading spinner styles */
-@import './02-components/milestone-card.css';   /* Milestone celebration cards */
-@import './02-components/modal.css';            /* Modal overlays & dialogs */
-@import './02-components/progress-bar.css';     /* Progress bar component */
-@import './02-components/progress-ring.css';    /* Progress ring component */
-@import './02-components/quick-actions.css';    /* Quick action button grid */
-@import './02-components/size-comparison.css';  /* Size comparison cards */
-@import './02-components/status-card.css';      /* Status cards & dashboard */
+/* === 3. COMPONENT LIBRARY === */
+/* Animation definitions */
+@import './02-components/animations.css';
+/* Button system */
+@import './02-components/buttons.css';
+/* Navigation header */
+@import './02-components/header.css';
+/* Form controls */
+@import './02-components/forms.css';
+/* Modal system */
+@import './02-components/modal.css';
+/* Loading states */
+@import './02-components/loading.css';
+/* Error boundaries */
+@import './02-components/errorboundary.css';
+/* Progress indicators */
+@import './02-components/progress-bar.css';
+@import './02-components/progress-ring.css';
+/* Card components */
+@import './02-components/status-card.css';
+@import './02-components/daily-tip-card.css';
+@import './02-components/milestone-card.css';
+@import './02-components/size-comparison.css';
+/* Dashboard specific */
+@import './02-components/dashboard-header.css';
+@import './02-components/illustration.css';
+/* Interactive elements */
+@import './02-components/quick-actions.css';
 
-/* === 4. VIEW-SPECIFIC STYLES === */
-@import './04-views/dashboard.css';             /* Dashboard screen (simplified) */
-@import './04-views/empty-state.css';           /* Empty state dashboard */
-@import './04-views/history.css';               /* History view */
-@import './04-views/results.css';               /* Results display */
-@import './04-views/calendar.css';              /* Settings screen */
+/* === 4. VIEW COMPOSITIONS === */
+/* Dashboard layout */
+@import './04-views/dashboard.css';
+/* Empty states */
+@import './04-views/empty-state.css';
+/* History/log view */
+@import './04-views/history.css';
+/* Results display */
+@import './04-views/results.css';
+/* Calendar interface */
+@import './04-views/calendar.css';

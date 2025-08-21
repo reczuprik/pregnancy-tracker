@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
@@ -43,5 +44,33 @@ export default defineConfig({
   define: {
     // If you have any global constants
     __APP_VERSION__: JSON.stringify(process.env.npm_package_version)
+  },
+  
+  // Vitest configuration
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: ['./src/setupTests.ts'],
+    css: true,
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'html', 'clover', 'json'],
+      exclude: [
+        'node_modules/',
+        'src/setupTests.ts',
+        '**/*.d.ts',
+        '**/*.test.{ts,tsx}',
+        '**/__tests__/**',
+        '**/coverage/**'
+      ],
+      thresholds: {
+        global: {
+          branches: 70,
+          functions: 70,
+          lines: 70,
+          statements: 70
+        }
+      }
+    }
   }
 })
