@@ -3,6 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { CalendarEvent } from '../../services/database';
 import { format, parseISO, differenceInDays, isToday, isTomorrow, isYesterday } from 'date-fns';
+import { enUS, hu } from 'date-fns/locale';
 
 // Icons
 const AppointmentIcon = () => (
@@ -43,10 +44,18 @@ interface CalendarEventCardProps {
 }
 
 const CalendarEventCard: React.FC<CalendarEventCardProps> = ({ event, isExpanded, onClick, onDelete }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const eventDate = parseISO(event.date);
   const today = new Date();
   const daysDiff = differenceInDays(eventDate, today);
+
+  // Get locale for date-fns
+  const getLocale = () => {
+    switch (i18n.language) {
+      case 'hu': return hu;
+      default: return enUS;
+    }
+  };
 
   // Get appropriate icon for event type
   const getEventIcon = () => {
@@ -70,7 +79,7 @@ const CalendarEventCard: React.FC<CalendarEventCardProps> = ({ event, isExpanded
     if (isYesterday(eventDate)) return t('calendar.yesterday');
     if (daysDiff > 0) return t('calendar.daysAway', { count: daysDiff });
     if (daysDiff < 0) return t('calendar.daysAgo', { count: Math.abs(daysDiff) });
-    return format(eventDate, 'MMM dd');
+    return format(eventDate, 'MMM dd', { locale: getLocale() });
   };
 
   // Get urgency class
@@ -114,7 +123,7 @@ const CalendarEventCard: React.FC<CalendarEventCardProps> = ({ event, isExpanded
           <div className="event-details">
             <div className="detail-row">
               <span className="detail-label">{t('calendar.date')}</span>
-              <span className="detail-value">{format(eventDate, 'EEEE, MMMM dd, yyyy')}</span>
+              <span className="detail-value">{format(eventDate, 'EEEE, MMMM dd, yyyy', { locale: getLocale() })}</span>
             </div>
             
             {event.time && (

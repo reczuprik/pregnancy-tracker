@@ -125,6 +125,7 @@ const resources = {
         date: "Date",
         time: "Time",
         notes: "Notes",
+        notesPlaceholder: "Add any additional details...",
         today: "Today",
         tomorrow: "Tomorrow",
         yesterday: "Yesterday",
@@ -199,6 +200,7 @@ const resources = {
         back: "Back",
         next: "Next",
         official: "Official",
+        optional: "Optional",
         congratulations: "Welcome, little one!" // ✨ NEW: Warmer message
       }
     }
@@ -322,6 +324,7 @@ const resources = {
         date: "Dátum",
         time: "Időpont",
         notes: "Jegyzetek",
+        notesPlaceholder: "Adj hozzá további részleteket...",
         today: "Ma",
         tomorrow: "Holnap",
         yesterday: "Tegnap",
@@ -400,6 +403,7 @@ const resources = {
         next: "Következő",
         official: "Hivatalos",
         unofficial: "Nem hivatalos",
+        optional: "Opcionális",
         congratulations: "Isten hozott, kis csoda!" // ✨ NEW: Warmer message
 
       }

@@ -109,12 +109,14 @@ static async getEventsForDate(date: Date): Promise<CalendarEvent[]> {
 }
 
 static async getUpcomingEvents(daysAhead: number = 30): Promise<CalendarEvent[]> {
-  const today = format(new Date(), 'yyyy-MM-dd');
+  const pastWeek = format(new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), 'yyyy-MM-dd');
   const futureDate = format(new Date(Date.now() + daysAhead * 24 * 60 * 60 * 1000), 'yyyy-MM-dd');
   
+  // Get events from past week to future (to show overdue items)
   return await db.appointments
-    .where('date').between(today, futureDate, true, true)
-    .toArray();
+    .where('date')
+    .between(pastWeek, futureDate, true, true)
+    .sortBy('date');
 }
 
 static async deleteCalendarEvent(id: number): Promise<boolean> {

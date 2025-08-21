@@ -1,6 +1,6 @@
 // src/components/calendar/AddEventModal.tsx
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { format } from 'date-fns';
 import { CalendarEvent } from '../../services/database';
@@ -8,7 +8,7 @@ import { CalendarEvent } from '../../services/database';
 interface AddEventModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (event: CalendarEvent) => void;
+  onSave: (event: CalendarEvent) => Promise<void>;
   selectedDate: Date;
 }
 
@@ -17,23 +17,38 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave, 
   const [title, setTitle] = useState('');
   const [type, setType] = useState<'appointment' | 'medication' | 'milestone'>('appointment');
   const [notes, setNotes] = useState('');
+  const [date, setDate] = useState('');
+  const [time, setTime] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Reset form when modal opens
+  useEffect(() => {
+    if (isOpen) {
+      setTitle('');
+      setType('appointment');
+      setNotes('');
+      setTime('');
+      setDate(format(selectedDate, 'yyyy-MM-dd'));
+    }
+  }, [isOpen, selectedDate]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!title) return; // Simple validation
+    if (!title.trim() || !date) return; // Simple validation
 
     const newEvent: CalendarEvent = {
-      title,
+      title: title.trim(),
       type,
-      notes,
-      date: format(selectedDate, 'yyyy-MM-dd'),
+      notes: notes.trim() || undefined,
+      date,
+      time: time || undefined,
     };
     
-    onSave(newEvent);
-    // Reset form for next time
-    setTitle('');
-    setType('appointment');
-    setNotes('');
+    try {
+      await onSave(newEvent);
+      // Form is reset by useEffect when modal reopens
+    } catch (error) {
+      console.error('Error saving event:', error);
+    }
   };
 
   if (!isOpen) {
@@ -55,6 +70,30 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave, 
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
+              autoFocus
+            />
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="event-date" className="form-label">{t('calendar.date')}</label>
+            <input
+              type="date"
+              id="event-date"
+              className="form-input"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="event-time" className="form-label">{t('calendar.time')} ({t('common.optional')})</label>
+            <input
+              type="time"
+              id="event-time"
+              className="form-input"
+              value={time}
+              onChange={(e) => setTime(e.target.value)}
             />
           </div>
           
@@ -80,6 +119,7 @@ const AddEventModal: React.FC<AddEventModalProps> = ({ isOpen, onClose, onSave, 
               rows={3}
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
+              placeholder={t('calendar.notesPlaceholder')}
             ></textarea>
           </div>
           
