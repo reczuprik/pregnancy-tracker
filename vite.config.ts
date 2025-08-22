@@ -10,7 +10,8 @@ export default defineConfig({
   server: {
     port: 3000,
     open: true,
-    host: true // Allows access from other devices on network
+    host: true, // Allows access from other devices on network
+    allowedHosts: ['bright-cloths-speak.loca.lt']
   },
   
   // Build configuration
