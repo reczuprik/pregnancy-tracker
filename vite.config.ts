@@ -11,7 +11,6 @@ export default defineConfig({
     port: 3000,
     open: true,
     host: true, // Allows access from other devices on network
-    allowedHosts: ['bright-cloths-speak.loca.lt']
   },
   
   // Build configuration
