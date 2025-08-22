@@ -59,12 +59,12 @@ const HistoryScreen: React.FC<HistoryScreenProps> = ({ measurements, officialMea
       </div>
 
       <div className="timeline-container">
-        {measurements.map((m, index) => (
+        {measurements.map((m) => (
           <AccordionMeasurementCard
             key={m.id}
             measurement={m}
             // ✨ NEW: Pass the official measurement down for comparison
-            officialMeasurement={officialMeasurement}
+            officialMeasurement={officialMeasurement || undefined}
             isExpanded={expandedCardId === m.id}
             onClick={() => handleCardClick(m.id)}
             onSetOfficial={handleSetOfficial}

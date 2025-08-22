@@ -23,7 +23,7 @@ interface DashboardScreenProps {
 }
 
 const DashboardScreen: React.FC<DashboardScreenProps> = ({ officialMeasurement }) => {
-  const { t,i18n  } = useTranslation();
+  const { t } = useTranslation();
 
 
 
@@ -36,7 +36,8 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({ officialMeasurement }
   const currentWeek = Math.floor(currentGestationalAgeInDays / 7);
   const currentDay = currentGestationalAgeInDays % 7;
   const progressPercentage = Math.round((currentGestationalAgeInDays / 280) * 100);
-  const sizeComparisonKey = SIZE_COMPARISONS[currentWeek] || '...';
+  // Size comparison will be used for future feature
+  // const sizeComparisonKey = SIZE_COMPARISONS[currentWeek] || '...';
   
   const weekText = t('results.weeks');
   const dayText = t('results.days');

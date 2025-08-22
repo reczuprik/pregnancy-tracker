@@ -68,11 +68,11 @@ export class FocusManager {
       }
     };
 
-    container.addEventListener('keydown', handleKeyDown);
+    (container as HTMLElement).addEventListener('keydown', handleKeyDown);
     firstElement?.focus();
 
     return () => {
-      container.removeEventListener('keydown', handleKeyDown);
+      (container as HTMLElement).removeEventListener('keydown', handleKeyDown);
     };
   }
 
@@ -219,7 +219,7 @@ export const ARIA = {
   /**
    * Generate ARIA attributes for form validation
    */
-  validation: (fieldId: string, hasError: boolean, errorId?: string) => ({
+  validation: (_fieldId: string, hasError: boolean, errorId?: string) => ({
     'aria-invalid': hasError,
     'aria-describedby': hasError && errorId ? errorId : undefined
   }),
@@ -241,7 +241,7 @@ export const A11yTesting = {
    * Check for missing alt text on images
    */
   checkImageAltText: () => {
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env['NODE_ENV'] === 'development') {
       const images = document.querySelectorAll('img');
       images.forEach((img, index) => {
         if (!img.alt && !img.getAttribute('aria-hidden')) {
@@ -255,7 +255,7 @@ export const A11yTesting = {
    * Check for proper heading hierarchy
    */
   checkHeadingHierarchy: () => {
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env['NODE_ENV'] === 'development') {
       const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
       let previousLevel = 0;
       
@@ -273,7 +273,7 @@ export const A11yTesting = {
    * Check for keyboard-only navigation issues
    */
   simulateKeyboardNavigation: () => {
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env['NODE_ENV'] === 'development') {
       const focusableElements = FocusManager.getFocusableElements(document.body);
       console.log(`Found ${focusableElements.length} focusable elements:`, focusableElements);
     }

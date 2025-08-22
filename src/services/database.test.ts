@@ -42,8 +42,8 @@ describe('MeasurementService', () => {
 
     it('marks first measurement as official', async () => {
       // Mock empty database
-      const mockCount = vi.fn().mockResolvedValue(0);
-      const mockAdd = vi.fn().mockResolvedValue(undefined);
+      // const mockCount = vi.fn().mockResolvedValue(0);
+      // const mockAdd = vi.fn().mockResolvedValue(undefined);
       
       // This would require proper Dexie mocking setup
       // For now, we're testing the logic conceptually
